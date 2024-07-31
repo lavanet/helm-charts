@@ -3,6 +3,16 @@ entries:
   consumer:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-07-31T14:27:43.337001946Z"
+    description: A Helm chart for Kubernetes
+    digest: a9f00424e39437c42c78199b2b4ef23690869d947917e0d28a62c390ca053ecc
+    name: consumer
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/consumer-0.2.0/consumer-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-07-31T09:27:17.590747306Z"
     description: A Helm chart for Kubernetes
     digest: 05d938fa9208ab193b483a43dd153c9c4b9ab991484417454788c352457dfaef
@@ -14,6 +24,16 @@ entries:
   provider:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-07-31T14:27:43.504443245Z"
+    description: A Helm chart for Kubernetes
+    digest: 056cd4e146a70a86b584d8a13552c254f6ceab4d1e70715d8e4d1126e7b26c3a
+    name: provider
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/provider-0.2.0/provider-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-07-31T09:27:17.71909548Z"
     description: A Helm chart for Kubernetes
     digest: 4f6169c85ba63930364d467ca7d45e6a32e38c057ffaabd1fe921028828c857a
@@ -22,4 +42,4 @@ entries:
     urls:
     - provider-0.1.0.tgz
     version: 0.1.0
-generated: "2024-07-31T09:27:17.719100118Z"
+generated: "2024-07-31T14:27:43.504456891Z"
