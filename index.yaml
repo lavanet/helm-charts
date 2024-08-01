@@ -3,6 +3,17 @@ entries:
   consumer:
   - apiVersion: v2
     appVersion: v2.2.5
+    created: "2024-08-01T17:43:31.909693951Z"
+    description: Lava consumer helm chart
+    digest: 629829ee50fc19b21c5df22846aa5c987a10dfa7a7e0c23f1330c1fd1ffb5269
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    name: consumer
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/consumer-0.2.5/consumer-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
+    appVersion: v2.2.5
     created: "2024-08-01T14:34:57.250975618Z"
     description: Lava consumer helm chart
     digest: a88188d3f59473543359cd3eb26db78560d90c378b7894f1c4e8964d796dd48a
@@ -58,6 +69,17 @@ entries:
   provider:
   - apiVersion: v2
     appVersion: v2.2.5
+    created: "2024-08-01T17:43:32.012279592Z"
+    description: Lava provider helm chart
+    digest: 7674f7f26d21e86c2b936150fc14f8f90fd1746701ee3ef8cd91db65d21b9809
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    name: provider
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/provider-0.2.5/provider-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
+    appVersion: v2.2.5
     created: "2024-08-01T14:34:57.411948134Z"
     description: Lava provider helm chart
     digest: 46438bf0d0b27fac66e8e45757dd48132396173b380f54c90febf19552609b84
@@ -110,4 +132,4 @@ entries:
     urls:
     - https://github.com/lavanet/helm-charts/releases/download/provider-0.2.0/provider-0.2.0.tgz
     version: 0.2.0
-generated: "2024-08-01T14:34:57.411992567Z"
+generated: "2024-08-01T17:43:32.012329004Z"
