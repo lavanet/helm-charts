@@ -1,15 +1,21 @@
+{{- range $itemKey, $itemValue := $.Values.chains }}
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "consumer.fullname" . }}
+  name: {{ $itemKey | lower }}-{{ include "consumer.fullname" $ }}
   labels:
-    {{- include "consumer.labels" . | nindent 4 }}
+    {{- include "consumer.labels" $ | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ $.Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+  {{- range $interfaceEntry := $itemValue.interfaces }}
+    - port: {{ $interfaceEntry.port }}
+      targetPort: {{ $interfaceEntry.interface | lower }}
       protocol: TCP
-      name: http
+      name: {{ $interfaceEntry.interface | lower }}
+  {{- end }}
   selector:
-    {{- include "consumer.selectorLabels" . | nindent 4 }}
+    {{- include "consumer.selectorLabels" $ | nindent 4 }}
+    app.kubernetes.io/chain: {{ $itemKey | lower }}
+{{- end }}
