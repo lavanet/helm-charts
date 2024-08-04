@@ -1,0 +1,18 @@
+{{- range $itemKey, $itemValue := $.Values.chains }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $itemKey | lower }}-{{ include "consumer.fullname" $ }}
+  labels:
+    {{- include "consumer.labels" $ | nindent 4 }}
+data:
+  config.yaml: |
+    endpoints:
+    {{- range $interfaceEntry := $itemValue.interfaces }}
+      - chain-id: {{ $itemKey | upper }}
+        api-interface: {{ $interfaceEntry.interface }}
+        network-address: 0.0.0.0:{{ $interfaceEntry.port }}
+    {{- end }}
+    metrics-listen-address: "0.0.0.0:{{ $itemValue.metrics_port }}"
+{{- end }}

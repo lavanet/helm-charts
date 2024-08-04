@@ -80,3 +80,216 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+chains:
+  lav1:
+    metrics_port: 3007
+    default_interface: rest
+    interfaces:
+      - interface: rest
+        port: 2020
+      - interface: tendermintrpc
+        port: 2021
+      - interface: grpc
+        port: 2022
+  arb1:
+    metrics_port: 3000
+    default_interface: jsonrpc
+    interfaces:
+      - interface: jsonrpc
+        port: 2000
+  arbn:
+    metrics_port: 3001
+    default_interface: jsonrpc
+    interfaces:
+      - interface: jsonrpc
+        port: 2001
+  agr:
+    metrics_port: 3002
+    default_interface: rest
+    interfaces:
+      - interface: rest
+        port: 2002
+      - interface: tendermintrpc
+        port: 2003
+      - interface: jsonrpc
+        port: 2004
+      - interface: grpc
+        port: 2005
+  axelar:
+    metrics_port: 3003
+    default_interface: rest
+    legacy_url: true
+    interfaces:
+      - interface: rest
+        port: 2006
+      - interface: tendermintrpc
+        port: 2007
+      - interface: grpc
+        port: 2008
+  axelart:
+    metrics_port: 3004
+    default_interface: rest
+    legacy_url: true
+    testnet: true
+    interfaces:
+      - interface: rest
+        port: 2009
+      - interface: tendermintrpc
+        port: 2010
+      - interface: grpc
+        port: 2011
+  evmos:
+    metrics_port: 3005
+    default_interface: jsonrpc
+    legacy_url: true
+    interfaces:
+      - interface: rest
+        port: 2012
+      - interface: tendermintrpc
+        port: 2013
+      - interface: jsonrpc
+        port: 2014
+      - interface: grpc
+        port: 2015
+  evmost:
+    metrics_port: 3006
+    default_interface: jsonrpc
+    legacy_url: true
+    testnet: true
+    interfaces:
+      - interface: rest
+        port: 2016
+      - interface: tendermintrpc
+        port: 2017
+      - interface: jsonrpc
+        port: 2018
+      - interface: grpc
+        port: 2019
+  near:
+    metrics_port: 3008
+    default_interface: jsonrpc
+    interfaces:
+      - interface: jsonrpc
+        port: 2023
+  neart:
+    metrics_port: 3009
+    default_interface: jsonrpc
+    legacy_url: true
+    testnet: true
+    interfaces:
+      - interface: jsonrpc
+        port: 2024
+  koiit:
+    metrics_port: 3010
+    default_interface: jsonrpc
+    interfaces:
+      - interface: jsonrpc
+        port: 2025
+  strgz:
+    metrics_port: 3011
+    default_interface: rest
+    interfaces:
+      - interface: rest
+        port: 2026
+      - interface: tendermintrpc
+        port: 2027
+      - interface: grpc
+        port: 2028
+  strgzt:
+    metrics_port: 3012
+    default_interface: rest
+    interfaces:
+      - interface: rest
+        port: 2029
+      - interface: tendermintrpc
+        port: 2030
+      - interface: grpc
+        port: 2031
+  berat:
+    metrics_port: 3013
+    default_interface: jsonrpc
+    interfaces:
+      - interface: jsonrpc
+        port: 2032
+  blast:
+    metrics_port: 3014
+    default_interface: jsonrpc
+    interfaces:
+      - interface: jsonrpc
+        port: 2033
+  eth1:
+    metrics_port: 3015
+    default_interface: jsonrpc
+    interfaces:
+      - interface: jsonrpc
+        port: 2034
+  strk:
+    metrics_port: 3016
+    default_interface: jsonrpc
+    legacy_url: true
+    interfaces:
+      - interface: jsonrpc
+        port: 2035
+  strkt:
+    metrics_port: 3017
+    default_interface: jsonrpc
+    legacy_url: true
+    testnet: true
+    interfaces:
+      - interface: jsonrpc
+        port: 2036
+  secret:
+    metrics_port: 3018
+    default_interface: rest
+    interfaces:
+      - interface: rest
+        port: 2037
+      - interface: tendermintrpc
+        port: 2038
+      - interface: grpc
+        port: 2039
+  secretp:
+    metrics_port: 3019
+    default_interface: rest
+    interfaces:
+      - interface: rest
+        port: 2040
+      - interface: tendermintrpc
+        port: 2041
+      - interface: grpc
+        port: 2042
+  uniont:
+    metrics_port: 3020
+    default_interface: rest
+    interfaces:
+      - interface: rest
+        port: 2043
+      - interface: tendermintrpc
+        port: 2044
+      - interface: grpc
+        port: 2045
+  celestia:
+    metrics_port: 3021
+    default_interface: jsonrpc
+    interfaces:
+      - interface: rest
+        port: 2046
+      - interface: tendermintrpc
+        port: 2047
+      - interface: jsonrpc
+        port: 2048
+      - interface: grpc
+        port: 2049
+  celestiatm:
+    metrics_port: 3022
+    default_interface: jsonrpc
+    interfaces:
+      - interface: rest
+        port: 2050
+      - interface: tendermintrpc
+        port: 2051
+      - interface: jsonrpc
+        port: 2052
+      - interface: grpc
+        port: 2053
