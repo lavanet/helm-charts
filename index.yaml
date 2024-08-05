@@ -1,6 +1,29 @@
 apiVersion: v1
 entries:
+  cache:
+  - apiVersion: v2
+    appVersion: v2.2.5
+    created: "2024-08-05T21:31:21.061131778Z"
+    description: Lava cache helm chart
+    digest: 10ad189c84ba450452473eed3c4c19515fb41e2d8184164f9cf3cb898411678c
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    name: cache
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/cache-0.2.7/cache-0.2.7.tgz
+    version: 0.2.7
   consumer:
+  - apiVersion: v2
+    appVersion: v2.2.5
+    created: "2024-08-05T21:31:21.153779715Z"
+    description: Lava consumer helm chart
+    digest: 4c8fcf30e8047bed819274ad05affab2bc6e35c80f3f5a45285cfd724f15b2b1
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    name: consumer
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/consumer-0.2.7/consumer-0.2.7.tgz
+    version: 0.2.7
   - apiVersion: v2
     appVersion: v2.2.5
     created: "2024-08-01T18:35:19.161122897Z"
@@ -80,6 +103,17 @@ entries:
   provider:
   - apiVersion: v2
     appVersion: v2.2.5
+    created: "2024-08-05T21:31:21.252236283Z"
+    description: Lava provider helm chart
+    digest: 433f19729ead185fa3f14d7601b3e72d8867837577e7052e42b1e8031b4be4c4
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    name: provider
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/provider-0.2.7/provider-0.2.7.tgz
+    version: 0.2.7
+  - apiVersion: v2
+    appVersion: v2.2.5
     created: "2024-08-01T18:35:19.30162788Z"
     description: Lava provider helm chart
     digest: 59a35921f8dccf6573475821b448630671efc4235a1e20e9d42232176b0f0d33
@@ -154,4 +188,4 @@ entries:
     urls:
     - https://github.com/lavanet/helm-charts/releases/download/provider-0.2.0/provider-0.2.0.tgz
     version: 0.2.0
-generated: "2024-08-01T18:35:19.301695988Z"
+generated: "2024-08-05T21:31:21.252354666Z"
