@@ -33,10 +33,30 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - "cache"
+            - {{ .Values.service.port }}
+            - --expiration-multiplier
+            - {{ .Values.expiration_multiplier }}
+            - --expiration-non-finalized-multiplier
+            - {{ .Values.expiration_non_finalized_multiplier }}
+            - --max-items
+            - {{ .Values.max_items }}
+            - --metrics_address
+            - {{ .Values.metrics.port }}
+            - --log_level
+            - {{ .Values.log.level }}
+            - --log_format
+            - {{ .Values.log.format }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          {{- if .Values.metrics.enabled }}
+            - name: metrics
+              containerPort: {{ .Values.metrics.port }}
+              protocol: TCP
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /

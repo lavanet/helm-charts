@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: ghcr.io/lavanet/lava/lavap
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 20100
 
 ingress:
   enabled: false
@@ -80,3 +80,15 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+metrics:
+  enabled: true
+  port: 20200
+
+log:
+  level: warn
+  format: json
+
+expiration_multiplier: 1.25
+expiration_non_finalized_multiplier: 1.25
+max_items: 4294967296
