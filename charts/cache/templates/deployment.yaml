@@ -35,19 +35,19 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - "cache"
-            - {{ .Values.service.port }}
+            - {{ .Values.service.port | quote }}
             - --expiration-multiplier
-            - {{ .Values.expiration_multiplier }}
+            - {{ .Values.expiration_multiplier | quote }}
             - --expiration-non-finalized-multiplier
-            - {{ .Values.expiration_non_finalized_multiplier }}
+            - {{ .Values.expiration_non_finalized_multiplier | quote }}
             - --max-items
-            - {{ .Values.max_items }}
+            - {{ .Values.max_items | quote }}
             - --metrics_address
-            - {{ .Values.metrics.port }}
+            - {{ .Values.metrics.port | quote }}
             - --log_level
-            - {{ .Values.log.level }}
+            - {{ .Values.log.level | quote }}
             - --log_format
-            - {{ .Values.log.format }}
+            - {{ .Values.log.format | quote }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
