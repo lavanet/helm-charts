@@ -73,3 +73,32 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+chains:
+  lav1:
+    metrics_port: 3200
+    interfaces:
+      - interface: rest
+        port: 2200
+        nodes:
+          - endpoint: rest.example.com
+            type: full
+          - endpoint: rest.archive.example.com
+            type: archive
+            skip-verifications: pruning
+      - interface: tendermintrpc
+        port: 2200
+        nodes:
+          - endpoint: tendermintrpc.example.com
+            type: full
+          - endpoint: tendermintrpc.archive.example.com
+            type: archive
+            skip-verifications: pruning
+      - interface: grpc
+        port: 2200
+        nodes:
+          - endpoint: grpc.example.com
+            type: full
+          - endpoint: grpc.archive.example.com
+            type: archive
+            skip-verifications: pruning
