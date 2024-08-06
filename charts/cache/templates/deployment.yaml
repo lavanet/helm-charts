@@ -65,14 +65,16 @@ spec:
               containerPort: {{ .Values.metrics.port }}
               protocol: TCP
           {{- end }}
+          {{- if .Values.metrics.enabled }}
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /metrics
+              port: metrics
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /metrics
+              port: metrics
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

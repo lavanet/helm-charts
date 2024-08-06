@@ -78,7 +78,7 @@ metrics:
   port: 20200
 
 log:
-  level: warn
+  level: info
   format: json
 
 # expiration_multiplier: 1.25
