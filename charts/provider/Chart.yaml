@@ -4,7 +4,7 @@ description: Lava provider helm chart
 icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
 type: application
 version: 0.2.9
-appVersion: "v2.2.0"
+appVersion: "v2.2.6"
 kubeVersion: ">=1.16.0-0"
 home: https://lavanet.xyz
 keywords:

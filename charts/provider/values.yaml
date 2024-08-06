@@ -76,8 +76,10 @@ affinity: {}
 
 chains:
   lav1:
-    existingSecret: "a"
+    existingSecret: "config"
     existingSecretKey: "config.yml"
+
+    node: https://testnet2-rpc.lavapro.xyz:443
 
     metrics:
       enabled: true
@@ -98,16 +100,16 @@ chains:
       # will default to the moniker
       name: ""
       # REQUIRED: the kubernetes secret name containing the private key
-      secretName: "test-name"
+      secretName: "wallet"
       # REQUIRED: the key in the kubernetes secret to use
-      secretKey: "test-key"
+      secretKey: "passphrase"
       # REQUIRED: the kubernetes secret that contains the password for the private key
-      passwordSecretName: "test-name"
+      passwordSecretName: "wallet"
       # REQUIRED: the key in the kubernetes secret that contains the password for the private key
-      passwordSecretKey: "test-key"
+      passwordSecretKey: "password"
 
     keyringBackend: "test"
-    chainId: "test"
+    chainId: "lava-testnet-2"
     geolocation: "2"
 
     persistence:

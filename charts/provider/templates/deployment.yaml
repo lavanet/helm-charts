@@ -37,9 +37,16 @@ spec:
           command: ["sh", "-c"]
           args: 
             - |
+              if [ -f /lava/.key-{{ $itemValue.wallet }}.imported ]; then
+                echo "Key {{ $itemValue.wallet }} has already been exported, exiting..."
+                exit 0
+              fi
+
               echo $KEY_PASSWORD | lavap keys \
               import {{ $itemValue.wallet }} /tmp/keyfile/{{ $itemValue.key.secretKey }} \
-              --keyring-backend "test"
+              --keyring-backend {{ $itemValue.keyringBackend }}
+
+              touch /lava/.key-{{ $itemValue.wallet }}.imported
           env:
             - name: KEY_PASSWORD
               valueFrom:
@@ -53,7 +60,6 @@ spec:
               readOnly: true
             - mountPath: "/lava"
               name: data
-              readOnly: true
       containers:
         - name: {{ $.Chart.Name }}
           securityContext:
@@ -63,10 +69,12 @@ spec:
           args:
             - "rpcprovider"
             {{- if (empty $itemValue.existingSecret) }}
-            - /lava/config/config.yml
+            - config.yml
             {{- else }}
-            - /lava/config/{{ $itemValue.existingSecretKey }}
+            - {{ $itemValue.existingSecretKey }}
             {{- end }}
+            - --node
+            - {{ $itemValue.node }}
             - --from
             - {{ $itemValue.wallet }}
             - --keyring-backend
@@ -107,9 +115,8 @@ spec:
           volumeMounts:
             - mountPath: "/lava"
               name: data
-              readOnly: true
-            - mountPath: "/lava/config"
-              subPath: config
+            - mountPath: "/lava/config/config.yml"
+              subPath: config.yml
               name: {{ $itemKey | lower }}-config
               readOnly: true
           resources:
