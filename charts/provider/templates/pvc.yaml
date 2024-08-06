@@ -1,0 +1,18 @@
+{{- range $itemKey, $itemValue := $.Values.chains }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name:  {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
+  labels:
+    {{- include "provider.labels" $ | nindent 4 }}
+    app.kubernetes.io/chain: {{ $itemKey | lower }}
+spec:
+  accessModes:
+  {{- range $itemValue.persistence.accessModes }}
+    - {{ . | quote }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ $itemValue.persistence.size | quote }}
+{{- end }}

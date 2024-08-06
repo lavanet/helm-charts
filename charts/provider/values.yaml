@@ -110,6 +110,12 @@ chains:
     chainId: "test"
     geolocation: "2"
 
+    persistence:
+      enabled: true
+      accessModes: 
+        - "ReadWriteOnce"
+      size: "8Gi"
+
     interfaces:
       - interface: rest
         port: 2200
