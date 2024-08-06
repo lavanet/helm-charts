@@ -85,6 +85,28 @@
             },
             "type": "object"
         },
+        "log": {
+            "properties": {
+                "format": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "metrics": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "port": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
         "nameOverride": {
             "type": "string"
         },
