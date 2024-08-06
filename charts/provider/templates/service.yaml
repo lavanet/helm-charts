@@ -10,12 +10,10 @@ metadata:
 spec:
   type: {{ $.Values.service.type }}
   ports:
-  {{- range $interfaceEntry := $itemValue.interfaces }}
-    - port: {{ $interfaceEntry.port }}
-      targetPort: {{ $interfaceEntry.interface }}
+    - port: {{ $.Values.service.port }}
+      targetPort: provider
       protocol: TCP
-      name: {{ $interfaceEntry.interface }}
-  {{- end }}
+      name: provider
   {{- if $itemValue.metrics.enabled }}
     - port: {{ $itemValue.metrics.port }}
       targetPort: metrics

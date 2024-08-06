@@ -1,7 +1,7 @@
 {{- range $itemKey, $itemValue := $.Values.chains }}
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name:  {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
   labels:
@@ -83,6 +83,8 @@ spec:
             - {{ $itemValue.chainId }}
             - --geolocation
             - {{ $itemValue.geolocation | quote }}
+            - --shard-id
+            - "$(MY_POD_INDEX)"
             {{- if $itemValue.cache.enabled }}
             - --cache-be
             - {{ $itemValue.cache.address }}
@@ -91,27 +93,28 @@ spec:
             - {{ $itemValue.log.level }}
             - --log_format
             - {{ $itemValue.log.format }}
+          env:
+            - name: MY_POD_INDEX
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['apps.kubernetes.io/pod-index']
           ports:
-          {{- range $interfaceEntry := $itemValue.interfaces }}
-            - name: {{ $interfaceEntry.interface }}
-              containerPort: {{ $interfaceEntry.port }}
+            - name: provider
+              containerPort: {{ $.Values.service.port }}
               protocol: TCP
-          {{- end }}
           {{- if $itemValue.metrics.enabled }}
             - name: metrics
               containerPort: {{ $itemValue.metrics.port }}
               protocol: TCP
           {{- end }}
-          {{- if $itemValue.metrics.enabled }}
           livenessProbe:
             httpGet:
-              path: /metrics
-              port: metrics
+              path: /lava/health
+              port: provider
           readinessProbe:
             httpGet:
-              path: /metrics
-              port: metrics
-          {{- end }}
+              path: /lava/health
+              port: provider
           volumeMounts:
             - mountPath: "/lava"
               name: data
