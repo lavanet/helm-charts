@@ -94,7 +94,7 @@ chains:
       address: cache.example:20221
 
     wallet: "test"
-    
+
     # information about the private key to use for the node
     key:
       # will default to the moniker
@@ -114,7 +114,7 @@ chains:
 
     persistence:
       enabled: true
-      accessModes: 
+      accessModes:
         - "ReadWriteOnce"
       size: "8Gi"
 

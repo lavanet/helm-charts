@@ -35,7 +35,7 @@ spec:
           image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           command: ["sh", "-c"]
-          args: 
+          args:
             - |
               if [ -f /lava/.key-{{ $itemValue.wallet }}.imported ]; then
                 echo "Key {{ $itemValue.wallet }} has already been exported, exiting..."
@@ -130,7 +130,7 @@ spec:
             secretName: {{ $itemValue.existingSecret }}
             {{- end }}
         - name: "private-key-volume"
-          secret: 
+          secret:
             secretName: {{ $itemValue.key.secretName }}
             optional: false
         - name: data

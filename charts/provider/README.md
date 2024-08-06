@@ -1,6 +1,6 @@
 # provider
 
-![Version: 0.2.9](https://img.shields.io/badge/Version-0.2.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.0](https://img.shields.io/badge/AppVersion-v2.2.0-informational?style=flat-square)
+![Version: 0.2.10](https://img.shields.io/badge/Version-0.2.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
 
 Lava provider helm chart
 
@@ -21,28 +21,48 @@ Kubernetes: `>=1.16.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
+| chains.lav1.cache.address | string | `"cache.example:20221"` |  |
+| chains.lav1.cache.enabled | bool | `true` |  |
+| chains.lav1.chainId | string | `"lava-testnet-2"` |  |
+| chains.lav1.existingSecret | string | `"config"` |  |
+| chains.lav1.existingSecretKey | string | `"config.yml"` |  |
+| chains.lav1.geolocation | string | `"2"` |  |
 | chains.lav1.interfaces[0].interface | string | `"rest"` |  |
 | chains.lav1.interfaces[0].nodes[0].endpoint | string | `"rest.example.com"` |  |
 | chains.lav1.interfaces[0].nodes[0].type | string | `"full"` |  |
 | chains.lav1.interfaces[0].nodes[1].endpoint | string | `"rest.archive.example.com"` |  |
-| chains.lav1.interfaces[0].nodes[1].skip-verifications | string | `"pruning"` |  |
+| chains.lav1.interfaces[0].nodes[1].skipVerifications | string | `"pruning"` |  |
 | chains.lav1.interfaces[0].nodes[1].type | string | `"archive"` |  |
 | chains.lav1.interfaces[0].port | int | `2200` |  |
 | chains.lav1.interfaces[1].interface | string | `"tendermintrpc"` |  |
 | chains.lav1.interfaces[1].nodes[0].endpoint | string | `"tendermintrpc.example.com"` |  |
 | chains.lav1.interfaces[1].nodes[0].type | string | `"full"` |  |
 | chains.lav1.interfaces[1].nodes[1].endpoint | string | `"tendermintrpc.archive.example.com"` |  |
-| chains.lav1.interfaces[1].nodes[1].skip-verifications | string | `"pruning"` |  |
+| chains.lav1.interfaces[1].nodes[1].skipVerifications | string | `"pruning"` |  |
 | chains.lav1.interfaces[1].nodes[1].type | string | `"archive"` |  |
-| chains.lav1.interfaces[1].port | int | `2200` |  |
+| chains.lav1.interfaces[1].port | int | `2300` |  |
 | chains.lav1.interfaces[2].interface | string | `"grpc"` |  |
 | chains.lav1.interfaces[2].nodes[0].endpoint | string | `"grpc.example.com"` |  |
 | chains.lav1.interfaces[2].nodes[0].type | string | `"full"` |  |
 | chains.lav1.interfaces[2].nodes[1].endpoint | string | `"grpc.archive.example.com"` |  |
-| chains.lav1.interfaces[2].nodes[1].skip-verifications | string | `"pruning"` |  |
+| chains.lav1.interfaces[2].nodes[1].skipVerifications | string | `"pruning"` |  |
 | chains.lav1.interfaces[2].nodes[1].type | string | `"archive"` |  |
-| chains.lav1.interfaces[2].port | int | `2200` |  |
-| chains.lav1.metrics_port | int | `3200` |  |
+| chains.lav1.interfaces[2].port | int | `2400` |  |
+| chains.lav1.key.name | string | `""` |  |
+| chains.lav1.key.passwordSecretKey | string | `"password"` |  |
+| chains.lav1.key.passwordSecretName | string | `"wallet"` |  |
+| chains.lav1.key.secretKey | string | `"passphrase"` |  |
+| chains.lav1.key.secretName | string | `"wallet"` |  |
+| chains.lav1.keyringBackend | string | `"test"` |  |
+| chains.lav1.log.format | string | `"json"` |  |
+| chains.lav1.log.level | string | `"info"` |  |
+| chains.lav1.metrics.enabled | bool | `true` |  |
+| chains.lav1.metrics.port | int | `3200` |  |
+| chains.lav1.node | string | `"https://testnet2-rpc.lavapro.xyz:443"` |  |
+| chains.lav1.persistence.accessModes[0] | string | `"ReadWriteOnce"` |  |
+| chains.lav1.persistence.enabled | bool | `true` |  |
+| chains.lav1.persistence.size | string | `"8Gi"` |  |
+| chains.lav1.wallet | string | `"test"` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/lavanet/lava/lavap"` |  |
