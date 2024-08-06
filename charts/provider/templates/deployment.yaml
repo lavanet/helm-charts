@@ -33,10 +33,11 @@ spec:
       initContainers:
         - name: import-keys
           image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
           command: ["sh", "-c"]
           args: 
             - |
-              echo $KEY_PASSWORD | lavad keys \
+              echo $KEY_PASSWORD | lavap keys \
               import {{ $itemValue.wallet }} /tmp/keyfile/{{ $itemValue.key.secretKey }} \
               --keyring-backend "test"
           env:
