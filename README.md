@@ -1,4 +1,12 @@
-# Lava Helm Charts
+<h1 align="center">
+  <br>
+   <img src="./docs/logo/lava-charts-logo.png" alt="Logo Lava Charts" />
+  <br>
+</h1>
+
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/lava)](https://artifacthub.io/packages/search?repo=lava)
+
+## Overview
 
 Welcome to the official Helm Charts repository for Lava Network! This repository contains Helm charts for deploying and managing various components of the Lava Network ecosystem on Kubernetes clusters.
 Our charts are designed to simplify the deployment process, ensuring scalability, reliability, and ease of management for your Lava Network infrastructure.
