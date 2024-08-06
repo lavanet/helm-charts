@@ -1,15 +1,28 @@
+{{- range $itemKey, $itemValue := $.Values.chains }}
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "provider.fullname" . }}
+  name: {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
   labels:
-    {{- include "provider.labels" . | nindent 4 }}
+    {{- include "provider.labels" $ | nindent 4 }}
+    app.kubernetes.io/chain: {{ $itemKey | lower }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ $.Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+  {{- range $interfaceEntry := $itemValue.interfaces }}
+    - port: {{ $interfaceEntry.port }}
+      targetPort: {{ $interfaceEntry.interface }}
       protocol: TCP
-      name: http
+      name: {{ $interfaceEntry.interface }}
+  {{- end }}
+  {{- if $itemValue.metrics.enabled }}
+    - port: {{ $itemValue.metrics.port }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  {{- end }}
   selector:
-    {{- include "provider.selectorLabels" . | nindent 4 }}
+    {{- include "provider.selectorLabels" $ | nindent 4 }}
+    app.kubernetes.io/chain: {{ $itemKey | lower }}
+{{- end }}

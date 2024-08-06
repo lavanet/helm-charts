@@ -76,7 +76,40 @@ affinity: {}
 
 chains:
   lav1:
-    metrics_port: 3200
+    existingSecret: "a"
+    existingSecretKey: "config.yml"
+
+    metrics:
+      enabled: true
+      port: 3200
+
+    log:
+      level: info
+      format: json
+
+    cache:
+      enabled: true
+      address: cache.example:20221
+
+    wallet: "test"
+    
+    # information about the private key to use for the node
+    key:
+      # will default to the moniker
+      name: ""
+      # REQUIRED: the kubernetes secret name containing the private key
+      secretName: "test-name"
+      # REQUIRED: the key in the kubernetes secret to use
+      secretKey: "test-key"
+      # REQUIRED: the kubernetes secret that contains the password for the private key
+      passwordSecretName: "test-name"
+      # REQUIRED: the key in the kubernetes secret that contains the password for the private key
+      passwordSecretKey: "test-key"
+
+    keyringBackend: "test"
+    chainId: "test"
+    geolocation: "2"
+
     interfaces:
       - interface: rest
         port: 2200
@@ -85,20 +118,20 @@ chains:
             type: full
           - endpoint: rest.archive.example.com
             type: archive
-            skip-verifications: pruning
+            skipVerifications: pruning
       - interface: tendermintrpc
-        port: 2200
+        port: 2300
         nodes:
           - endpoint: tendermintrpc.example.com
             type: full
           - endpoint: tendermintrpc.archive.example.com
             type: archive
-            skip-verifications: pruning
+            skipVerifications: pruning
       - interface: grpc
-        port: 2200
+        port: 2400
         nodes:
           - endpoint: grpc.example.com
             type: full
           - endpoint: grpc.archive.example.com
             type: archive
-            skip-verifications: pruning
+            skipVerifications: pruning

@@ -1,59 +1,133 @@
+{{- range $itemKey, $itemValue := $.Values.chains }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "provider.fullname" . }}
+  name: {{ include "provider.fullname" $ }}
   labels:
-    {{- include "provider.labels" . | nindent 4 }}
+    {{- include "provider.labels" $ | nindent 4 }}
+    app.kubernetes.io/chain: {{ $itemKey | lower }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ $.Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "provider.selectorLabels" . | nindent 6 }}
+      {{- include "provider.selectorLabels" $ | nindent 6 }}
+      app.kubernetes.io/chain: {{ $itemKey | lower }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- with $.Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml $ | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "provider.selectorLabels" . | nindent 8 }}
+        {{- include "provider.selectorLabels" $ | nindent 8 }}
+        app.kubernetes.io/chain: {{ $itemKey | lower }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- with $.Values.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml $ | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "provider.serviceAccountName" . }}
+      serviceAccountName: {{ include "provider.serviceAccountName" $ }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml $.Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: import-keys
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+          command: ["sh", "-c"]
+          args: 
+            - |
+              echo $KEY_PASSWORD | lavad keys \
+              import {{ $itemValue.wallet }} /tmp/keyfile/{{ $itemValue.key.secretKey }} \
+              --keyring-backend "test"
+          env:
+            - name: KEY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $itemValue.key.passwordSecretName }}
+                  key: {{ $itemValue.key.passwordSecretKey }}
+          volumeMounts:
+            - name: "private-key-volume"
+              mountPath: /tmp/keyfile/{{ $itemValue.key.secretKey }}
+              subPath: {{ $itemValue.key.secretKey }}
+              readOnly: true
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ $.Chart.Name }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+            {{- toYaml $.Values.securityContext | nindent 12 }}
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          args:
+            - "rpcprovider"
+            {{- if (empty $itemValue.existingSecret) }}
+            - /var/lava/config.yml
+            {{- else }}
+            - /var/lava/{{ $itemValue.existingSecretKey }}
+            {{- end }}
+            - --from
+            - {{ $itemValue.wallet }}
+            - --keyring-backend
+            - {{ $itemValue.keyringBackend }}
+            - --chain-id
+            - {{ $itemValue.chainId }}
+            - --geolocation
+            - {{ $itemValue.geolocation | quote }}
+            {{- if $itemValue.cache.enabled }}
+            - --cache-be
+            - {{ $itemValue.cache.address }}
+            {{- end }}
+            - --log_level
+            - {{ $itemValue.log.level }}
+            - --log_format
+            - {{ $itemValue.log.format }}
           ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
+          {{- range $interfaceEntry := $itemValue.interfaces }}
+            - name: {{ $interfaceEntry.interface }}
+              containerPort: {{ $interfaceEntry.port }}
               protocol: TCP
+          {{- end }}
+          {{- if $itemValue.metrics.enabled }}
+            - name: metrics
+              containerPort: {{ $itemValue.metrics.port }}
+              protocol: TCP
+          {{- end }}
+          {{- if $itemValue.metrics.enabled }}
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /metrics
+              port: metrics
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /metrics
+              port: metrics
+          {{- end }}
+          volumeMounts:
+            - mountPath: "/var/lava"
+              name: {{ $itemKey | lower }}-config
+              readOnly: true
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
+            {{- toYaml $.Values.resources | nindent 12 }}
+      volumes:
+        - name: {{ $itemKey | lower }}-config
+          secret:
+            {{- if (empty $itemValue.existingSecret) }}
+            secretName: {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
+            {{- else }}
+            secretName: {{ $itemValue.existingSecret }}
+            {{- end }}
+        - name: "private-key-volume"
+          secret: 
+            secretName: {{ $itemValue.key.secretName }}
+            optional: false
+      {{- with $.Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml $ | nindent 8 }}
       {{- end }}
-      {{- with .Values.affinity }}
+      {{- with $.Values.affinity }}
       affinity:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml $ | nindent 8 }}
       {{- end }}
-      {{- with .Values.tolerations }}
+      {{- with $.Values.tolerations }}
       tolerations:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml $ | nindent 8 }}
       {{- end }}
+{{- end }}
