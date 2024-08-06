@@ -31,7 +31,7 @@ To get started with our Helm charts, follow these steps:
 2. Install a chart (e.g., lava-cache):
 
    ```shell
-   helm install my-lava-cache lavanet/lava-cache
+   helm install my-lava-cache lavanet/cache
    ```
 
 ⭐️ If you find our Helm charts useful, please consider giving this repository a star! ⭐️
