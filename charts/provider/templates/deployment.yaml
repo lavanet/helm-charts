@@ -107,7 +107,7 @@ spec:
             - mountPath: "/lava"
               name: data
               readOnly: true
-            - mountPath: "/lava"
+            - mountPath: "/lava/config"
               subPath: config
               name: {{ $itemKey | lower }}-config
               readOnly: true
