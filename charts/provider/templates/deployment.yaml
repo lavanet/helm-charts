@@ -59,9 +59,9 @@ spec:
           args:
             - "rpcprovider"
             {{- if (empty $itemValue.existingSecret) }}
-            - /var/lava/config.yml
+            - /lava/config.yml
             {{- else }}
-            - /var/lava/{{ $itemValue.existingSecretKey }}
+            - /lava/{{ $itemValue.existingSecretKey }}
             {{- end }}
             - --from
             - {{ $itemValue.wallet }}
@@ -101,7 +101,7 @@ spec:
               port: metrics
           {{- end }}
           volumeMounts:
-            - mountPath: "/var/lava"
+            - mountPath: "/lava"
               name: {{ $itemKey | lower }}-config
               readOnly: true
           resources:
