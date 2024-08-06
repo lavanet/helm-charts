@@ -33,9 +33,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command:
+          args:
             - "cache"
-            - {{ .Values.service.port | quote }}
+            - 0.0.0.0:{{ .Values.service.port }}
             {{- if (hasKey $.Values "expiration_multiplier") }}
             - --expiration-multiplier
             - {{ .Values.expiration_multiplier | quote }}
@@ -50,7 +50,7 @@ spec:
             {{- end }}
             {{- if .Values.metrics.enabled }}
             - --metrics_address
-            - {{ .Values.metrics.port | quote }}
+            - 0.0.0.0:{{ .Values.metrics.port }}
             {{- end }}  
             - --log_level
             - {{ .Values.log.level | quote }}
