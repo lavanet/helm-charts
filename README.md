@@ -4,7 +4,7 @@
   <br>
 </h1>
 
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/lava)](https://artifacthub.io/packages/search?repo=lava)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/lava)](https://artifacthub.io/packages/search?repo=lava) ![GitHub Release](https://img.shields.io/github/v/release/lavanet/lava?label=lava%20release)
 
 ## Overview
 
@@ -13,7 +13,7 @@ Our charts are designed to simplify the deployment process, ensuring scalability
 
 ## Available Charts
 
-* [cache](./charts/cache/): A high-performance, distributed in-memory caching system
+* [cache](./charts/cache/): A high-performance, in-memory caching system
 * [provider](./charts/provider/): Service provider component for the Lava Network
 * [consumer](./charts/consumer/): Client component for consuming services on the Lava Network
 
