@@ -15,9 +15,6 @@ maintainers:
   - name: MagmaDevs
     url: https://lavanet.xyz
 annotations:
-  artifacthub.io/changes: |
-    - kind: added
-      description: Initial release of the Lava provider Helm chart
   artifacthub.io/license: Apache-2.0
   artifacthub.io/prerelease: "false"
   images: |
