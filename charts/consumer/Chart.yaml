@@ -5,3 +5,21 @@ icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=tr
 type: application
 version: 0.2.8
 appVersion: "v2.2.5"
+kubeVersion: ">=1.16.0-0"
+home: https://lavanet.xyz
+keywords:
+  - consumer
+  - blockchain
+  - web3
+maintainers:
+  - name: MagmaDevs
+    url: https://lavanet.xyz
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial release of the Lava consumer Helm chart
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/prerelease: "false"
+  images: |
+    - name: consumer
+      image: ghcr.io/lavanet/lava/lavap

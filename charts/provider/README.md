@@ -4,6 +4,18 @@
 
 Lava provider helm chart
 
+**Homepage:** <https://lavanet.xyz>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| MagmaDevs |  | <https://lavanet.xyz> |
+
+## Requirements
+
+Kubernetes: `>=1.16.0-0`
+
 ## Values
 
 | Key | Type | Default | Description |

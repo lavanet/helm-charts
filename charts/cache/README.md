@@ -2,7 +2,20 @@
 
 ![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.5](https://img.shields.io/badge/AppVersion-v2.2.5-informational?style=flat-square)
 
-Lava cache helm chart
+The Lava cache Helm chart provides a simple way to deploy and manage Lava cache instances on Kubernetes clusters.
+Lava cache is a distributed in-memory caching system designed for high performance and scalability.
+
+**Homepage:** <https://lavanet.xyz>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| MagmaDevs |  | <https://lavanet.xyz> |
+
+## Requirements
+
+Kubernetes: `>=1.16.0-0`
 
 ## Values
 
@@ -13,8 +26,6 @@ Lava cache helm chart
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| expiration_multiplier | float | `1.25` |  |
-| expiration_non_finalized_multiplier | float | `1.25` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/lavanet/lava/lavap"` |  |
@@ -28,8 +39,7 @@ Lava cache helm chart
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
 | log.format | string | `"json"` |  |
-| log.level | string | `"warn"` |  |
-| max_items | int | `4294967296` |  |
+| log.level | string | `"info"` |  |
 | metrics.enabled | bool | `true` |  |
 | metrics.port | int | `20200` |  |
 | nameOverride | string | `""` |  |

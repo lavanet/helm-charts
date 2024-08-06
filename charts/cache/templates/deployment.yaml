@@ -51,7 +51,7 @@ spec:
             {{- if .Values.metrics.enabled }}
             - --metrics_address
             - 0.0.0.0:{{ .Values.metrics.port }}
-            {{- end }}  
+            {{- end }}
             - --log_level
             - {{ .Values.log.level | quote }}
             - --log_format
