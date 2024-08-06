@@ -36,14 +36,22 @@ spec:
           command:
             - "cache"
             - {{ .Values.service.port | quote }}
+            {{- if (hasKey $.Values "expiration_multiplier") }}
             - --expiration-multiplier
             - {{ .Values.expiration_multiplier | quote }}
+            {{- end }}
+            {{- if (hasKey $.Values "expiration_non_finalized_multiplier") }}
             - --expiration-non-finalized-multiplier
             - {{ .Values.expiration_non_finalized_multiplier | quote }}
+            {{- end }}
+            {{- if (hasKey $.Values "max_items") }}
             - --max-items
             - {{ .Values.max_items | quote }}
+            {{- end }}
+            {{- if .Values.metrics.enabled }}
             - --metrics_address
             - {{ .Values.metrics.port | quote }}
+            {{- end }}  
             - --log_level
             - {{ .Values.log.level | quote }}
             - --log_format

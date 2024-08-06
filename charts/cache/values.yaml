@@ -1,13 +1,8 @@
-# Default values for cache.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 replicaCount: 1
 
 image:
   repository: ghcr.io/lavanet/lava/lavap
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 imagePullSecrets: []
@@ -15,11 +10,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  # Specifies whether a service account should be created
   create: true
-  # Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
@@ -89,6 +81,6 @@ log:
   level: warn
   format: json
 
-expiration_multiplier: 1.25
-expiration_non_finalized_multiplier: 1.25
-max_items: 4294967296
+# expiration_multiplier: 1.25
+# expiration_non_finalized_multiplier: 1.25
+# max_items: 4294967296
