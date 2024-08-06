@@ -40,8 +40,8 @@ We welcome contributions from the community! If you'd like to contribute:
 
 ## Support and Community
 
-* Join our Discord community for real-time support and discussions
-* Follow us on X for the latest updates
+* Join our [Discord](https://discord.gg/lavanetxyz) community for real-time support and discussions
+* Follow us on [X](https://x.com/lavanetxyz) for the latest updates
 
 ## License
 
