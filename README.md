@@ -5,9 +5,9 @@ Our charts are designed to simplify the deployment process, ensuring scalability
 
 ## Available Charts
 
-lava-cache: A high-performance, distributed in-memory caching system
-lava-provider: Service provider component for the Lava Network
-lava-consumer: Client component for consuming services on the Lava Network
+* [cache](./charts/cache/): A high-performance, distributed in-memory caching system
+* [provider](./charts/provider/): Service provider component for the Lava Network
+* [consumer](./charts/consumer/): Client component for consuming services on the Lava Network
 
 ## Quick Start
 
