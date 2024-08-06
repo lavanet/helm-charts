@@ -3,6 +3,17 @@ entries:
   cache:
   - apiVersion: v2
     appVersion: v2.2.5
+    created: "2024-08-06T07:36:38.69507719Z"
+    description: Lava cache helm chart
+    digest: 528670b6f87865b0688799f131f83b7322fb71779f55b04b56f00cfba53b363e
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    name: cache
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/cache-0.2.8/cache-0.2.8.tgz
+    version: 0.2.8
+  - apiVersion: v2
+    appVersion: v2.2.5
     created: "2024-08-05T21:31:21.061131778Z"
     description: Lava cache helm chart
     digest: 10ad189c84ba450452473eed3c4c19515fb41e2d8184164f9cf3cb898411678c
@@ -13,6 +24,17 @@ entries:
     - https://github.com/lavanet/helm-charts/releases/download/cache-0.2.7/cache-0.2.7.tgz
     version: 0.2.7
   consumer:
+  - apiVersion: v2
+    appVersion: v2.2.5
+    created: "2024-08-06T07:36:38.891422273Z"
+    description: Lava consumer helm chart
+    digest: bae813c99c189f6bd8d467887a42daf2106f039d2ca56af17dfa39c52774cabe
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    name: consumer
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/consumer-0.2.8/consumer-0.2.8.tgz
+    version: 0.2.8
   - apiVersion: v2
     appVersion: v2.2.5
     created: "2024-08-05T21:31:21.153779715Z"
@@ -103,6 +125,17 @@ entries:
   provider:
   - apiVersion: v2
     appVersion: v2.2.5
+    created: "2024-08-06T07:36:39.06736604Z"
+    description: Lava provider helm chart
+    digest: bb36f9b3d2435449c5dc698b28ffd1f8c802745ac9df1c192abace4a09c24143
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    name: provider
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/provider-0.2.8/provider-0.2.8.tgz
+    version: 0.2.8
+  - apiVersion: v2
+    appVersion: v2.2.5
     created: "2024-08-05T21:31:21.252236283Z"
     description: Lava provider helm chart
     digest: 433f19729ead185fa3f14d7601b3e72d8867837577e7052e42b1e8031b4be4c4
@@ -188,4 +221,4 @@ entries:
     urls:
     - https://github.com/lavanet/helm-charts/releases/download/provider-0.2.0/provider-0.2.0.tgz
     version: 0.2.0
-generated: "2024-08-05T21:31:21.252354666Z"
+generated: "2024-08-06T07:36:39.067481324Z"
