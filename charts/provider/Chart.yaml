@@ -1,6 +1,7 @@
 apiVersion: v2
 name: provider
-description: Lava provider helm chart
+description: |
+  Lava helm chart for the provider service
 icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
 type: application
 version: 0.2.10
