@@ -6,13 +6,13 @@ metadata:
   name:  {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
-    app.kubernetes.io/chain: {{ $itemKey | lower }}
+    app.lavanet.io/chain: {{ $itemKey | lower }}
 spec:
   replicas: {{ $.Values.replicaCount }}
   selector:
     matchLabels:
       {{- include "provider.selectorLabels" $ | nindent 6 }}
-      app.kubernetes.io/chain: {{ $itemKey | lower }}
+      app.lavanet.io/chain: {{ $itemKey | lower }}
   template:
     metadata:
       {{- with $.Values.podAnnotations }}
@@ -21,7 +21,7 @@ spec:
       {{- end }}
       labels:
         {{- include "provider.selectorLabels" $ | nindent 8 }}
-        app.kubernetes.io/chain: {{ $itemKey | lower }}
+        app.lavanet.io/chain: {{ $itemKey | lower }}
     spec:
       {{- with $.Values.imagePullSecrets }}
       imagePullSecrets:

@@ -6,7 +6,7 @@ metadata:
   name: {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
-    app.kubernetes.io/chain: {{ $itemKey | lower }}
+    app.lavanet.io/chain: {{ $itemKey | lower }}
 spec:
   type: {{ $.Values.service.type }}
   ports:
@@ -22,5 +22,5 @@ spec:
   {{- end }}
   selector:
     {{- include "provider.selectorLabels" $ | nindent 4 }}
-    app.kubernetes.io/chain: {{ $itemKey | lower }}
+    app.lavanet.io/chain: {{ $itemKey | lower }}
 {{- end }}
