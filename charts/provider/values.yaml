@@ -85,8 +85,8 @@ chains:
       enabled: true
       port: 3200
       serviceMonitor: 
-        enabled: true
-        
+        enabled: false
+
 
     log:
       level: info
