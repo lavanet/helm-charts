@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 0.3.3](https://img.shields.io/badge/Version-0.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
+![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -20,7 +20,7 @@ Providers earn LAVA tokens as fees for fulfilling these requests, creating an in
 
 Before deploying the provider chart you'll need to do two imporatnt things:
 
-* Create wallet and export it, or export an exisint one
+* Create wallet and export it, or export an existing one
 * Create configuration for the provider
 
 ### Create wallet
