@@ -29,8 +29,8 @@ body:
 
   - type: input
     attributes:
-      label: Ansible Version
-      description: If applicable, specify the ansible version you're using
+      label: Helm Version
+      description: If applicable, specify the helm version you're using
       placeholder: 2.9.0, etc.
     validations:
       required: true
