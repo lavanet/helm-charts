@@ -36,15 +36,15 @@ spec:
           args:
             - "cache"
             - 0.0.0.0:{{ .Values.service.port }}
-            {{- if (hasKey $.Values "expiration_multiplier") }}
+            {{- if not (empty $.Values.expiration_multiplier) }}
             - --expiration-multiplier
             - {{ .Values.expiration_multiplier | quote }}
             {{- end }}
-            {{- if (hasKey $.Values "expiration_non_finalized_multiplier") }}
+            {{- if not (empty $.Values.expiration_non_finalized_multiplier)}}
             - --expiration-non-finalized-multiplier
             - {{ .Values.expiration_non_finalized_multiplier | quote }}
             {{- end }}
-            {{- if (hasKey $.Values "max_items") }}
+            {{- if not (empty $.Values.max_items) }}
             - --max-items
             - {{ .Values.max_items | quote }}
             {{- end }}

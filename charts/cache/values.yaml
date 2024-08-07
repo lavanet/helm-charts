@@ -81,6 +81,9 @@ log:
   level: info
   format: json
 
-# expiration_multiplier: 1.25
-# expiration_non_finalized_multiplier: 1.25
-# max_items: 4294967296
+# -- the expiration multiplier for items in the cache
+expiration_multiplier:
+# -- the expiration non finalized multiplier for items in the cache
+expiration_non_finalized_multiplier:
+# -- max items allowed in the cache
+max_items:

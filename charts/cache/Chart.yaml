@@ -1,11 +1,12 @@
 apiVersion: v2
 name: cache
 description: |
-  The Lava cache Helm chart provides a simple way to deploy and manage Lava cache instances on Kubernetes clusters.
-  Lava cache is a distributed in-memory caching system designed for high performance and scalability.
+  Lava helm chart for the cache service
 icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+sources:
+  - https://github.com/lavanet/helm-charts
 type: application
-version: 0.2.10
+version: 0.3.0
 appVersion: "v2.2.6"
 kubeVersion: ">=1.16.0-0"
 home: https://lavanet.xyz

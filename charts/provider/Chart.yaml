@@ -3,8 +3,10 @@ name: provider
 description: |
   Lava helm chart for the provider service
 icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+sources:
+  - https://github.com/lavanet/helm-charts
 type: application
-version: 0.2.10
+version: 0.3.0
 appVersion: "v2.2.6"
 kubeVersion: ">=1.16.0-0"
 home: https://lavanet.xyz
