@@ -2,7 +2,7 @@
 
 Lava helm chart for the cache service
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square) 
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
 
 ## Lavanet Cache Helm Chart
 
@@ -22,7 +22,6 @@ helm install my-cache lavanet/cache
 ## Requirements
 
 Kubernetes: `>=1.16.0-0`
-
 
 ## Values
 

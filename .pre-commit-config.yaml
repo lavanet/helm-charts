@@ -24,3 +24,5 @@ repos:
       - id: trailing-whitespace
         exclude: ".*provider/README.md|.*consumer/README.md|.*cache/README.md"
       - id: detect-private-key
+      - id: check-merge-conflict
+      - id: check-added-large-files
