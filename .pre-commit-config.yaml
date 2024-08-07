@@ -1,4 +1,4 @@
-exclude: ".*.gotmpl|.*provider/README|.*consumer/README|.*cache/README"
+exclude: ".*.gotmpl|.*provider/README.md|.*consumer/README.md|.*cache/README.md"
 repos:
   - repo: meta
     hooks:
