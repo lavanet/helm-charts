@@ -113,7 +113,6 @@ helm install my-provider lavanet/provider
 
 Kubernetes: `>=1.16.0-0`
 
-
 ## Values
 
 | Key | Type | Default | Description |
