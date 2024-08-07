@@ -1,0 +1,10 @@
+---
+cache:
+  - changed-files:
+      - any-glob-to-any-file: /charts/cache/**/*
+provider:
+  - changed-files:
+      - any-glob-to-any-file: /charts/provider/**/*
+consumer:
+  - changed-files:
+      - any-glob-to-any-file: /charts/consumer/**/*
