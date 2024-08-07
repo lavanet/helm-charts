@@ -1,4 +1,4 @@
-exclude: ".*.gotmpl|.*provider/README.md|.*consumer/README.md|.*cache/README.md"
+exclude: ".*provider/README.md|.*consumer/README.md|.*cache/README.md"
 repos:
   - repo: meta
     hooks:
@@ -10,6 +10,13 @@ repos:
     hooks:
       - id: helmlint
 
+  - repo: https://github.com/norwoodj/helm-docs
+    rev: "v1.14.2"
+    hooks:
+      - id: helm-docs-container
+        args:
+          - --chart-search-root=charts
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
@@ -18,9 +25,4 @@ repos:
       - id: detect-private-key
       - id: mixed-line-ending
 
-  - repo: https://github.com/norwoodj/helm-docs
-    rev: "v1.14.2"
-    hooks:
-      - id: helm-docs-container
-        args:
-          - --chart-search-root=charts
+
