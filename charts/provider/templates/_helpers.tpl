@@ -61,8 +61,8 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{/* 
-Match Labels 
+{{/*
+Match Labels
 */}}
 {{- define "provider.matchLabels" -}}
 release: {{ $.Release.Name }}

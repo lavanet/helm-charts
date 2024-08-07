@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/lavanet/lava/lavap
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
+  # -- overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 imagePullSecrets: []
@@ -15,11 +15,11 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  # Specifies whether a service account should be created
+  # -- specifies whether a service account should be created
   create: true
-  # Annotations to add to the service account
+  # -- annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
+  # -- the name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
@@ -76,70 +76,81 @@ affinity: {}
 
 chains:
   lav1:
+    # -- existing configuration secret name
     existingSecret: "config"
+    # -- existing configuration secret key
     existingSecretKey: "config.yml"
 
-    node: https://testnet2-rpc.lavapro.xyz:443
-
     metrics:
+      # -- should enable prometheus metrics
       enabled: true
+      # -- prometheus metrics address
       port: 3200
-      serviceMonitor: 
+      serviceMonitor:
         enabled: false
 
-
     log:
+      # -- log level
       level: info
+      # -- log format, can be json or text
       format: json
 
     cache:
+      # -- should add cache arg to provider
       enabled: true
+      # -- cache address
       address: provider-cache:20100
 
+    # -- wallet name
     wallet: "test"
 
-    # information about the private key to use for the node
+    # -- information about the private key to use for the node
     key:
-      # will default to the moniker
-      name: ""
-      # REQUIRED: the kubernetes secret name containing the private key
+      # -- the kubernetes secret name containing the private key
       secretName: "wallet"
-      # REQUIRED: the key in the kubernetes secret to use
+      # -- the key in the kubernetes secret to use
       secretKey: "passphrase"
-      # REQUIRED: the kubernetes secret that contains the password for the private key
+      # -- the kubernetes secret that contains the password for the private key
       passwordSecretName: "wallet"
-      # REQUIRED: the key in the kubernetes secret that contains the password for the private key
+      # -- the key in the kubernetes secret that contains the password for the private key
       passwordSecretKey: "password"
 
+    # -- provider keyring backend
     keyringBackend: "test"
+    # -- lava node to connect to
+    node: https://testnet2-rpc.lavapro.xyz:443
+    # -- lava chain id
     chainId: "lava-testnet-2"
+    # -- provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations)
     geolocation: "2"
 
     persistence:
+      # -- should create pvc for the provider data
       enabled: true
       accessModes:
         - "ReadWriteOnce"
       size: "8Gi"
 
-    interfaces:
-      - interface: rest
-        nodes:
-          - endpoint: rest.example.com
-            type: full
-          - endpoint: rest.archive.example.com
-            type: archive
-            skipVerifications: pruning
-      - interface: tendermintrpc
-        nodes:
-          - endpoint: tendermintrpc.example.com
-            type: full
-          - endpoint: tendermintrpc.archive.example.com
-            type: archive
-            skipVerifications: pruning
-      - interface: grpc
-        nodes:
-          - endpoint: grpc.example.com
-            type: full
-          - endpoint: grpc.archive.example.com
-            type: archive
-            skipVerifications: pruning
+    # -- list of interface to provide, only if existingSecret is empty
+    # interfaces:
+    #   - interface: rest
+    #     nodes:
+    #       - endpoint: rest.example.com
+    #         type: full
+    #       - endpoint: rest.archive.example.com
+    #         type: archive
+    #         skipVerifications: pruning
+    #   - interface: tendermintrpc
+    #     nodes:
+    #       - endpoint: tendermintrpc.example.com
+    #         type: full
+    #       - endpoint: tendermintrpc.archive.example.com
+    #         type: archive
+    #         skipVerifications: pruning
+    #   - interface: grpc
+    #     nodes:
+    #       - endpoint: grpc.example.com
+    #         type: full
+    #       - endpoint: grpc.archive.example.com
+    #         type: archive
+    #         skipVerifications: pruning

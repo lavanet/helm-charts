@@ -13,9 +13,11 @@ Our charts are designed to simplify the deployment process, ensuring scalability
 
 ## Available Charts
 
-* [cache](./charts/cache/): A high-performance, in-memory caching system
-* [provider](./charts/provider/): Service provider component for the Lava Network
-* [consumer](./charts/consumer/): Client component for consuming services on the Lava Network
+| Name | Description | Stability |
+| --- | --- | --- |
+| [cache](./charts/cache/) | A high-performance, in-memory caching system | stable |
+| [provider](./charts/provider/) | Service provider component for the Lava Network | stable |
+| [consumer](./charts/consumer/) | Client component for consuming services on the Lava Network | alpha |
 
 ## Quick Start
 

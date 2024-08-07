@@ -2,7 +2,7 @@
 
 ![Version: 0.2.10](https://img.shields.io/badge/Version-0.2.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
 
-Lava consumer helm chart
+Lava helm chart for the consumer service
 
 **Homepage:** <https://lavanet.xyz>
 

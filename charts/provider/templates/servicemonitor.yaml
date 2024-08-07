@@ -27,7 +27,7 @@ spec:
       {{ tpl (toYaml $itemValue.metrics.serviceMonitor.metricRelabelings | indent 4) $ }}
       {{- end }}
       {{- if $itemValue.metrics.serviceMonitor.relabelings }}
-      relabelings: 
+      relabelings:
       {{ tpl (toYaml $itemValue.metrics.serviceMonitor.relabelings | indent 4) $ }}
       {{- end }}
   namespaceSelector:
@@ -35,4 +35,5 @@ spec:
       - {{ $.Chart.namespace }}
   selector:
     matchLabels: {{ include "provider.matchLabels" . | nindent 6 }}
+{{- end }}
 {{- end }}
