@@ -23,6 +23,4 @@ repos:
         exclude: ".*provider/README.md|.*consumer/README.md|.*cache/README.md"
       - id: trailing-whitespace
         exclude: ".*provider/README.md|.*consumer/README.md|.*cache/README.md"
-      - id: mixed-line-ending
-        exclude: ".*provider/README.md|.*consumer/README.md|.*cache/README.md"
       - id: detect-private-key
