@@ -84,6 +84,9 @@ chains:
     metrics:
       enabled: true
       port: 3200
+      serviceMonitor: 
+        enabled: true
+        
 
     log:
       level: info
@@ -91,7 +94,7 @@ chains:
 
     cache:
       enabled: true
-      address: cache.example:20221
+      address: provider-cache:20100
 
     wallet: "test"
 

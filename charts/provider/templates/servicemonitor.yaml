@@ -1,0 +1,38 @@
+{{- range $itemKey, $itemValue := $.Values.chains }}
+{{- if and $itemValue.metrics.enabled $itemValue.metrics.serviceMonitor.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
+  labels:
+    {{- include "provider.labels" $ | nindent 4 }}
+    app.lavanet.io/chain: {{ $itemKey | lower }}
+spec:
+  jobLabel: {{ $itemValue.metrics.serviceMonitor.jobLabel | quote }}
+  endpoints:
+    - port: metrics
+      path: /metrics
+      {{- if $itemValue.metrics.serviceMonitor.interval }}
+      interval: {{ $itemValue.metrics.serviceMonitor.interval }}
+      {{- end }}
+      {{- if $itemValue.metrics.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ $itemValue.metrics.serviceMonitor.scrapeTimeout }}
+      {{- end }}
+      {{- if $itemValue.metrics.serviceMonitor.honorLabels }}
+      honorLabels: {{ $itemValue.metrics.serviceMonitor.honorLabels }}
+      {{- end }}
+      {{- if $itemValue.metrics.serviceMonitor.metricRelabelings }}
+      metricRelabelings:
+      {{ tpl (toYaml $itemValue.metrics.serviceMonitor.metricRelabelings | indent 4) $ }}
+      {{- end }}
+      {{- if $itemValue.metrics.serviceMonitor.relabelings }}
+      relabelings: 
+      {{ tpl (toYaml $itemValue.metrics.serviceMonitor.relabelings | indent 4) $ }}
+      {{- end }}
+  namespaceSelector:
+    matchNames:
+      - {{ $.Chart.namespace }}
+  selector:
+    matchLabels: {{ include "provider.matchLabels" . | nindent 6 }}
+{{- end }}
