@@ -4,7 +4,7 @@
   <br>
 </h1>
 
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/lava)](https://artifacthub.io/packages/search?repo=lava) ![GitHub Release](https://img.shields.io/github/v/release/lavanet/lava?label=lava%20release)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/lava)](https://artifacthub.io/packages/search?repo=lava) ![GitHub Release](https://img.shields.io/github/v/release/lavanet/lava?label=lava%20release) ![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/lavanetxyz?style=flat) ![Discord](https://img.shields.io/discord/963778337904427018?style=flat&label=lava%20discord&link=https%3A%2F%2Fdiscord.gg%2Fd8XGpHEr)
 
 ## Overview
 
