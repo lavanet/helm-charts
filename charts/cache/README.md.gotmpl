@@ -1,6 +1,5 @@
 {{ template "chart.header" . }}
 {{ template "chart.description" . }}
-
 {{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
 
 ## Lavanet Cache Helm Chart
@@ -19,7 +18,5 @@ helm install my-{{ template "chart.name" . }} lavanet/{{ template "chart.name" .
 ```
 
 {{ template "chart.requirementsSection" . }}
-
 {{ template "chart.valuesSection" . }}
-
 {{ template "helm-docs.versionFooter" . }}
