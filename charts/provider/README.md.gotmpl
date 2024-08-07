@@ -79,16 +79,81 @@ kubectl apply -f exported-key.yaml -n my-namespace
 
 ### Create configuration for provider
 
-Most provider configurations point to secure nodes and should remain encrypted on the cluster
+Most provider configurations point to secure nodes and should remain encrypted on the cluster.
+For this you'll have to create another secert containing the entire nodes' configuration, for example:
+
+```yaml
+base64 -w 0 <<EOF
+metrics-listen-address: ":3200"
+endpoints:
+  - api-interface: rest
+    chain-id: LAV1
+    network-address:
+      address: "0.0.0.0:2200"
+      disable-tls: true
+    node-urls:
+      - url: "https://****/rest/"
+      - url: "https://****/rest/"
+        skip-verifications:
+          - pruning
+        addons:
+          - archive
+  - api-interface: tendermintrpc
+    chain-id: LAV1
+    network-address:
+      address: "0.0.0.0:2200"
+      disable-tls: true
+    node-urls:
+      - url: "https://****/rpc/"
+      - url: "https://****/rpc/"
+        skip-verifications:
+          - pruning
+        addons:
+          - archive
+  - api-interface: grpc
+    chain-id: LAV1
+    network-address:
+      address: "0.0.0.0:2200"
+      disable-tls: true
+    node-urls:
+      - url: "****:443"
+      - url: "****:443"
+        skip-verifications:
+          - pruning
+        addons:
+          - archive
+EOF
+```
+
+Like before, you need to apply the config as a secret:
+
+```shell
+cat > provider-config.yaml << EOF
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: provider-config
+data:
+  config.yml: >-
+    bWV0cmljcy1saXN0ZW4tYWRkcmVzczogIjozMjAwIgplbmRwb2ludHM6CiAgLSBhcGktaW50ZXJmYWNlOiByZXN0CiAgICBjaGFpbi1pZDogTEFWMQogICAgbmV0d29yay1hZGRyZXNzOgogICAgICBhZGRyZXNzOiAiMC4wLjAuMDoyMjAwIgogICAgICBkaXNhYmxlLXRsczogdHJ1ZQogICAgbm9kZS11cmxzOgogICAgICAtIHVybDogImh0dHBzOi8vKioqKi9yZXN0LyIKICAgICAgLSB1cmw6ICJodHRwczovLyoqKiovcmVzdC8iCiAgICAgICAgc2tpcC12ZXJpZmljYXRpb25zOgogICAgICAgICAgLSBwcnVuaW5nCiAgICAgICAgYWRkb25zOgogICAgICAgICAgLSBhcmNoaXZlCiAgLSBhcGktaW50ZXJmYWNlOiB0ZW5kZXJtaW50cnBjCiAgICBjaGFpbi1pZDogTEFWMQogICAgbmV0d29yay1hZGRyZXNzOgogICAgICBhZGRyZXNzOiAiMC4wLjAuMDoyMjAwIgogICAgICBkaXNhYmxlLXRsczogdHJ1ZQogICAgbm9kZS11cmxzOgogICAgICAtIHVybDogImh0dHBzOi8vKioqKi9ycGMvIgogICAgICAtIHVybDogImh0dHBzOi8vKioqKi9ycGMvIgogICAgICAgIHNraXAtdmVyaWZpY2F0aW9uczoKICAgICAgICAgIC0gcHJ1bmluZwogICAgICAgIGFkZG9uczoKICAgICAgICAgIC0gYXJjaGl2ZQogIC0gYXBpLWludGVyZmFjZTogZ3JwYwogICAgY2hhaW4taWQ6IExBVjEKICAgIG5ldHdvcmstYWRkcmVzczoKICAgICAgYWRkcmVzczogIjAuMC4wLjA6MjIwMCIKICAgICAgZGlzYWJsZS10bHM6IHRydWUKICAgIG5vZGUtdXJsczoKICAgICAgLSB1cmw6ICIqKioqOjQ0MyIKICAgICAgLSB1cmw6ICIqKioqOjQ0MyIKICAgICAgICBza2lwLXZlcmlmaWNhdGlvbnM6CiAgICAgICAgICAtIHBydW5pbmcKICAgICAgICBhZGRvbnM6CiAgICAgICAgICAtIGFyY2hpdmUK
+EOF
+
+kubectl apply -f provider-config.yaml -n my-namespace
+```
 
 ### Modify values file
 
 The final step is to refrence the newly created secrets in the chart's values file:
 
 ```yaml
+# values.yaml
+service:
+  port: 2200
+
 chains:
   lav1:
-    existingSecret: "config"
+    existingSecret: "provider-config"
     existingSecretKey: "config.yml"
     key:
       secretName: "wallet"
