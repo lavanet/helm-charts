@@ -77,17 +77,24 @@ tolerations: []
 affinity: {}
 
 log:
+  # -- log level
   level: warn
+  # -- log format, can be json or text
   format: json
 
+# -- provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations)
 geolocation: 2
 
+# -- lava node to connect to
 node: https://testnet2-rpc.lavapro.xyz:443
 
+# -- lava chain id
 chainId: lava-testnet-2
 
+# -- provider keyring backend
 keyringBackend: test
 
+# -- wallet name
 wallet: test
 
 key:
