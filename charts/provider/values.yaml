@@ -1,7 +1,3 @@
-# Default values for provider.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 replicaCount: 1
 
 image:
@@ -88,41 +84,41 @@ log:
   # -- log format, can be json or text
   format: json
 
+cache:
+  # -- should add cache arg to provider
+  enabled: true
+  # -- cache address
+  address: provider-cache:20100
+
+# -- wallet name
+wallet: "test"
+
+# -- information about the private key to use for the node
+key:
+  # -- the kubernetes secret name containing the private key
+  secretName: "wallet"
+  # -- the key in the kubernetes secret to use
+  secretKey: "key"
+  # -- the kubernetes secret that contains the password for the private key
+  passwordSecretName: "wallet"
+  # -- the key in the kubernetes secret that contains the password for the private key
+  passwordSecretKey: "password"
+
+# -- provider keyring backend
+keyringBackend: "test"
+# -- lava node to connect to
+node: https://testnet2-rpc.lavapro.xyz:443
+# -- lava chain id
+chainId: "lava-testnet-2"
+# -- provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations)
+geolocation: "2"
+
 chains:
   lav1:
     # -- existing configuration secret name
-    existingSecret: "config"
+    existingSecret: "provider-config"
     # -- existing configuration secret key
     existingSecretKey: "config.yml"
-
-    cache:
-      # -- should add cache arg to provider
-      enabled: true
-      # -- cache address
-      address: provider-cache:20100
-
-    # -- wallet name
-    wallet: "test"
-
-    # -- information about the private key to use for the node
-    key:
-      # -- the kubernetes secret name containing the private key
-      secretName: "wallet"
-      # -- the key in the kubernetes secret to use
-      secretKey: "passphrase"
-      # -- the kubernetes secret that contains the password for the private key
-      passwordSecretName: "wallet"
-      # -- the key in the kubernetes secret that contains the password for the private key
-      passwordSecretKey: "password"
-
-    # -- provider keyring backend
-    keyringBackend: "test"
-    # -- lava node to connect to
-    node: https://testnet2-rpc.lavapro.xyz:443
-    # -- lava chain id
-    chainId: "lava-testnet-2"
-    # -- provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations)
-    geolocation: "2"
 
     persistence:
       # -- should create pvc for the provider data

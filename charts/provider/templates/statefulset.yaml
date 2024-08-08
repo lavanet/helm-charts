@@ -7,6 +7,10 @@ metadata:
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $itemKey | lower }}
+  annotations:
+    {{- if (empty $itemValue.existingSecret) }}
+    checksum/config: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+    {{- end }}
 spec:
   replicas: {{ $.Values.replicaCount }}
   selector:
@@ -37,26 +41,26 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              if [ -f /lava/.key-{{ $itemValue.wallet }}.imported ]; then
-                echo "Key {{ $itemValue.wallet }} has already been exported, exiting..."
+              if [ -f /lava/.key-{{ $.Values.wallet }}.imported ]; then
+                echo "Key {{ $.Values.wallet }} has already been exported, exiting..."
                 exit 0
               fi
 
               echo $KEY_PASSWORD | lavap keys \
-              import {{ $itemValue.wallet }} /tmp/keyfile/{{ $itemValue.key.secretKey }} \
-              --keyring-backend {{ $itemValue.keyringBackend }}
+              import {{ $.Values.wallet }} /tmp/keyfile/{{ $.Values.key.secretKey }} \
+              --keyring-backend {{ $.Values.keyringBackend }}
 
-              touch /lava/.key-{{ $itemValue.wallet }}.imported
+              touch /lava/.key-{{ $.Values.wallet }}.imported
           env:
             - name: KEY_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ $itemValue.key.passwordSecretName }}
-                  key: {{ $itemValue.key.passwordSecretKey }}
+                  name: {{ $.Values.key.passwordSecretName }}
+                  key: {{ $.Values.key.passwordSecretKey }}
           volumeMounts:
             - name: "private-key-volume"
-              mountPath: /tmp/keyfile/{{ $itemValue.key.secretKey }}
-              subPath: {{ $itemValue.key.secretKey }}
+              mountPath: /tmp/keyfile/{{ $.Values.key.secretKey }}
+              subPath: {{ $.Values.key.secretKey }}
               readOnly: true
             - mountPath: "/lava"
               name: data
@@ -74,20 +78,20 @@ spec:
             - config.yml
             {{- end }}
             - --node
-            - {{ $itemValue.node }}
+            - {{ $.Values.node }}
             - --from
-            - {{ $itemValue.wallet }}
+            - {{ $.Values.wallet }}
             - --keyring-backend
-            - {{ $itemValue.keyringBackend }}
+            - {{ $.Values.keyringBackend }}
             - --chain-id
-            - {{ $itemValue.chainId }}
+            - {{ $.Values.chainId }}
             - --geolocation
-            - {{ $itemValue.geolocation | quote }}
+            - {{ $.Values.geolocation | quote }}
             - --shard-id
             - "$(MY_POD_INDEX)"
-            {{- if $itemValue.cache.enabled }}
+            {{- if $.Values.cache.enabled }}
             - --cache-be
-            - {{ $itemValue.cache.address }}
+            - {{ $.Values.cache.address }}
             {{- end }}
             - --log_level
             - {{ $.Values.log.level }}
@@ -127,14 +131,14 @@ spec:
       volumes:
         - name: {{ $itemKey | lower }}-config
           secret:
-            {{- if (empty $itemValue.existingSecret) }}
-            secretName: {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
-            {{- else }}
+            {{- if $itemValue.existingSecret }}
             secretName: {{ $itemValue.existingSecret }}
+            {{- else }}
+            secretName: {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
             {{- end }}
         - name: "private-key-volume"
           secret:
-            secretName: {{ $itemValue.key.secretName }}
+            secretName: {{ $.Values.key.secretName }}
             optional: false
         - name: data
           {{- if $itemValue.persistence.enabled }}
