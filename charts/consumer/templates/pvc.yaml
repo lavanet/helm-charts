@@ -1,22 +1,22 @@
+{{- if $.Values.persistence.enabled }}
 {{- range $itemKey, $itemValue := $.Values.chains }}
-{{- if $itemValue.persistence.enabled }}
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name:  {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
+  name:  {{ $itemKey | lower }}-{{ include "consumer.fullname" $ }}
   labels:
-    {{- include "provider.labels" $ | nindent 4 }}
+    {{- include "consumer.labels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $itemKey | lower }}
   annotations:
     helm.sh/resource-policy: keep
 spec:
   accessModes:
-  {{- range $itemValue.persistence.accessModes }}
+  {{- range $.Values.persistence.accessModes }}
     - {{ . | quote }}
   {{- end }}
   resources:
     requests:
-      storage: {{ $itemValue.persistence.size | quote }}
+      storage: {{ $.Values.persistence.size | quote }}
 {{- end }}
 {{- end }}

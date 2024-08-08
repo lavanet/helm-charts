@@ -15,6 +15,12 @@ spec:
       protocol: TCP
       name: {{ $interfaceEntry.interface | lower }}
   {{- end }}
+  {{- if $.Values.metrics.enabled }}
+    - name: metrics
+      targetPort: metrics
+      port: {{ $.Values.metrics.port }}
+      protocol: TCP
+  {{- end }}
   selector:
     {{- include "consumer.selectorLabels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $itemKey | lower }}

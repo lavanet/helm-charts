@@ -84,7 +84,7 @@ geolocation: 2
 
 node: https://testnet2-rpc.lavapro.xyz:443
 
-chainId: testnet
+chainId: lava-testnet-2
 
 keyringBackend: test
 
@@ -94,7 +94,7 @@ key:
   # -- the kubernetes secret name containing the private key
   secretName: "wallet"
   # -- the key in the kubernetes secret to use
-  secretKey: "passphrase"
+  secretKey: "key"
   # -- the kubernetes secret that contains the password for the private key
   passwordSecretName: "wallet"
   # -- the key in the kubernetes secret that contains the password for the private key
@@ -119,9 +119,16 @@ metrics:
   # -- should enable prometheus metrics
   enabled: true
   # -- prometheus metrics address
-  port: 3200
+  port: 9000
   serviceMonitor:
     enabled: false
+
+persistence:
+  # -- should create pvc for the consumer data
+  enabled: true
+  accessModes:
+    - "ReadWriteOnce"
+  size: "100Mi"
 
 chains:
   lav1:

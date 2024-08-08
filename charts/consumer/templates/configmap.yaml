@@ -7,7 +7,7 @@ metadata:
   labels:
     {{- include "consumer.labels" $ | nindent 4 }}
 data:
-  config.yaml: |
+  config.yml: |
     endpoints:
     {{- range $interfaceEntry := $itemValue.interfaces }}
       - chain-id: {{ $itemKey | upper }}
@@ -15,5 +15,5 @@ data:
         api-interface: {{ $interfaceEntry.interface }}
         network-address: 0.0.0.0:{{ $interfaceEntry.port }}
     {{- end }}
-    metrics-listen-address: "0.0.0.0:{{ $itemValue.metrics_port }}"
+    metrics-listen-address: "0.0.0.0:{{ $.Values.metrics.port }}"
 {{- end }}

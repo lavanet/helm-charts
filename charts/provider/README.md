@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
+![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -183,24 +183,16 @@ Kubernetes: `>=1.16.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| chains.lav1.cache.address | string | `"provider-cache:20100"` | cache address |
-| chains.lav1.cache.enabled | bool | `true` | should add cache arg to provider |
-| chains.lav1.chainId | string | `"lava-testnet-2"` | lava chain id |
-| chains.lav1.existingSecret | string | `"config"` | existing configuration secret name |
+| cache.address | string | `"provider-cache:20100"` | cache address |
+| cache.enabled | bool | `true` | should add cache arg to provider |
+| chainId | string | `"lava-testnet-2"` | lava chain id |
+| chains.lav1.existingSecret | string | `"provider-config"` | existing configuration secret name |
 | chains.lav1.existingSecretKey | string | `"config.yml"` | existing configuration secret key |
-| chains.lav1.geolocation | string | `"2"` | provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations) |
-| chains.lav1.key | object | `{"passwordSecretKey":"password","passwordSecretName":"wallet","secretKey":"passphrase","secretName":"wallet"}` | information about the private key to use for the node |
-| chains.lav1.key.passwordSecretKey | string | `"password"` | the key in the kubernetes secret that contains the password for the private key |
-| chains.lav1.key.passwordSecretName | string | `"wallet"` | the kubernetes secret that contains the password for the private key |
-| chains.lav1.key.secretKey | string | `"passphrase"` | the key in the kubernetes secret to use |
-| chains.lav1.key.secretName | string | `"wallet"` | the kubernetes secret name containing the private key |
-| chains.lav1.keyringBackend | string | `"test"` | provider keyring backend |
-| chains.lav1.node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | lava node to connect to |
 | chains.lav1.persistence.accessModes[0] | string | `"ReadWriteOnce"` |  |
 | chains.lav1.persistence.enabled | bool | `true` | should create pvc for the provider data |
 | chains.lav1.persistence.size | string | `"8Gi"` |  |
-| chains.lav1.wallet | string | `"test"` | wallet name |
 | fullnameOverride | string | `""` |  |
+| geolocation | string | `"2"` | provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations) |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/lavanet/lava/lavap"` |  |
 | image.tag | string | `""` | overrides the image tag whose default is the chart appVersion. |
@@ -212,12 +204,19 @@ Kubernetes: `>=1.16.0-0`
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
+| key | object | `{"passwordSecretKey":"password","passwordSecretName":"wallet","secretKey":"key","secretName":"wallet"}` | information about the private key to use for the node |
+| key.passwordSecretKey | string | `"password"` | the key in the kubernetes secret that contains the password for the private key |
+| key.passwordSecretName | string | `"wallet"` | the kubernetes secret that contains the password for the private key |
+| key.secretKey | string | `"key"` | the key in the kubernetes secret to use |
+| key.secretName | string | `"wallet"` | the kubernetes secret name containing the private key |
+| keyringBackend | string | `"test"` | provider keyring backend |
 | log.format | string | `"json"` | log format, can be json or text |
 | log.level | string | `"info"` | log level |
 | metrics.enabled | bool | `true` | should enable prometheus metrics |
 | metrics.port | int | `3200` | prometheus metrics address |
 | metrics.serviceMonitor.enabled | bool | `false` |  |
 | nameOverride | string | `""` |  |
+| node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | lava node to connect to |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
@@ -230,6 +229,7 @@ Kubernetes: `>=1.16.0-0`
 | serviceAccount.create | bool | `true` | specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | the name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | tolerations | list | `[]` |  |
+| wallet | string | `"test"` | wallet name |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

@@ -73,7 +73,7 @@ spec:
           args:
             - "rpcprovider"
             {{- if $itemValue.existingSecret }}
-            - {{ $itemValue.existingSecretKey }}            
+            - {{ $itemValue.existingSecretKey }}
             {{- else }}
             - config.yml
             {{- end }}

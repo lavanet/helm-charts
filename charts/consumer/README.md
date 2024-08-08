@@ -2,7 +2,7 @@
 
 Lava helm chart for the consumer service
 
-![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
+![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
 
 ## Lavanet Consumer Helm Chart
 
@@ -31,7 +31,7 @@ Kubernetes: `>=1.16.0-0`
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | cache.address | string | `"cache:20100"` | cache address |
 | cache.enabled | bool | `true` | should add cache arg |
-| chainId | string | `"testnet"` |  |
+| chainId | string | `"lava-testnet-2"` |  |
 | chains.agr.default_interface | string | `"rest"` |  |
 | chains.agr.interfaces[0].interface | string | `"rest"` |  |
 | chains.agr.interfaces[0].port | int | `2002` |  |
@@ -213,17 +213,20 @@ Kubernetes: `>=1.16.0-0`
 | ingress.tls | list | `[]` |  |
 | key.passwordSecretKey | string | `"password"` | the key in the kubernetes secret that contains the password for the private key |
 | key.passwordSecretName | string | `"wallet"` | the kubernetes secret that contains the password for the private key |
-| key.secretKey | string | `"passphrase"` | the key in the kubernetes secret to use |
+| key.secretKey | string | `"key"` | the key in the kubernetes secret to use |
 | key.secretName | string | `"wallet"` | the kubernetes secret name containing the private key |
 | keyringBackend | string | `"test"` |  |
 | log.format | string | `"json"` |  |
 | log.level | string | `"warn"` |  |
 | metrics.enabled | bool | `true` | should enable prometheus metrics |
-| metrics.port | int | `3200` | prometheus metrics address |
+| metrics.port | int | `9000` | prometheus metrics address |
 | metrics.serviceMonitor.enabled | bool | `false` |  |
 | nameOverride | string | `""` |  |
 | node | string | `"https://testnet2-rpc.lavapro.xyz:443"` |  |
 | nodeSelector | object | `{}` |  |
+| persistence.accessModes[0] | string | `"ReadWriteOnce"` |  |
+| persistence.enabled | bool | `true` | should create pvc for the consumer data |
+| persistence.size | string | `"100Mi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | relayServerAddress | string | `nil` | address of the relay server |

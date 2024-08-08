@@ -16,8 +16,9 @@ spec:
       {{- include "consumer.selectorLabels" $ | nindent 6 }}
   template:
     metadata:
-      {{- with $.Values.podAnnotations }}
       annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") $ | sha256sum }}
+      {{- with $.Values.podAnnotations }}
         {{- toYaml $ | nindent 8 }}
       {{- end }}
       labels:
@@ -109,6 +110,12 @@ spec:
               containerPort: {{ $.Values.metrics.port }}
               protocol: TCP
           {{- end }}
+          volumeMounts:
+            - mountPath: "/lava"
+              name: data
+            - mountPath: /lava/config/config.yml
+              subPath: config.yml
+              name: config
           {{- if $.Values.metrics.enabled }}
           livenessProbe:
             httpGet:
@@ -121,6 +128,24 @@ spec:
           {{- end }}
           resources:
             {{- toYaml $.Values.resources | nindent 12 }}
+      volumes:
+        - name: "private-key-volume"
+          secret:
+            secretName: {{ $.Values.key.secretName }}
+            optional: false
+        - name: config
+          configMap:
+            name: {{ $itemKey | lower }}-{{ include "consumer.fullname" $ }}
+            items:
+              - key: config.yml
+                path: config.yml
+        - name: data
+          {{- if $.Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ $itemKey | lower }}-{{ include "consumer.fullname" $ }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
       {{- with $.Values.nodeSelector }}
       nodeSelector:
         {{- toYaml $ | nindent 8 }}
