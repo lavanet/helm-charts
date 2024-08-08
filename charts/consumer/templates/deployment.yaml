@@ -30,26 +30,95 @@ spec:
       serviceAccountName: {{ include "consumer.serviceAccountName" $ }}
       securityContext:
         {{- toYaml $.Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: import-keys
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          command: ["sh", "-c"]
+          args:
+            - |
+              if [ -f /lava/.key-{{ $.Values.wallet }}.imported ]; then
+                echo "Key {{ $.Values.wallet }} has already been exported, exiting..."
+                exit 0
+              fi
+
+              echo $KEY_PASSWORD | lavap keys \
+              import {{ $.Values.wallet }} /tmp/keyfile/{{ $.Values.key.secretKey }} \
+              --keyring-backend {{ $.Values.keyringBackend }}
+
+              touch /lava/.key-{{ $.Values.wallet }}.imported
+          env:
+            - name: KEY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Values.key.passwordSecretName }}
+                  key: {{ $.Values.key.passwordSecretKey }}
+          volumeMounts:
+            - name: "private-key-volume"
+              mountPath: /tmp/keyfile/{{ $.Values.key.secretKey }}
+              subPath: {{ $.Values.key.secretKey }}
+              readOnly: true
+            - mountPath: "/lava"
+              name: data
       containers:
         - name: {{ $.Chart.Name }}
           securityContext:
             {{- toYaml $.Values.securityContext | nindent 12 }}
           image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          args:
+            - rpcconsumer
+            - config.yml
+            - --from
+            - {{ $.Values.wallet }}
+            - --keyring-backend
+            - {{ $.Values.keyringBackend }}
+            - --chain-id
+            - {{ $.Values.chainId }}
+            - --node
+            - {{ $.Values.node }}
+            - --geolocation
+            - {{ $.Values.geolocation | quote }}
+            - --log_level
+            - {{ $.Values.log.level }}
+            - --log_format
+            - {{ $.Values.log.format }}
+            {{- if $.Values.cache.enabled }}
+            - --cache-be
+            - {{ $.Values.cache.address }}
+            {{- end }}
+            {{- if $.Values.disableConflictTransactions }}
+            - --disable-conflict-transactions
+            {{- end }}
+            {{- if $.Values.relayServerAddress }}
+            - --relay-server-address
+            - {{ $.Values.relayServerAddress }}
+            {{- end }}
+            {{- if $.Values.reportsBeAddress }}
+            - --reports-be-address
+            - {{ $.Values.reportsBeAddress }}
+            {{- end }}
           ports:
           {{- range $interfaceEntry := $itemValue.interfaces }}
             - name: {{ $interfaceEntry.interface | lower }}
               containerPort: {{ $interfaceEntry.port }}
               protocol: TCP
           {{- end }}
+          {{- if $.Values.metrics.enabled }}
+            - name: metrics
+              containerPort: {{ $.Values.metrics.port }}
+              protocol: TCP
+          {{- end }}
+          {{- if $.Values.metrics.enabled }}
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /metrics
+              port: metrics
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /metrics
+              port: metrics
+          {{- end }}
           resources:
             {{- toYaml $.Values.resources | nindent 12 }}
       {{- with $.Values.nodeSelector }}

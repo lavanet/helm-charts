@@ -195,11 +195,6 @@ Kubernetes: `>=1.16.0-0`
 | chains.lav1.key.secretKey | string | `"passphrase"` | the key in the kubernetes secret to use |
 | chains.lav1.key.secretName | string | `"wallet"` | the kubernetes secret name containing the private key |
 | chains.lav1.keyringBackend | string | `"test"` | provider keyring backend |
-| chains.lav1.log.format | string | `"json"` | log format, can be json or text |
-| chains.lav1.log.level | string | `"info"` | log level |
-| chains.lav1.metrics.enabled | bool | `true` | should enable prometheus metrics |
-| chains.lav1.metrics.port | int | `3200` | prometheus metrics address |
-| chains.lav1.metrics.serviceMonitor.enabled | bool | `false` |  |
 | chains.lav1.node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | lava node to connect to |
 | chains.lav1.persistence.accessModes[0] | string | `"ReadWriteOnce"` |  |
 | chains.lav1.persistence.enabled | bool | `true` | should create pvc for the provider data |
@@ -217,6 +212,11 @@ Kubernetes: `>=1.16.0-0`
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
+| log.format | string | `"json"` | log format, can be json or text |
+| log.level | string | `"info"` | log level |
+| metrics.enabled | bool | `true` | should enable prometheus metrics |
+| metrics.port | int | `3200` | prometheus metrics address |
+| metrics.serviceMonitor.enabled | bool | `false` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |

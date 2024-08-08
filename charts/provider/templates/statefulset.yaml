@@ -68,7 +68,7 @@ spec:
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           args:
             - "rpcprovider"
-            {{- if (empty $itemValue.existingSecret) }}
+            {{- if $itemValue.existingSecret }}
             - config.yml
             {{- else }}
             - {{ $itemValue.existingSecretKey }}
@@ -90,9 +90,9 @@ spec:
             - {{ $itemValue.cache.address }}
             {{- end }}
             - --log_level
-            - {{ $itemValue.log.level }}
+            - {{ $.Values.log.level }}
             - --log_format
-            - {{ $itemValue.log.format }}
+            - {{ $.Values.log.format }}
           env:
             - name: MY_POD_INDEX
               valueFrom:
@@ -102,9 +102,9 @@ spec:
             - name: provider
               containerPort: {{ $.Values.service.port }}
               protocol: TCP
-          {{- if $itemValue.metrics.enabled }}
+          {{- if $.Values.metrics.enabled }}
             - name: metrics
-              containerPort: {{ $itemValue.metrics.port }}
+              containerPort: {{ $.Values.metrics.port }}
               protocol: TCP
           {{- end }}
           livenessProbe:

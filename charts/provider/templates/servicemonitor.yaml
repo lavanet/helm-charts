@@ -1,4 +1,4 @@
-{{- if and $itemValue.metrics.enabled $itemValue.metrics.serviceMonitor.enabled }}
+{{- if and $.Values.metrics.enabled $.Values.metrics.serviceMonitor.enabled }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -7,30 +7,30 @@ metadata:
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
 spec:
-  jobLabel: {{ $itemValue.metrics.serviceMonitor.jobLabel | quote }}
+  jobLabel: {{ $.Values.metrics.serviceMonitor.jobLabel | quote }}
   endpoints:
     - port: metrics
       path: /metrics
-      {{- if $itemValue.metrics.serviceMonitor.interval }}
-      interval: {{ $itemValue.metrics.serviceMonitor.interval }}
+      {{- if $.Values.metrics.serviceMonitor.interval }}
+      interval: {{ $.Values.metrics.serviceMonitor.interval }}
       {{- end }}
-      {{- if $itemValue.metrics.serviceMonitor.scrapeTimeout }}
-      scrapeTimeout: {{ $itemValue.metrics.serviceMonitor.scrapeTimeout }}
+      {{- if $.Values.metrics.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ $.Values.metrics.serviceMonitor.scrapeTimeout }}
       {{- end }}
-      {{- if $itemValue.metrics.serviceMonitor.honorLabels }}
-      honorLabels: {{ $itemValue.metrics.serviceMonitor.honorLabels }}
+      {{- if $.Values.metrics.serviceMonitor.honorLabels }}
+      honorLabels: {{ $.Values.metrics.serviceMonitor.honorLabels }}
       {{- end }}
-      {{- if $itemValue.metrics.serviceMonitor.metricRelabelings }}
+      {{- if $.Values.metrics.serviceMonitor.metricRelabelings }}
       metricRelabelings:
-      {{ tpl (toYaml $itemValue.metrics.serviceMonitor.metricRelabelings | indent 4) $ }}
+      {{ tpl (toYaml $.Values.metrics.serviceMonitor.metricRelabelings | indent 4) $ }}
       {{- end }}
-      {{- if $itemValue.metrics.serviceMonitor.relabelings }}
+      {{- if $.Values.metrics.serviceMonitor.relabelings }}
       relabelings:
-      {{ tpl (toYaml $itemValue.metrics.serviceMonitor.relabelings | indent 4) $ }}
+      {{ tpl (toYaml $.Values.metrics.serviceMonitor.relabelings | indent 4) $ }}
       {{- end }}
   namespaceSelector:
     matchNames:
       - {{ $.Chart.namespace }}
   selector:
-    matchLabels: {{ include "provider.matchLabels" . | nindent 6 }}
+    matchLabels: {{ include "provider.matchLabels" $ | nindent 6 }}
 {{- end }}

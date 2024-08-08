@@ -74,26 +74,26 @@ tolerations: []
 
 affinity: {}
 
+metrics:
+  # -- should enable prometheus metrics
+  enabled: true
+  # -- prometheus metrics address
+  port: 3200
+  serviceMonitor:
+    enabled: false
+
+log:
+  # -- log level
+  level: info
+  # -- log format, can be json or text
+  format: json
+
 chains:
   lav1:
     # -- existing configuration secret name
     existingSecret: "config"
     # -- existing configuration secret key
     existingSecretKey: "config.yml"
-
-    metrics:
-      # -- should enable prometheus metrics
-      enabled: true
-      # -- prometheus metrics address
-      port: 3200
-      serviceMonitor:
-        enabled: false
-
-    log:
-      # -- log level
-      level: info
-      # -- log format, can be json or text
-      format: json
 
     cache:
       # -- should add cache arg to provider

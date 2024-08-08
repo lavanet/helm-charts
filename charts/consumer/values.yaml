@@ -76,6 +76,53 @@ tolerations: []
 
 affinity: {}
 
+log:
+  level: warn
+  format: json
+
+geolocation: 2
+
+node: https://testnet2-rpc.lavapro.xyz:443
+
+chainId: testnet
+
+keyringBackend: test
+
+wallet: test
+
+key:
+  # -- the kubernetes secret name containing the private key
+  secretName: "wallet"
+  # -- the key in the kubernetes secret to use
+  secretKey: "passphrase"
+  # -- the kubernetes secret that contains the password for the private key
+  passwordSecretName: "wallet"
+  # -- the key in the kubernetes secret that contains the password for the private key
+  passwordSecretKey: "password"
+
+cache:
+  # -- should add cache arg
+  enabled: true
+  # -- cache address
+  address: cache:20100
+
+# -- should disable conflict transactions
+disableConflictTransactions: true
+
+# -- address of the relay server
+relayServerAddress:
+
+# -- address of the report server
+reportsBeAddress:
+
+metrics:
+  # -- should enable prometheus metrics
+  enabled: true
+  # -- prometheus metrics address
+  port: 3200
+  serviceMonitor:
+    enabled: false
+
 chains:
   lav1:
     metrics_port: 3007
