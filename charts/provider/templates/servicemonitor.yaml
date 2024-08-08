@@ -1,13 +1,11 @@
-{{- range $itemKey, $itemValue := $.Values.chains }}
 {{- if and $itemValue.metrics.enabled $itemValue.metrics.serviceMonitor.enabled }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
+  name: {{ include "provider.fullname" $ }}
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
-    app.lavanet.io/chain: {{ $itemKey | lower }}
 spec:
   jobLabel: {{ $itemValue.metrics.serviceMonitor.jobLabel | quote }}
   endpoints:
@@ -35,5 +33,4 @@ spec:
       - {{ $.Chart.namespace }}
   selector:
     matchLabels: {{ include "provider.matchLabels" . | nindent 6 }}
-{{- end }}
 {{- end }}
