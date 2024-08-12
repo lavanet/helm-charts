@@ -3,10 +3,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "provider.fullname" $ }}
-  namespace: {{ default (include  "provider.namespace" .) .Values.metrics.serviceMonitor.namespace | quote }}
+  name: {{ include "consumer.fullname" $ }}
+  namespace: {{ default (include  "consumer.namespace" .) .Values.metrics.serviceMonitor.namespace | quote }}
   labels:
-    {{- include "provider.labels" $ | nindent 4 }}
+    {{- include "consumer.labels" $ | nindent 4 }}
 spec:
   jobLabel: {{ $.Values.metrics.serviceMonitor.jobLabel | quote }}
   endpoints:
@@ -31,7 +31,7 @@ spec:
       {{- end }}
   namespaceSelector:
     matchNames:
-      - {{ include "provider.namespace" $ }}
+      - {{ include "consumer.namespace" $ }}
   selector:
-    matchLabels: {{ include "provider.selectorLabels" $ | nindent 6 }}
+    matchLabels: {{ include "consumer.selectorLabels" $ | nindent 6 }}
 {{- end }}

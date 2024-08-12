@@ -8,7 +8,7 @@ sources:
 type: application
 version: 0.3.6
 appVersion: "v2.2.6"
-kubeVersion: ">=1.16.0-0"
+kubeVersion: ">=1.25.0-0"
 home: https://lavanet.xyz
 keywords:
   - cache

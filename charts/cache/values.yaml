@@ -76,6 +76,8 @@ affinity: {}
 metrics:
   enabled: true
   port: 20200
+  serviceMonitor:
+    enabled: false
 
 log:
   level: info

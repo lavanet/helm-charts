@@ -62,9 +62,9 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Match Labels
+Expand the namespace of the release.
+Allows overriding it for multi-namespace deployments in combined charts.
 */}}
-{{- define "provider.matchLabels" -}}
-release: {{ $.Release.Name }}
-app: "{{ template "provider.name" $ }}"
-{{- end -}}
+{{- define "provider.namespace" -}}
+{{- default .Release.Namespace .Values.namespaceOverride | trunc 63 | trimSuffix "-" -}}
+{{- end }}
