@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 0.3.7](https://img.shields.io/badge/Version-0.3.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
+![Version: 0.3.8](https://img.shields.io/badge/Version-0.3.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -182,55 +182,58 @@ Kubernetes: `>=1.25.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity | object | `{}` |  |
-| cache.address | string | `"provider-cache:20100"` | cache address |
-| cache.enabled | bool | `true` | should add cache arg to provider |
-| chainId | string | `"lava-testnet-2"` | lava chain id |
-| chains.lav1.existingSecret | string | `"provider-config"` | existing configuration secret name |
-| chains.lav1.existingSecretKey | string | `"config.yml"` | existing configuration secret key |
-| chains.lav1.persistence.accessModes[0] | string | `"ReadWriteOnce"` |  |
-| chains.lav1.persistence.enabled | bool | `true` | should create pvc for the provider data |
-| chains.lav1.persistence.size | string | `"8Gi"` |  |
-| fullnameOverride | string | `""` |  |
-| geolocation | string | `"2"` | provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations) |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/lavanet/lava/lavap"` |  |
-| image.tag | string | `""` | overrides the image tag whose default is the chart appVersion. |
-| imagePullSecrets | list | `[]` |  |
-| ingress.annotations | object | `{}` |  |
-| ingress.className | string | `""` |  |
-| ingress.enabled | bool | `false` |  |
+| affinity | object | `{}` | Assign custom [affinity] rules to the deployment |
+| cache.address | string | `"provider-cache:20100"` | Provider cache address |
+| cache.enabled | bool | `true` | Enable provider cache supports |
+| chainId | string | `"lava-testnet-2"` | Lava chain id |
+| fullnameOverride | string | `""` | String to fully override `"provider.fullname"` |
+| geolocation | string | `"2"` | Provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations) |
+| image.pullPolicy | string | `"IfNotPresent"` | Image pull policy for the provider |
+| image.repository | string | `"ghcr.io/lavanet/lava/lavap"` | Repository to use for the provider |
+| image.tag | string | `""` (defaults to Chart.appVersion) | Tag to use for the provider |
+| imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry |
+| ingress.annotations | object | `{}` | Additional ingress annotations |
+| ingress.className | string | `""` | Defines which ingress controller will implement the resource |
+| ingress.enabled | bool | `false` | Enable an ingress resource for the Provider |
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
-| ingress.tls | list | `[]` |  |
-| key | object | `{"passwordSecretKey":"password","passwordSecretName":"wallet","secretKey":"key","secretName":"wallet"}` | information about the private key to use for the node |
-| key.passwordSecretKey | string | `"password"` | the key in the kubernetes secret that contains the password for the private key |
-| key.passwordSecretName | string | `"wallet"` | the kubernetes secret that contains the password for the private key |
-| key.secretKey | string | `"key"` | the key in the kubernetes secret to use |
-| key.secretName | string | `"wallet"` | the kubernetes secret name containing the private key |
-| keyringBackend | string | `"test"` | provider keyring backend |
-| log.format | string | `"json"` | log format, can be json or text |
-| log.level | string | `"info"` | log level |
-| metrics.enabled | bool | `true` | should enable prometheus metrics |
-| metrics.port | int | `3200` | prometheus metrics address |
-| metrics.serviceMonitor.enabled | bool | `true` |  |
-| metrics.serviceMonitor.namespace | string | `"default"` |  |
-| nameOverride | string | `""` |  |
-| node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | lava node to connect to |
-| nodeSelector | object | `{}` |  |
-| podAnnotations | object | `{}` |  |
+| ingress.tls | list | `[]` | Enable TLS configuration for the hostname |
+| key | object | `{"passwordSecretKey":"password","passwordSecretName":"wallet","secretKey":"key","secretName":"wallet"}` | Information about the private key to use for the node |
+| key.passwordSecretKey | string | `"password"` | The key in the secret that contains the password for the private key |
+| key.passwordSecretName | string | `"wallet"` | The secret that contains the password for the private key |
+| key.secretKey | string | `"key"` | The key in the secret to use |
+| key.secretName | string | `"wallet"` | The secret name containing the private key |
+| keyringBackend | string | `"test"` | Provider keyring backend |
+| log.format | string | `"json"` | Provider log format, can be json or text |
+| log.level | string | `"info"` | Provider log level |
+| metrics.enabled | bool | `true` | Should enable prometheus metrics |
+| metrics.port | int | `3200` | Metrics service port |
+| metrics.serviceMonitor.additionalLabels | object | `{}` | Prometheus ServiceMonitor labels |
+| metrics.serviceMonitor.annotations | object | `{}` | Prometheus ServiceMonitor annotations |
+| metrics.serviceMonitor.enabled | bool | `false` | Enable a prometheus ServiceMonitor |
+| metrics.serviceMonitor.interval | string | `"30s"` | Prometheus ServiceMonitor interval |
+| metrics.serviceMonitor.metricRelabelings | list | `[]` | Prometheus [MetricRelabelConfigs] to apply to samples before ingestion |
+| metrics.serviceMonitor.namespace | string | `""` | Prometheus ServiceMonitor namespace |
+| metrics.serviceMonitor.relabelings | list | `[]` | Prometheus [RelabelConfigs] to apply to samples before scraping |
+| metrics.serviceMonitor.scheme | string | `""` | Prometheus ServiceMonitor scheme |
+| metrics.serviceMonitor.selector | object | `{}` | Prometheus ServiceMonitor selector |
+| metrics.serviceMonitor.tlsConfig | object | `{}` | Prometheus ServiceMonitor tlsConfig |
+| nameOverride | string | `""` | Provide a name in place of release name |
+| node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | Lava node to connect to |
+| nodeSelector | object | `{}` | [Node selector] |
+| podAnnotations | object | `{}` | Annotations for the all deployed pods |
 | podSecurityContext | object | `{}` |  |
-| replicaCount | int | `1` |  |
-| resources | object | `{}` |  |
+| replicaCount | int | `1` | The number of provider pods to run. |
+| resources | object | `{}` | Resource limits and requests for the provider pods |
 | securityContext | object | `{}` |  |
-| service.port | int | `2200` |  |
-| service.type | string | `"ClusterIP"` |  |
+| service.port | int | `2200` | Provider service port |
+| service.type | string | `"ClusterIP"` | Provider service type |
 | serviceAccount.annotations | object | `{}` | annotations to add to the service account |
 | serviceAccount.create | bool | `true` | specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | the name of the service account to use. If not set and create is true, a name is generated using the fullname template |
-| tolerations | list | `[]` |  |
-| wallet | string | `"test"` | wallet name |
+| tolerations | list | `[]` | [Tolerations] for use with node taints |
+| wallet | string | `"test"` | Wallet name |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

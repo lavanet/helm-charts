@@ -2,7 +2,7 @@
 
 Lava helm chart for the cache service
 
-![Version: 0.3.7](https://img.shields.io/badge/Version-0.3.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
+![Version: 0.3.8](https://img.shields.io/badge/Version-0.3.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
 
 ## Lavanet Cache Helm Chart
 
@@ -27,44 +27,53 @@ Kubernetes: `>=1.25.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity | object | `{}` |  |
+| affinity | object | `{}` | Assign custom [affinity] rules to the deployment |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| expiration_multiplier | string | `nil` | the expiration multiplier for items in the cache |
-| expiration_non_finalized_multiplier | string | `nil` | the expiration non finalized multiplier for items in the cache |
-| fullnameOverride | string | `""` |  |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/lavanet/lava/lavap"` |  |
-| image.tag | string | `""` |  |
-| imagePullSecrets | list | `[]` |  |
-| ingress.annotations | object | `{}` |  |
-| ingress.className | string | `""` |  |
-| ingress.enabled | bool | `false` |  |
+| expiration_multiplier | string | `nil` | The expiration multiplier for items in the cache |
+| expiration_non_finalized_multiplier | string | `nil` | The expiration non finalized multiplier for items in the cache |
+| fullnameOverride | string | `""` | String to fully override `"provider.fullname"` |
+| image.pullPolicy | string | `"IfNotPresent"` | Image pull policy for the cache |
+| image.repository | string | `"ghcr.io/lavanet/lava/lavap"` | Repository to use for the cache |
+| image.tag | string | `""` (defaults to Chart.appVersion) | Tag to use for the provider |
+| imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry |
+| ingress.annotations | object | `{}` | Additional ingress annotations |
+| ingress.className | string | `""` | Defines which ingress controller will implement the resource |
+| ingress.enabled | bool | `false` | Enable an ingress resource for the Consumer |
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
-| ingress.tls | list | `[]` |  |
-| log.format | string | `"json"` |  |
-| log.level | string | `"info"` |  |
-| max_items | string | `nil` | max items allowed in the cache |
-| metrics.enabled | bool | `true` |  |
-| metrics.port | int | `20200` |  |
-| metrics.serviceMonitor.enabled | bool | `false` |  |
-| nameOverride | string | `""` |  |
-| nodeSelector | object | `{}` |  |
-| podAnnotations | object | `{}` |  |
+| ingress.tls | list | `[]` | Enable TLS configuration for the hostname |
+| log.format | string | `"json"` | Cache log format, can be json or text |
+| log.level | string | `"info"` | Cache log level |
+| max_items | string | `nil` | Max items allowed in the cache |
+| metrics.enabled | bool | `true` | Should enable prometheus metrics |
+| metrics.port | int | `20200` | Metrics service port |
+| metrics.serviceMonitor.additionalLabels | object | `{}` | Prometheus ServiceMonitor labels |
+| metrics.serviceMonitor.annotations | object | `{}` | Prometheus ServiceMonitor annotations |
+| metrics.serviceMonitor.enabled | bool | `false` | Enable a prometheus ServiceMonitor |
+| metrics.serviceMonitor.interval | string | `"30s"` | Prometheus ServiceMonitor interval |
+| metrics.serviceMonitor.metricRelabelings | list | `[]` | Prometheus [MetricRelabelConfigs] to apply to samples before ingestion |
+| metrics.serviceMonitor.namespace | string | `""` | Prometheus ServiceMonitor namespace |
+| metrics.serviceMonitor.relabelings | list | `[]` | Prometheus [RelabelConfigs] to apply to samples before scraping |
+| metrics.serviceMonitor.scheme | string | `""` | Prometheus ServiceMonitor scheme |
+| metrics.serviceMonitor.selector | object | `{}` | Prometheus ServiceMonitor selector |
+| metrics.serviceMonitor.tlsConfig | object | `{}` | Prometheus ServiceMonitor tlsConfig |
+| nameOverride | string | `""` | Provide a name in place of release name |
+| nodeSelector | object | `{}` | [Node selector] |
+| podAnnotations | object | `{}` | Annotations for the all deployed pods |
 | podSecurityContext | object | `{}` |  |
-| replicaCount | int | `1` |  |
-| resources | object | `{}` |  |
+| replicaCount | int | `1` | The number of cache pods to run. |
+| resources | object | `{}` | Resource limits and requests for the cache pods |
 | securityContext | object | `{}` |  |
-| service.port | int | `20100` |  |
-| service.type | string | `"ClusterIP"` |  |
-| serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.create | bool | `true` |  |
-| serviceAccount.name | string | `""` |  |
-| tolerations | list | `[]` |  |
+| service.port | int | `20100` | Cache service port |
+| service.type | string | `"ClusterIP"` | Cache service type |
+| serviceAccount.annotations | object | `{}` | annotations to add to the service account |
+| serviceAccount.create | bool | `true` | specifies whether a service account should be created |
+| serviceAccount.name | string | `""` | the name of the service account to use. If not set and create is true, a name is generated using the fullname template |
+| tolerations | list | `[]` | [Tolerations] for use with node taints |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

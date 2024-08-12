@@ -1,20 +1,32 @@
+# -- The number of cache pods to run.
 replicaCount: 1
 
 image:
+  # -- Repository to use for the cache
   repository: ghcr.io/lavanet/lava/lavap
+  # -- Image pull policy for the cache
   pullPolicy: IfNotPresent
+  # -- Tag to use for the provider
+  # @default -- `""` (defaults to Chart.appVersion)
   tag: ""
 
+# -- Secrets with credentials to pull images from a private registry
 imagePullSecrets: []
+# -- Provide a name in place of release name
 nameOverride: ""
+# -- String to fully override `"provider.fullname"`
 fullnameOverride: ""
 
 serviceAccount:
+  # -- specifies whether a service account should be created
   create: true
+  # -- annotations to add to the service account
   annotations: {}
+  # -- the name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+# -- Annotations for the all deployed pods
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -29,12 +41,17 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
+  # -- Cache service type
   type: ClusterIP
+  # -- Cache service port
   port: 20100
 
 ingress:
+  # -- Enable an ingress resource for the Consumer
   enabled: false
+  # -- Defines which ingress controller will implement the resource
   className: ""
+  # -- Additional ingress annotations
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -43,11 +60,13 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+  # -- Enable TLS configuration for the hostname
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
 
+# -- Resource limits and requests for the cache pods
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -67,25 +86,53 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+# -- [Node selector]
 nodeSelector: {}
 
+# -- [Tolerations] for use with node taints
 tolerations: []
 
+# -- Assign custom [affinity] rules to the deployment
 affinity: {}
 
 metrics:
+  # -- Should enable prometheus metrics
   enabled: true
+  # --  Metrics service port
   port: 20200
   serviceMonitor:
+    # -- Enable a prometheus ServiceMonitor
     enabled: false
+    # -- Prometheus ServiceMonitor interval
+    interval: 30s
+    # -- Prometheus [RelabelConfigs] to apply to samples before scraping
+    relabelings: []
+    # -- Prometheus [MetricRelabelConfigs] to apply to samples before ingestion
+    metricRelabelings: []
+    # -- Prometheus ServiceMonitor selector
+    selector: {}
+      # prometheus: kube-prometheus
+
+    # -- Prometheus ServiceMonitor scheme
+    scheme: ""
+    # -- Prometheus ServiceMonitor tlsConfig
+    tlsConfig: {}
+    # -- Prometheus ServiceMonitor namespace
+    namespace: "" # "monitoring"
+    # -- Prometheus ServiceMonitor labels
+    additionalLabels: {}
+    # -- Prometheus ServiceMonitor annotations
+    annotations: {}
 
 log:
+  # -- Cache log level
   level: info
+  # -- Cache log format, can be json or text
   format: json
 
-# -- the expiration multiplier for items in the cache
+# -- The expiration multiplier for items in the cache
 expiration_multiplier:
-# -- the expiration non finalized multiplier for items in the cache
+# -- The expiration non finalized multiplier for items in the cache
 expiration_non_finalized_multiplier:
-# -- max items allowed in the cache
+# -- Max items allowed in the cache
 max_items:

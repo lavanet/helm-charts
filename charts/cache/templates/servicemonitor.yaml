@@ -7,6 +7,10 @@ metadata:
   namespace: {{ default (include  "cache.namespace" .) .Values.metrics.serviceMonitor.namespace | quote }}
   labels:
     {{- include "cache.labels" $ | nindent 4 }}
+  {{- with $.Values.metrics.serviceMonitor.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   jobLabel: {{ $.Values.metrics.serviceMonitor.jobLabel | quote }}
   endpoints:
@@ -28,6 +32,13 @@ spec:
       {{- if $.Values.metrics.serviceMonitor.relabelings }}
       relabelings:
       {{ tpl (toYaml $.Values.metrics.serviceMonitor.relabelings | indent 4) $ }}
+      {{- end }}
+      {{- with $.Values.metrics.serviceMonitor.scheme }}
+      scheme: {{ . }}
+      {{- end }}
+      {{- with $.Values.metrics.serviceMonitor.tlsConfig }}
+      tlsConfig:
+        {{- toYaml . | nindent 8 }}
       {{- end }}
   namespaceSelector:
     matchNames:

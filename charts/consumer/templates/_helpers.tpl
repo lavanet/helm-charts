@@ -68,3 +68,10 @@ Allows overriding it for multi-namespace deployments in combined charts.
 {{- define "consumer.namespace" -}}
 {{- default .Release.Namespace .Values.namespaceOverride | trunc 63 | trimSuffix "-" -}}
 {{- end }}
+
+{{/*
+Expand the host of the release.
+*/}}
+{{- define "consumer.domain" -}}
+{{- default (include "consumer.fullname" .) .Values.ingress.domain | trunc 63 | trimSuffix "-" -}}
+{{- end }}

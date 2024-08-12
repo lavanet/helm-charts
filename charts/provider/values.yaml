@@ -1,13 +1,20 @@
+# -- The number of provider pods to run.
 replicaCount: 1
 
 image:
+  # -- Repository to use for the provider
   repository: ghcr.io/lavanet/lava/lavap
+  # -- Image pull policy for the provider
   pullPolicy: IfNotPresent
-  # -- overrides the image tag whose default is the chart appVersion.
+  # -- Tag to use for the provider
+  # @default -- `""` (defaults to Chart.appVersion)
   tag: ""
 
+# -- Secrets with credentials to pull images from a private registry
 imagePullSecrets: []
+# -- Provide a name in place of release name
 nameOverride: ""
+# -- String to fully override `"provider.fullname"`
 fullnameOverride: ""
 
 serviceAccount:
@@ -19,6 +26,7 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+# -- Annotations for the all deployed pods
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -33,12 +41,17 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
+  # -- Provider service type
   type: ClusterIP
+  # -- Provider service port
   port: 2200
 
 ingress:
+  # -- Enable an ingress resource for the Provider
   enabled: false
+  # -- Defines which ingress controller will implement the resource
   className: ""
+  # -- Additional ingress annotations
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -47,11 +60,13 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+  # -- Enable TLS configuration for the hostname
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
 
+# -- Resource limits and requests for the provider pods
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -64,68 +79,93 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+# -- [Node selector]
 nodeSelector: {}
 
+# -- [Tolerations] for use with node taints
 tolerations: []
 
+# -- Assign custom [affinity] rules to the deployment
 affinity: {}
 
 metrics:
-  # -- should enable prometheus metrics
+  # -- Should enable prometheus metrics
   enabled: true
-  # -- prometheus metrics address
+  # --  Metrics service port
   port: 3200
   serviceMonitor:
+    # -- Enable a prometheus ServiceMonitor
     enabled: false
+    # -- Prometheus ServiceMonitor interval
+    interval: 30s
+    # -- Prometheus [RelabelConfigs] to apply to samples before scraping
+    relabelings: []
+    # -- Prometheus [MetricRelabelConfigs] to apply to samples before ingestion
+    metricRelabelings: []
+    # -- Prometheus ServiceMonitor selector
+    selector: {}
+      # prometheus: kube-prometheus
+
+    # -- Prometheus ServiceMonitor scheme
+    scheme: ""
+    # -- Prometheus ServiceMonitor tlsConfig
+    tlsConfig: {}
+    # -- Prometheus ServiceMonitor namespace
+    namespace: "" # "monitoring"
+    # -- Prometheus ServiceMonitor labels
+    additionalLabels: {}
+    # -- Prometheus ServiceMonitor annotations
+    annotations: {}
 
 log:
-  # -- log level
+  # -- Provider log level
   level: info
-  # -- log format, can be json or text
+  # -- Provider log format, can be json or text
   format: json
 
 cache:
-  # -- should add cache arg to provider
+  # -- Enable provider cache supports
   enabled: true
-  # -- cache address
+  # -- Provider cache address
   address: provider-cache:20100
 
-# -- wallet name
+# -- Wallet name
 wallet: "test"
 
-# -- information about the private key to use for the node
+# -- Information about the private key to use for the node
 key:
-  # -- the kubernetes secret name containing the private key
+  # -- The secret name containing the private key
   secretName: "wallet"
-  # -- the key in the kubernetes secret to use
+  # -- The key in the secret to use
   secretKey: "key"
-  # -- the kubernetes secret that contains the password for the private key
+  # -- The secret that contains the password for the private key
   passwordSecretName: "wallet"
-  # -- the key in the kubernetes secret that contains the password for the private key
+  # -- The key in the secret that contains the password for the private key
   passwordSecretKey: "password"
 
-# -- provider keyring backend
+# -- Provider keyring backend
 keyringBackend: "test"
-# -- lava node to connect to
+# -- Lava node to connect to
 node: https://testnet2-rpc.lavapro.xyz:443
-# -- lava chain id
+# -- Lava chain id
 chainId: "lava-testnet-2"
-# -- provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations)
+# -- Provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations)
 geolocation: "2"
 
+# @ignored
 chains:
   lav1:
-    # -- existing configuration secret name
+    # -- Existing configuration secret name
     existingSecret: "provider-config"
-    # -- existing configuration secret key
+    # -- Existing configuration secret key
     existingSecretKey: "config.yml"
 
     persistence:
-      # -- should create pvc for the provider data
+      # -- Should create pvc for the provider data
       enabled: true
       accessModes:
         - "ReadWriteOnce"
-      size: "8Gi"
+      size: "2Gi"
 
     # -- list of interface to provide, only if existingSecret is empty
     # interfaces:
