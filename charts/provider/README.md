@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 0.3.6](https://img.shields.io/badge/Version-0.3.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
+![Version: 0.3.7](https://img.shields.io/badge/Version-0.3.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -176,7 +176,7 @@ helm install my-provider lavanet/provider
 
 ## Requirements
 
-Kubernetes: `>=1.16.0-0`
+Kubernetes: `>=1.25.0-0`
 
 ## Values
 
@@ -214,7 +214,8 @@ Kubernetes: `>=1.16.0-0`
 | log.level | string | `"info"` | log level |
 | metrics.enabled | bool | `true` | should enable prometheus metrics |
 | metrics.port | int | `3200` | prometheus metrics address |
-| metrics.serviceMonitor.enabled | bool | `false` |  |
+| metrics.serviceMonitor.enabled | bool | `true` |  |
+| metrics.serviceMonitor.namespace | string | `"default"` |  |
 | nameOverride | string | `""` |  |
 | node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | lava node to connect to |
 | nodeSelector | object | `{}` |  |
