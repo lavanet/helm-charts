@@ -151,15 +151,16 @@ The final step is to refrence the newly created secrets in the chart's values fi
 service:
   port: 2200
 
+key:
+  secretName: "wallet"
+  secretKey: "key"
+  passwordSecretName: "wallet"
+  passwordSecretKey: "password"
+
 chains:
   lav1:
     existingSecret: "provider-config"
     existingSecretKey: "config.yml"
-    key:
-      secretName: "wallet"
-      secretKey: "key"
-      passwordSecretName: "wallet"
-      passwordSecretKey: "password"
 ```
 
 ## Installing the Chart
