@@ -32,20 +32,36 @@ Kubernetes: `>=1.25.0-0`
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| certificate.additionalHosts | list | `[]` | Certificate Subject Alternate Names (SANs) |
+| certificate.annotations | object | `{}` | Annotations to be applied to the Server Certificate |
+| certificate.domain | string | `""` (defaults to global.domain) | Certificate primary domain (commonName) |
+| certificate.duration | string | `""` (defaults to 2160h = 90d if not specified) | The requested 'duration' (i.e. lifetime) of the certificate. # Ref: https://cert-manager.io/docs/usage/certificate/#renewal |
+| certificate.enabled | bool | `false` | Deploy a Certificate resource (requires cert-manager) |
+| certificate.issuer.group | string | `""` | Certificate issuer group. Set if using an external issuer. Eg. `cert-manager.io` |
+| certificate.issuer.kind | string | `""` | Certificate issuer kind. Either `Issuer` or `ClusterIssuer` |
+| certificate.issuer.name | string | `""` | Certificate issuer name. Eg. `letsencrypt` |
+| certificate.privateKey.algorithm | string | `"RSA"` | Algorithm used to generate certificate private key. One of: `RSA`, `Ed25519` or `ECDSA` |
+| certificate.privateKey.encoding | string | `"PKCS1"` | The private key cryptography standards (PKCS) encoding for private key. Either: `PCKS1` or `PKCS8` |
+| certificate.privateKey.rotationPolicy | string | `"Never"` | Rotation policy of private key when certificate is re-issued. Either: `Never` or `Always` |
+| certificate.privateKey.size | int | `2048` | Key bit size of the private key. If algorithm is set to `Ed25519`, size is ignored. |
+| certificate.renewBefore | string | `""` (defaults to 360h = 15d if not specified) | How long before the expiry a certificate should be renewed. # Ref: https://cert-manager.io/docs/usage/certificate/#renewal |
+| certificate.secretTemplateAnnotations | object | `{}` | Annotations that allow the certificate to be composed from data residing in existing Kubernetes Resources |
+| certificate.usages | list | `[]` | Usages for the certificate ## Ref: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage |
 | expiration_multiplier | string | `nil` | The expiration multiplier for items in the cache |
 | expiration_non_finalized_multiplier | string | `nil` | The expiration non finalized multiplier for items in the cache |
-| fullnameOverride | string | `""` | String to fully override `"provider.fullname"` |
+| fullnameOverride | string | `""` | String to fully override `"cache.fullname"` |
+| global.domain | string | `"my-cache.local"` | Default domain used by all components # Used for ingresses, certificates, etc. |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy for the cache |
 | image.repository | string | `"ghcr.io/lavanet/lava/lavap"` | Repository to use for the cache |
-| image.tag | string | `""` (defaults to Chart.appVersion) | Tag to use for the provider |
+| image.tag | string | `""` (defaults to Chart.appVersion) | Tag to use for the cache |
 | imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry |
 | ingress.annotations | object | `{}` | Additional ingress annotations |
-| ingress.className | string | `""` | Defines which ingress controller will implement the resource |
-| ingress.enabled | bool | `false` | Enable an ingress resource for the Consumer |
-| ingress.hosts[0].host | string | `"chart-example.local"` |  |
-| ingress.hosts[0].paths[0].path | string | `"/"` |  |
-| ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
-| ingress.tls | list | `[]` | Enable TLS configuration for the hostname |
+| ingress.className | string | `"nginx"` | Defines which ingress controller will implement the resource |
+| ingress.enabled | bool | `true` | Enable an ingress resource for the provider |
+| ingress.hostname | string | `""` (defaults to global.domain) | Cache hostname |
+| ingress.path | string | `"/"` | The path to Provider |
+| ingress.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
+| ingress.tls | bool | `true` | Enable TLS configuration for the domain defined at `global.domain` # TLS certificate will be retrieved from a TLS secret with name: `cache-tls` |
 | log.format | string | `"json"` | Cache log format, can be json or text |
 | log.level | string | `"info"` | Cache log level |
 | max_items | string | `nil` | Max items allowed in the cache |

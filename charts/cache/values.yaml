@@ -51,7 +51,7 @@ service:
   # -- Cache service port
   port: 20100
 
-ingress:  
+ingress:
   # -- Enable an ingress resource for the provider
   enabled: true
   # -- Defines which ingress controller will implement the resource

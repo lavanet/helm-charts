@@ -31,19 +31,42 @@ Kubernetes: `>=1.25.0-0`
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | cache.address | string | `"cache:20100"` | Cache address |
 | cache.enabled | bool | `true` | Should add cache arg |
+| certificate.additionalHosts | list | `[]` | Certificate Subject Alternate Names (SANs) |
+| certificate.annotations | object | `{}` | Annotations to be applied to the Server Certificate |
+| certificate.domain | string | `""` (defaults to global.domain) | Certificate primary domain (commonName) |
+| certificate.duration | string | `""` (defaults to 2160h = 90d if not specified) | The requested 'duration' (i.e. lifetime) of the certificate. # Ref: https://cert-manager.io/docs/usage/certificate/#renewal |
+| certificate.enabled | bool | `false` | Deploy a Certificate resource (requires cert-manager) |
+| certificate.issuer.group | string | `""` | Certificate issuer group. Set if using an external issuer. Eg. `cert-manager.io` |
+| certificate.issuer.kind | string | `""` | Certificate issuer kind. Either `Issuer` or `ClusterIssuer` |
+| certificate.issuer.name | string | `""` | Certificate issuer name. Eg. `letsencrypt` |
+| certificate.privateKey.algorithm | string | `"RSA"` | Algorithm used to generate certificate private key. One of: `RSA`, `Ed25519` or `ECDSA` |
+| certificate.privateKey.encoding | string | `"PKCS1"` | The private key cryptography standards (PKCS) encoding for private key. Either: `PCKS1` or `PKCS8` |
+| certificate.privateKey.rotationPolicy | string | `"Never"` | Rotation policy of private key when certificate is re-issued. Either: `Never` or `Always` |
+| certificate.privateKey.size | int | `2048` | Key bit size of the private key. If algorithm is set to `Ed25519`, size is ignored. |
+| certificate.renewBefore | string | `""` (defaults to 360h = 15d if not specified) | How long before the expiry a certificate should be renewed. # Ref: https://cert-manager.io/docs/usage/certificate/#renewal |
+| certificate.secretTemplateAnnotations | object | `{}` | Annotations that allow the certificate to be composed from data residing in existing Kubernetes Resources |
+| certificate.usages | list | `[]` | Usages for the certificate ## Ref: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage |
 | chainId | string | `"lava-testnet-2"` | Lava chain id |
 | disableConflictTransactions | bool | `true` | Should disable conflict transactions |
 | fullnameOverride | string | `""` | String to fully override `"consumer.fullname"` |
 | geolocation | int | `2` | Provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations) |
+| global.domain | string | `"my-consumer.local"` | Default domain used by all components # Used for ingresses, certificates, etc. |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy for the consumer |
 | image.repository | string | `"ghcr.io/lavanet/lava/lavap"` | Repository to use for the consumer |
 | image.tag | string | `""` (defaults to Chart.appVersion) | Tag to use for the consumer |
 | imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry |
 | ingress.annotations | object | `{}` | Additional ingress annotations |
-| ingress.className | string | `""` | Defines which ingress controller will implement the resource |
-| ingress.domain | string | `"my-consumer.local"` | Consumer host |
-| ingress.enabled | bool | `true` | Enable an ingress resource for the consumers |
-| ingress.tls | list | `[]` | Enable TLS configuration for the hostname |
+| ingress.className | string | `"nginx"` | Defines which ingress controller will implement the resource |
+| ingress.enabled | bool | `false` | Enable an ingress resource for the consumers |
+| ingress.path | string | `"/"` | The path to Consumer |
+| ingress.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
+| ingress.tls | bool | `true` | Enable TLS configuration for the domain defined at `global.domain` # TLS certificate will be retrieved from a TLS secret with name: `consumer-tls` |
+| ingressGrpc.annotations | object | `{}` | Additional ingress annotations |
+| ingressGrpc.className | string | `"nginx"` | Defines which ingress controller will implement the resource |
+| ingressGrpc.enabled | bool | `false` | Enable a grpc ingress resource for the consumers |
+| ingressGrpc.path | string | `"/"` | The path to Consumer |
+| ingressGrpc.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
+| ingressGrpc.tls | bool | `true` | Enable TLS configuration for the domain defined at `global.domain` # TLS certificate will be retrieved from a TLS secret with name: `consumer-grpc-tls` |
 | key.passwordSecretKey | string | `"password"` | The key in the kubernetes secret that contains the password for the private key |
 | key.passwordSecretName | string | `"wallet"` | The kubernetes secret that contains the password for the private key |
 | key.secretKey | string | `"key"` | The key in the kubernetes secret to use |

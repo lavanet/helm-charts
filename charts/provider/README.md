@@ -185,20 +185,35 @@ Kubernetes: `>=1.25.0-0`
 | affinity | object | `{}` | Assign custom [affinity] rules to the deployment |
 | cache.address | string | `"provider-cache:20100"` | Provider cache address |
 | cache.enabled | bool | `true` | Enable provider cache supports |
+| certificate.additionalHosts | list | `[]` | Certificate Subject Alternate Names (SANs) |
+| certificate.annotations | object | `{}` | Annotations to be applied to the Server Certificate |
+| certificate.domain | string | `""` (defaults to global.domain) | Certificate primary domain (commonName) |
+| certificate.duration | string | `""` (defaults to 2160h = 90d if not specified) | The requested 'duration' (i.e. lifetime) of the certificate. # Ref: https://cert-manager.io/docs/usage/certificate/#renewal |
+| certificate.enabled | bool | `false` | Deploy a Certificate resource (requires cert-manager) |
+| certificate.issuer.group | string | `""` | Certificate issuer group. Set if using an external issuer. Eg. `cert-manager.io` |
+| certificate.issuer.kind | string | `"ClusterIssuer"` | Certificate issuer kind. Either `Issuer` or `ClusterIssuer` |
+| certificate.issuer.name | string | `"selfsigned"` | Certificate issuer name. Eg. `letsencrypt` |
+| certificate.privateKey.algorithm | string | `"RSA"` | Algorithm used to generate certificate private key. One of: `RSA`, `Ed25519` or `ECDSA` |
+| certificate.privateKey.encoding | string | `"PKCS1"` | The private key cryptography standards (PKCS) encoding for private key. Either: `PCKS1` or `PKCS8` |
+| certificate.privateKey.rotationPolicy | string | `"Never"` | Rotation policy of private key when certificate is re-issued. Either: `Never` or `Always` |
+| certificate.privateKey.size | int | `2048` | Key bit size of the private key. If algorithm is set to `Ed25519`, size is ignored. |
+| certificate.renewBefore | string | `""` (defaults to 360h = 15d if not specified) | How long before the expiry a certificate should be renewed. # Ref: https://cert-manager.io/docs/usage/certificate/#renewal |
+| certificate.secretTemplateAnnotations | object | `{}` | Annotations that allow the certificate to be composed from data residing in existing Kubernetes Resources |
+| certificate.usages | list | `[]` | Usages for the certificate ## Ref: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage |
 | chainId | string | `"lava-testnet-2"` | Lava chain id |
 | fullnameOverride | string | `""` | String to fully override `"provider.fullname"` |
 | geolocation | string | `"2"` | Provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations) |
+| global.domain | string | `"my-provider.local"` | Default domain used by all components # Used for ingresses, certificates, etc. |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy for the provider |
 | image.repository | string | `"ghcr.io/lavanet/lava/lavap"` | Repository to use for the provider |
 | image.tag | string | `""` (defaults to Chart.appVersion) | Tag to use for the provider |
 | imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry |
-| ingress.annotations | object | `{}` | Additional ingress annotations |
-| ingress.className | string | `""` | Defines which ingress controller will implement the resource |
-| ingress.enabled | bool | `false` | Enable an ingress resource for the Provider |
-| ingress.hosts[0].host | string | `"chart-example.local"` |  |
-| ingress.hosts[0].paths[0].path | string | `"/"` |  |
-| ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
-| ingress.tls | list | `[]` | Enable TLS configuration for the hostname |
+| ingressGrpc.annotations | object | `{}` | Additional ingress annotations |
+| ingressGrpc.className | string | `"nginx"` | Defines which ingress controller will implement the resource |
+| ingressGrpc.enabled | bool | `false` | Enable an ingress resource for the provider |
+| ingressGrpc.path | string | `"/"` | The path to Provider |
+| ingressGrpc.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
+| ingressGrpc.tls | bool | `true` | Enable TLS configuration for the domain defined at `global.domain` # TLS certificate will be retrieved from a TLS secret with name: `provider-grpc-tls` |
 | key | object | `{"passwordSecretKey":"password","passwordSecretName":"wallet","secretKey":"key","secretName":"wallet"}` | Information about the private key to use for the node |
 | key.passwordSecretKey | string | `"password"` | The key in the secret that contains the password for the private key |
 | key.passwordSecretName | string | `"wallet"` | The secret that contains the password for the private key |

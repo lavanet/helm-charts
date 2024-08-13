@@ -51,7 +51,7 @@ service:
   # -- Provider service port
   port: 2200
 
-ingressGrpc:  
+ingressGrpc:
   # -- Enable an ingress resource for the provider
   enabled: false
   # -- Defines which ingress controller will implement the resource

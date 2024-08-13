@@ -19,7 +19,7 @@ spec:
       {{- range $key, $value := . }}
       {{ $key }}: {{ $value | quote }}
       {{- end }}
-    {{- end }} 
+    {{- end }}
   secretName: cache-tls
   commonName: {{ .Values.certificate.domain | default .Values.global.domain | quote }}
   dnsNames:
