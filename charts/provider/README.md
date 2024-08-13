@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
+![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -189,7 +189,7 @@ Kubernetes: `>=1.25.0-0`
 | certificate.additionalHosts | list | `[]` | Certificate Subject Alternate Names (SANs) |
 | certificate.annotations | object | `{}` | Annotations to be applied to the Server Certificate |
 | certificate.domain | string | `""` (defaults to global.domain) | Certificate primary domain (commonName) |
-| certificate.duration | string | `""` (defaults to 2160h = 90d if not specified) | The requested 'duration' (i.e. lifetime) of the certificate. # Ref: https://cert-manager.io/docs/usage/certificate/#renewal |
+| certificate.duration | string | `""` (defaults to 2160h = 90d if not specified) | The requested 'duration' (i.e. lifetime) of the certificate. # Ref: <https://cert-manager.io/docs/usage/certificate/#renewal> |
 | certificate.enabled | bool | `false` | Deploy a Certificate resource (requires cert-manager) |
 | certificate.issuer.group | string | `""` | Certificate issuer group. Set if using an external issuer. Eg. `cert-manager.io` |
 | certificate.issuer.kind | string | `"ClusterIssuer"` | Certificate issuer kind. Either `Issuer` or `ClusterIssuer` |
@@ -198,9 +198,9 @@ Kubernetes: `>=1.25.0-0`
 | certificate.privateKey.encoding | string | `"PKCS1"` | The private key cryptography standards (PKCS) encoding for private key. Either: `PCKS1` or `PKCS8` |
 | certificate.privateKey.rotationPolicy | string | `"Never"` | Rotation policy of private key when certificate is re-issued. Either: `Never` or `Always` |
 | certificate.privateKey.size | int | `2048` | Key bit size of the private key. If algorithm is set to `Ed25519`, size is ignored. |
-| certificate.renewBefore | string | `""` (defaults to 360h = 15d if not specified) | How long before the expiry a certificate should be renewed. # Ref: https://cert-manager.io/docs/usage/certificate/#renewal |
+| certificate.renewBefore | string | `""` (defaults to 360h = 15d if not specified) | How long before the expiry a certificate should be renewed. # Ref: <https://cert-manager.io/docs/usage/certificate/#renewal> |
 | certificate.secretTemplateAnnotations | object | `{}` | Annotations that allow the certificate to be composed from data residing in existing Kubernetes Resources |
-| certificate.usages | list | `[]` | Usages for the certificate ## Ref: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage |
+| certificate.usages | list | `[]` | Usages for the certificate ## Ref: <https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage> |
 | chainId | string | `"lava-testnet-2"` | Lava chain id |
 | fullnameOverride | string | `""` | String to fully override `"provider.fullname"` |
 | geolocation | string | `"2"` | Provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations) |
