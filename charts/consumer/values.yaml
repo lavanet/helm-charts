@@ -51,7 +51,7 @@ service:
 
 ingress:
   # -- Enable an ingress resource for the consumers
-  enabled: true
+  enabled: false
   # -- Defines which ingress controller will implement the resource
   className: "nginx"
   # -- Additional ingress annotations
@@ -68,7 +68,7 @@ ingress:
 
 ingressGrpc:
   # -- Enable a grpc ingress resource for the consumers
-  enabled: true
+  enabled: false
   # -- Defines which ingress controller will implement the resource
   className: "nginx"
   # -- Additional ingress annotations

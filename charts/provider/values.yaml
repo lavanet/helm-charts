@@ -53,7 +53,7 @@ service:
 
 ingressGrpc:  
   # -- Enable an ingress resource for the provider
-  enabled: true
+  enabled: false
   # -- Defines which ingress controller will implement the resource
   className: "nginx"
   # -- Additional ingress annotations
@@ -71,7 +71,7 @@ ingressGrpc:
 # TLS certificate configuration via cert-manager
 certificate:
   # -- Deploy a Certificate resource (requires cert-manager)
-  enabled: true
+  enabled: false
   # -- Certificate primary domain (commonName)
   # @default -- `""` (defaults to global.domain)
   domain: ""
