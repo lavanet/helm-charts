@@ -1,39 +1,39 @@
-{{- if .Values.ingress.enabled }}
+{{- if .Values.ingressGrpc.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "consumer.fullname" . }}
+  name: {{ include "consumer.fullname" . }}-grpc
   labels:
     {{- include "consumer.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
+  {{- with .Values.ingressGrpc.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- with .Values.ingress.className }}
+  {{- with .Values.ingressGrpc.className }}
   ingressClassName: {{ . }}
   {{- end }}
-  {{- if .Values.ingress.tls }}
+  {{- if .Values.ingressGrpc.tls }}
   tls:
     - hosts:
       {{- range $itemKey, $itemValue := $.Values.chains }}
       {{- range $interfaceEntry := $itemValue.interfaces }}
-      {{- if (ne ($interfaceEntry.interface | lower) "grpc") }}
+      {{- if (eq ($interfaceEntry.interface | lower) "grpc") }}
         - "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
       {{- end }}
       {{- end }}
       {{- end }}
-      secretName: consumer-tls
+      secretName: consumer-grpc-tls
   {{- end }}
   rules:
     {{- range $itemKey, $itemValue := $.Values.chains }}
     {{- range $interfaceEntry := $itemValue.interfaces }}
-    {{- if (ne ($interfaceEntry.interface | lower) "grpc") }}
+    {{- if (eq ($interfaceEntry.interface | lower) "grpc") }}
     - host: "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
       http:
         paths:
-          - path: {{ $.Values.ingress.path }}
-            pathType: {{ $.Values.ingress.pathType }}
+          - path: {{ $.Values.ingressGrpc.path }}
+            pathType: {{ $.Values.ingressGrpc.pathType }}
             backend:
               service:
                 name: {{ $itemKey | lower }}-{{ include "consumer.fullname" $ }}

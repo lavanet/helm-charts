@@ -103,7 +103,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.labels['apps.kubernetes.io/pod-index']
           ports:
-            - name: provider
+            - name: grpc
               containerPort: {{ $.Values.service.port }}
               protocol: TCP
           {{- if $.Values.metrics.enabled }}
@@ -114,11 +114,11 @@ spec:
           livenessProbe:
             httpGet:
               path: /lava/health
-              port: provider
+              port: grpc
           readinessProbe:
             httpGet:
               path: /lava/health
-              port: provider
+              port: grpc
           volumeMounts:
             - mountPath: "/lava"
               name: data

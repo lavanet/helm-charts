@@ -11,9 +11,9 @@ spec:
   type: {{ $.Values.service.type }}
   ports:
     - port: {{ $.Values.service.port }}
-      targetPort: provider
+      targetPort: grpc
       protocol: TCP
-      name: provider
+      name: grpc
   {{- if $.Values.metrics.enabled }}
     - port: {{ $.Values.metrics.port }}
       targetPort: metrics

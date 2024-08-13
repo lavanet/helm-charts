@@ -14,6 +14,7 @@ spec:
   selector:
     matchLabels:
       {{- include "consumer.selectorLabels" $ | nindent 6 }}
+      app.lavanet.io/chain: {{ $itemKey | lower }}
   template:
     metadata:
       annotations:
@@ -23,6 +24,7 @@ spec:
       {{- end }}
       labels:
         {{- include "consumer.selectorLabels" $ | nindent 8 }}
+        app.lavanet.io/chain: {{ $itemKey | lower }}
     spec:
       {{- with $.Values.imagePullSecrets }}
       imagePullSecrets:

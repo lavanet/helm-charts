@@ -68,3 +68,10 @@ Allows overriding it for multi-namespace deployments in combined charts.
 {{- define "provider.namespace" -}}
 {{- default .Release.Namespace .Values.namespaceOverride | trunc 63 | trimSuffix "-" -}}
 {{- end }}
+
+{{/*
+Expand the host of the release.
+*/}}
+{{- define "provider.domain" -}}
+{{- default (include "provider.fullname" .) .Values.global.domain | trunc 63 | trimSuffix "-" -}}
+{{- end }}

@@ -6,6 +6,7 @@ metadata:
   name: {{ $itemKey | lower }}-{{ include "consumer.fullname" $ }}
   labels:
     {{- include "consumer.labels" $ | nindent 4 }}
+    app.lavanet.io/chain: {{ $itemKey | lower }}
 spec:
   type: {{ $.Values.service.type }}
   ports:

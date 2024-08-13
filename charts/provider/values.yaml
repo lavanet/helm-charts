@@ -1,3 +1,8 @@
+global:
+  # -- Default domain used by all components
+  ## Used for ingresses, certificates, etc.
+  domain: my-provider.local
+
 # -- The number of provider pods to run.
 replicaCount: 1
 
@@ -46,25 +51,66 @@ service:
   # -- Provider service port
   port: 2200
 
-ingress:
-  # -- Enable an ingress resource for the Provider
-  enabled: false
+ingressGrpc:  
+  # -- Enable an ingress resource for the provider
+  enabled: true
   # -- Defines which ingress controller will implement the resource
-  className: ""
+  className: "nginx"
   # -- Additional ingress annotations
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  # -- Enable TLS configuration for the hostname
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  # -- Enable TLS configuration for the domain defined at `global.domain`
+  ## TLS certificate will be retrieved from a TLS secret with name: `provider-grpc-tls`
+  tls: true
+  # -- The path to Provider
+  path: /
+  # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
+  pathType: Prefix
+
+# TLS certificate configuration via cert-manager
+certificate:
+  # -- Deploy a Certificate resource (requires cert-manager)
+  enabled: true
+  # -- Certificate primary domain (commonName)
+  # @default -- `""` (defaults to global.domain)
+  domain: ""
+  # -- Certificate Subject Alternate Names (SANs)
+  additionalHosts: []
+  # -- The requested 'duration' (i.e. lifetime) of the certificate.
+  # @default -- `""` (defaults to 2160h = 90d if not specified)
+  ## Ref: https://cert-manager.io/docs/usage/certificate/#renewal
+  duration: ""
+  # -- How long before the expiry a certificate should be renewed.
+  # @default -- `""` (defaults to 360h = 15d if not specified)
+  ## Ref: https://cert-manager.io/docs/usage/certificate/#renewal
+  renewBefore: ""
+  # Certificate issuer
+  ## Ref: https://cert-manager.io/docs/concepts/issuer
+  issuer:
+    # -- Certificate issuer group. Set if using an external issuer. Eg. `cert-manager.io`
+    group: ""
+    # -- Certificate issuer kind. Either `Issuer` or `ClusterIssuer`
+    kind: "ClusterIssuer"
+    # -- Certificate issuer name. Eg. `letsencrypt`
+    name: "selfsigned"
+  # Private key of the certificate
+  privateKey:
+    # -- Rotation policy of private key when certificate is re-issued. Either: `Never` or `Always`
+    rotationPolicy: Never
+    # -- The private key cryptography standards (PKCS) encoding for private key. Either: `PCKS1` or `PKCS8`
+    encoding: PKCS1
+    # -- Algorithm used to generate certificate private key. One of: `RSA`, `Ed25519` or `ECDSA`
+    algorithm: RSA
+    # -- Key bit size of the private key. If algorithm is set to `Ed25519`, size is ignored.
+    size: 2048
+  # -- Annotations to be applied to the Server Certificate
+  annotations: {}
+  # -- Usages for the certificate
+  ### Ref: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage
+  usages: []
+  # -- Annotations that allow the certificate to be composed from data residing in existing Kubernetes Resources
+  secretTemplateAnnotations: {}
 
 # -- Resource limits and requests for the provider pods
 resources: {}
@@ -165,7 +211,7 @@ chains:
       enabled: true
       accessModes:
         - "ReadWriteOnce"
-      size: "2Gi"
+      size: "8Gi"
 
     # -- list of interface to provide, only if existingSecret is empty
     # interfaces:

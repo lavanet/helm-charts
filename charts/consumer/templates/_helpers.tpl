@@ -73,5 +73,5 @@ Allows overriding it for multi-namespace deployments in combined charts.
 Expand the host of the release.
 */}}
 {{- define "consumer.domain" -}}
-{{- default (include "consumer.fullname" .) .Values.ingress.domain | trunc 63 | trimSuffix "-" -}}
+{{- default (include "consumer.fullname" .) .Values.global.domain | trunc 63 | trimSuffix "-" -}}
 {{- end }}

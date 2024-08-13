@@ -1,15 +1,17 @@
 {{- if .Values.autoscaling.enabled }}
+{{- range $itemKey, $itemValue := $.Values.chains }}
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "consumer.fullname" . }}
+  name: {{ $itemKey | lower }}-{{ include "consumer.fullname" . }}
   labels:
     {{- include "consumer.labels" . | nindent 4 }}
+    app.lavanet.io/chain: {{ $itemKey | lower }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "consumer.fullname" . }}
+    name: {{ $itemKey | lower }}-{{ include "consumer.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
@@ -25,4 +27,5 @@ spec:
         name: memory
         targetAverageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
     {{- end }}
+{{- end }}
 {{- end }}

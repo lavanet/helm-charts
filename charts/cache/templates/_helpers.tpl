@@ -68,3 +68,10 @@ Allows overriding it for multi-namespace deployments in combined charts.
 {{- define "cache.namespace" -}}
 {{- default .Release.Namespace .Values.namespaceOverride | trunc 63 | trimSuffix "-" -}}
 {{- end }}
+
+{{/*
+Expand the host of the release.
+*/}}
+{{- define "cache.domain" -}}
+{{- default (include "cache.fullname" .) .Values.global.domain | trunc 63 | trimSuffix "-" -}}
+{{- end }}
