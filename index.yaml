@@ -9,6 +9,37 @@ entries:
           image: ghcr.io/lavanet/lava/lavap
     apiVersion: v2
     appVersion: v2.2.6
+    created: "2024-08-20T16:50:14.768612298Z"
+    description: 'Lava helm chart for the cache service '
+    digest: 56ebd5cbbd996f2a9b638213c04dcea8283289f4897c657ed4ddc2de85611030
+    home: https://lavanet.xyz
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    keywords:
+    - cache
+    - in-memory
+    - distributed
+    - high-performance
+    - blockchain
+    - web3
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - name: MagmaDevs
+      url: https://lavanet.xyz
+    name: cache
+    sources:
+    - https://github.com/lavanet/helm-charts
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/cache-0.4.2/cache-0.4.2.tgz
+    version: 0.4.2
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/prerelease: "false"
+      images: |
+        - name: cache
+          image: ghcr.io/lavanet/lava/lavap
+    apiVersion: v2
+    appVersion: v2.2.6
     created: "2024-08-20T13:06:03.18476696Z"
     description: 'Lava helm chart for the cache service '
     digest: e5fd2a63f3d7e28c8f3412a69606c872ea4ea7ffb5cac50c50d9b5e24061637b
@@ -399,6 +430,34 @@ entries:
     - https://github.com/lavanet/helm-charts/releases/download/cache-0.2.7/cache-0.2.7.tgz
     version: 0.2.7
   consumer:
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/prerelease: "false"
+      images: |
+        - name: consumer
+          image: ghcr.io/lavanet/lava/lavap
+    apiVersion: v2
+    appVersion: v2.2.6
+    created: "2024-08-20T16:50:14.901978949Z"
+    description: 'Lava helm chart for the consumer service '
+    digest: 3e30d46598c0affc0ff3bbc54959520ca438fc6ea3f934fd0ebac23e7f5e99b9
+    home: https://lavanet.xyz
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    keywords:
+    - consumer
+    - blockchain
+    - web3
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - name: MagmaDevs
+      url: https://lavanet.xyz
+    name: consumer
+    sources:
+    - https://github.com/lavanet/helm-charts
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/consumer-0.4.2/consumer-0.4.2.tgz
+    version: 0.4.2
   - annotations:
       artifacthub.io/license: Apache-2.0
       artifacthub.io/prerelease: "false"
@@ -841,6 +900,34 @@ entries:
           image: ghcr.io/lavanet/lava/lavap
     apiVersion: v2
     appVersion: v2.2.6
+    created: "2024-08-20T16:50:15.027178919Z"
+    description: 'Lava helm chart for the provider service '
+    digest: 2c3cca1ce66e058a9b0e8da76152711b9d6da512cbfe0d5ebc62290fc98626b8
+    home: https://lavanet.xyz
+    icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=true
+    keywords:
+    - provider
+    - blockchain
+    - web3
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - name: MagmaDevs
+      url: https://lavanet.xyz
+    name: provider
+    sources:
+    - https://github.com/lavanet/helm-charts
+    type: application
+    urls:
+    - https://github.com/lavanet/helm-charts/releases/download/provider-0.4.2/provider-0.4.2.tgz
+    version: 0.4.2
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/prerelease: "false"
+      images: |
+        - name: provider
+          image: ghcr.io/lavanet/lava/lavap
+    apiVersion: v2
+    appVersion: v2.2.6
     created: "2024-08-20T13:06:03.526564975Z"
     description: 'Lava helm chart for the provider service '
     digest: 27b0cd3adf8347ea94f2234a51c72d4a870be71419509a2cefe4ee977cc00a83
@@ -1266,4 +1353,4 @@ entries:
     urls:
     - https://github.com/lavanet/helm-charts/releases/download/provider-0.2.0/provider-0.2.0.tgz
     version: 0.2.0
-generated: "2024-08-20T13:06:03.526915552Z"
+generated: "2024-08-20T16:50:15.027464613Z"
