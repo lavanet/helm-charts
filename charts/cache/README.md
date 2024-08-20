@@ -16,7 +16,7 @@ To install the chart with the release name `my-cache`:
 ```shell
 helm repo add lavanet https://lavanet.github.io/helm-charts
 helm repo update
-helm install my-cache lavanet/cache
+helm install my-cache lavanet/cache -n lava-system --create-namespace
 ```
 
 ## Requirements

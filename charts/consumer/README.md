@@ -6,6 +6,82 @@ Lava helm chart for the consumer service
 
 ## Lavanet Consumer Helm Chart
 
+## Prerequisites
+
+Before deploying the consumer chart you'll need to do few imporatnt things:
+
+* Create wallet and export it, or export an existing one
+
+### Create wallet
+
+In order to create a new wallet, make sure you have [lavap](https://github.com/lavanet/lava/releases/latest) CLI installed and run:
+
+```shell
+lavap keys add my-key
+```
+
+After that export the key by running:
+
+```shell
+lavap keys export my-key
+```
+
+Enter a password for the exported key, it's important that you note it for the next steps.
+
+### Apply wallet secrets to kubernetes
+
+Encode both exported key and your password on base64:
+
+```shell
+base64 -w 0 <<EOF
+-----BEGIN TENDERMINT PRIVATE KEY-----
+kdf: bcrypt
+salt: 5A21556CF5842BDEF9B9949418B0E0B8
+type: secp256k1
+
+******ngpVQsF7xr3jBFtNXUhQN4Q0pwDvRk8jQ1ubTyE/j8vg9q811iqb7gD
+P7ZmrGWPZLrTvh******/InhEHq1vlLIEc9fk8=
+=aGWZ
+-----END TENDERMINT PRIVATE KEY-----
+EOF
+```
+
+```shell
+echo "12345678" | base64
+```
+
+Add two new secrets to your namespace containing the encoded exported key and the passphrase:
+
+```shell
+cat > exported-key.yaml << EOF
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: wallet
+data:
+  key: >-
+    LS0tLS1CRUdJTiBURU5ERVJNSU5UIFBSSVZBVEUgS0VZLS0tLS0Ka2RmOiBiY3J5cHQKc2FsdDogNUEyMTU1NkNGNTg0MkJERUY5Qjk5NDk0MThCMEUwQjgKdHlwZTogc2VjcDI1NmsxCgoqKioqKipuZ3BWUXNGN3hyM2pCRnROWFVoUU40UTBwd0R2Ums4alExdWJUeUUvajh2ZzlxODExaXFiN2dEClA3Wm1yR1dQWkxyVHZoKioqKioqL0luaEVIcTF2bExJRWM5Zms4PQo9YUdXWgotLS0tLUVORCBURU5ERVJNSU5UIFBSSVZBVEUgS0VZLS0tLS0K
+  password: MTIzNDU2NzgK
+EOF
+
+kubectl apply -f exported-key.yaml -n lava-system
+```
+
+### Modify values file
+
+The final step is to refrence the newly created secrets in the chart's values file:
+
+```yaml
+# values.yaml
+
+key:
+  secretName: "wallet"
+  secretKey: "key"
+  passwordSecretName: "wallet"
+  passwordSecretKey: "password"
+```
+
 ## Installing the Chart
 
 To install the chart with the release name `my-consumer`:
@@ -13,7 +89,7 @@ To install the chart with the release name `my-consumer`:
 ```shell
 helm repo add lavanet https://lavanet.github.io/helm-charts
 helm repo update
-helm install my-consumer lavanet/consumer
+helm install my-consumer lavanet/consumer -n lava-system --create-namespace
 ```
 
 ## Requirements

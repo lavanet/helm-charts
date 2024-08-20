@@ -25,7 +25,7 @@ Before deploying the provider chart you'll need to do two imporatnt things:
 
 ### Create wallet
 
-In order to create a new wallet, make sure you have `lavap` CLI installed and run:
+In order to create a new wallet, make sure you have [lavap](https://github.com/lavanet/lava/releases/latest) CLI installed and run:
 
 ```shell
 lavap keys add my-key
@@ -172,7 +172,7 @@ To install the chart with the release name `my-provider`:
 ```shell
 helm repo add lavanet https://lavanet.github.io/helm-charts
 helm repo update
-helm install my-provider lavanet/provider
+helm install my-provider lavanet/provider -n lava-system --create-namespace
 ```
 
 ## Requirements
