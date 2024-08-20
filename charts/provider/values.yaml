@@ -199,7 +199,7 @@ chainId: "lava-testnet-2"
 geolocation: "2"
 
 # -- Lavap provider additional CLI arguments
-additionalArgs:
+additionalArgs: []
   # - --fees
   # - 10ulava
   # - --note

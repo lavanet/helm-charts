@@ -203,7 +203,7 @@ relayServerAddress:
 reportsBeAddress:
 
 # -- Lavap consumer additional CLI arguments
-additionalArgs:
+additionalArgs: []
   # - --fees
   # - 10ulava
   # - --note
