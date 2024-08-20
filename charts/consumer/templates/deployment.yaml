@@ -101,6 +101,9 @@ spec:
             - --reports-be-address
             - {{ $.Values.reportsBeAddress }}
             {{- end }}
+            {{- range $i, $val := $.Values.additionalArgs }}
+            - {{ $val | quote }}
+            {{- end }}
           ports:
           {{- range $interfaceEntry := $itemValue.interfaces }}
             - name: {{ $interfaceEntry.interface | lower }}

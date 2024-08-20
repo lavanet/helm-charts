@@ -24,6 +24,7 @@ Kubernetes: `>=1.25.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| additionalArgs | string | `nil` | Lavap consumer additional CLI arguments |
 | affinity | object | `{}` | Assign custom [affinity] rules to the deployment |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |

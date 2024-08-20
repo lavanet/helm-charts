@@ -97,6 +97,9 @@ spec:
             - {{ $.Values.log.level }}
             - --log_format
             - {{ $.Values.log.format }}
+            {{- range $i, $val := $.Values.additionalArgs }}
+            - {{ $val | quote }}
+            {{- end }}
           env:
             - name: MY_POD_INDEX
               valueFrom:

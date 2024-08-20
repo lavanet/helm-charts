@@ -185,3 +185,7 @@ expiration_multiplier:
 expiration_non_finalized_multiplier:
 # -- Max items allowed in the cache
 max_items:
+# -- Lavap cache additional CLI arguments
+additionalArgs:
+  # - --expiration-finalized-node-errors
+  # - 250ms

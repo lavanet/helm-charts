@@ -183,6 +183,7 @@ Kubernetes: `>=1.25.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| additionalArgs | string | `nil` | Lavap provider additional CLI arguments |
 | affinity | object | `{}` | Assign custom [affinity] rules to the deployment |
 | cache.address | string | `"provider-cache:20100"` | Provider cache address |
 | cache.enabled | bool | `true` | Enable provider cache supports |
