@@ -14,7 +14,7 @@ Lavanet providers are essential participants in the Lava ecosystem, responsible 
 
 Providers earn LAVA tokens as fees for fulfilling these requests, creating an incentive-driven decentralized infrastructure.
 
-## Prerequisites 
+## Prerequisites
 
 Before deploying the provider chart you'll need to do two imporatnt things:
 
@@ -173,6 +173,6 @@ helm repo update
 helm install my-{{ template "chart.name" . }} lavanet/{{ template "chart.name" . }}
 ```
 
-{{ template "chart.requirementsSection" . }}
+{{ template "chart.requirementsSection" . -}}
 {{ template "chart.valuesSection" . }}
 {{ template "helm-docs.versionFooter" . }}

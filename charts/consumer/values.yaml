@@ -94,14 +94,14 @@ certificate:
   additionalHosts: []
   # -- The requested 'duration' (i.e. lifetime) of the certificate.
   # @default -- `""` (defaults to 2160h = 90d if not specified)
-  ## Ref: https://cert-manager.io/docs/usage/certificate/#renewal
+  ## Ref: <https://cert-manager.io/docs/usage/certificate/#renewal>
   duration: ""
   # -- How long before the expiry a certificate should be renewed.
   # @default -- `""` (defaults to 360h = 15d if not specified)
-  ## Ref: https://cert-manager.io/docs/usage/certificate/#renewal
+  ## Ref: <https://cert-manager.io/docs/usage/certificate/#renewal>
   renewBefore: ""
   # Certificate issuer
-  ## Ref: https://cert-manager.io/docs/concepts/issuer
+  ## Ref: <https://cert-manager.io/docs/concepts/issuer>
   issuer:
     # -- Certificate issuer group. Set if using an external issuer. Eg. `cert-manager.io`
     group: ""
@@ -122,7 +122,7 @@ certificate:
   # -- Annotations to be applied to the Server Certificate
   annotations: {}
   # -- Usages for the certificate
-  ### Ref: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage
+  ### Ref: <https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage>
   usages: []
   # -- Annotations that allow the certificate to be composed from data residing in existing Kubernetes Resources
   secretTemplateAnnotations: {}
