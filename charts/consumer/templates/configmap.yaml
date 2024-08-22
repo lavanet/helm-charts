@@ -15,5 +15,17 @@ data:
         api-interface: {{ $interfaceEntry.interface }}
         network-address: 0.0.0.0:{{ $interfaceEntry.port }}
     {{- end }}
+    static-providers:
+    {{- range $interfaceEntry := $itemValue.interfaces }}
+    {{- if $interfaceEntry.staticProviders }}
+      - chain-id: {{ $itemKey | upper }}
+        disable_tls: {{ $interfaceEntry.disable_tls | default "false" }}
+        api-interface: {{ $interfaceEntry.interface }}
+        node-urls:
+        {{- range $staticProvider := $interfaceEntry.staticProviders }}
+          - {{ $staticProvider.url }}
+        {{- end }}
+    {{- end }}    
+    {{- end }}
     metrics-listen-address: "0.0.0.0:{{ $.Values.metrics.port }}"
 {{- end }}
