@@ -7,7 +7,7 @@ sources:
   - https://github.com/lavanet/helm-charts
 type: application
 version: 0.4.2
-appVersion: "v2.2.6"
+appVersion: "v2.5.0"
 kubeVersion: ">=1.25.0-0"
 home: https://lavanet.xyz
 keywords:
