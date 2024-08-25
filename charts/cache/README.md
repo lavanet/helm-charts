@@ -2,7 +2,7 @@
 
 Lava helm chart for the cache service
 
-![Version: 0.4.7](https://img.shields.io/badge/Version-0.4.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 0.4.8](https://img.shields.io/badge/Version-0.4.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Cache Helm Chart
 
@@ -58,7 +58,7 @@ Kubernetes: `>=1.25.0-0`
 | imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry |
 | ingress.annotations | object | `{}` | Additional ingress annotations |
 | ingress.className | string | `"nginx"` | Defines which ingress controller will implement the resource |
-| ingress.enabled | bool | `true` | Enable an ingress resource for the provider |
+| ingress.enabled | bool | `false` | Enable an ingress resource for the provider |
 | ingress.hostname | string | `""` (defaults to global.domain) | Cache hostname |
 | ingress.path | string | `"/"` | The path to Provider |
 | ingress.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |

@@ -53,7 +53,7 @@ service:
 
 ingress:
   # -- Enable an ingress resource for the provider
-  enabled: true
+  enabled: false
   # -- Defines which ingress controller will implement the resource
   className: "nginx"
   # -- Additional ingress annotations
