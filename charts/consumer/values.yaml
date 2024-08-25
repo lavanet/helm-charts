@@ -247,12 +247,12 @@ persistence:
 
 # @ignored
 chains:
-  lav1:
-    default_interface: rest
-    interfaces:
-      - interface: rest
-        port: 2020
-      - interface: tendermintrpc
-        port: 2021
-      - interface: grpc
-        port: 2022
+  # lav1:
+  #   default_interface: rest
+  #   interfaces:
+  #     - interface: rest
+  #       port: 2020
+  #     - interface: tendermintrpc
+  #       port: 2021
+  #     - interface: grpc
+  #       port: 2022
