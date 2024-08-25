@@ -8,14 +8,14 @@ metadata:
     {{- include "provider.labels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $itemKey | lower }}
   annotations:
-    {{- if (empty $itemValue.existingConfigSecret) }}
-    checksum/config: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+    {{- if not $itemValue.existingConfigSecret }}
+    checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") $ | sha256sum }}
     {{- end }}
 spec:
   replicas: {{ $.Values.replicaCount }}
   updateStrategy:
     type: {{ $.Values.updateStrategy }}
-  podManagementPolicy: {{ .Values.podManagementPolicy }}
+  podManagementPolicy: {{ $.Values.podManagementPolicy }}
   selector:
     matchLabels:
       {{- include "provider.selectorLabels" $ | nindent 6 }}
