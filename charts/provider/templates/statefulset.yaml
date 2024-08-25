@@ -13,6 +13,9 @@ metadata:
     {{- end }}
 spec:
   replicas: {{ $.Values.replicaCount }}
+  updateStrategy:
+    type: {{ $.Values.updateStrategy }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   selector:
     matchLabels:
       {{- include "provider.selectorLabels" $ | nindent 6 }}

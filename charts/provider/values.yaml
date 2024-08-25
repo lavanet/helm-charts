@@ -22,12 +22,17 @@ nameOverride: ""
 # -- String to fully override `"provider.fullname"`
 fullnameOverride: ""
 
+# -- Update strategy for StatefulSets
+updateStrategy: "RollingUpdate"
+# -- Pod Management Policy for StatefulSets
+podManagementPolicy: "Parallel"
+
 serviceAccount:
-  # -- specifies whether a service account should be created
+  # -- Specifies whether a service account should be created
   create: true
-  # -- annotations to add to the service account
+  # -- Annotations to add to the service account
   annotations: {}
-  # -- the name of the service account to use.
+  # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
