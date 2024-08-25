@@ -8,7 +8,7 @@ metadata:
     {{- include "provider.labels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $itemKey | lower }}
   annotations:
-    {{- if (empty $itemValue.existingSecret) }}
+    {{- if (empty $itemValue.existingConfigSecret) }}
     checksum/config: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
     {{- end }}
 spec:
@@ -75,8 +75,8 @@ spec:
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           args:
             - "rpcprovider"
-            {{- if $itemValue.existingSecret }}
-            - {{ $itemValue.existingSecretKey }}
+            {{- if $itemValue.existingConfigSecret }}
+            - {{ $itemValue.existingConfigSecretKey }}
             {{- else }}
             - config.yml
             {{- end }}
@@ -137,8 +137,8 @@ spec:
       volumes:
         - name: {{ $itemKey | lower }}-config
           secret:
-            {{- if $itemValue.existingSecret }}
-            secretName: {{ $itemValue.existingSecret }}
+            {{- if $itemValue.existingConfigSecret }}
+            secretName: {{ $itemValue.existingConfigSecret }}
             {{- else }}
             secretName: {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
             {{- end }}

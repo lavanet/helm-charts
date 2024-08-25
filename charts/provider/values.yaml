@@ -214,20 +214,21 @@ additionalArgs: []
 chains:
   lav1:
     # -- Existing configuration secret name
-    existingSecret: "provider-config"
+    existingConfigSecret: "provider-config"
     # -- Existing configuration secret key
-    existingSecretKey: "config.yml"
+    existingConfigSecretKey: "config.yml"
 
     persistence:
       # -- Should create pvc for the provider data
       enabled: true
       accessModes:
         - "ReadWriteOnce"
-      size: "8Gi"
+      size: "100Mi"
 
-    # -- list of interface to provide, only if existingSecret is empty
+    # -- list of interface to provide, only if existingConfigSecret is empty
     # interfaces:
     #   - interface: rest
+    #     disableTLS: true
     #     nodes:
     #       - endpoint: rest.example.com
     #         type: full
