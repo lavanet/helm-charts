@@ -23,7 +23,7 @@ data:
         {{- range $staticProvider := $interfaceEntry.staticProviders }}
           - url: {{ $staticProvider.url }}
         {{- end }}
-    {{- end }}    
+    {{- end }}
     {{- end }}
     metrics-listen-address: "0.0.0.0:{{ $.Values.metrics.port }}"
 {{- end }}

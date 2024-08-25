@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.6](https://img.shields.io/badge/AppVersion-v2.2.6-informational?style=flat-square)
+![Version: 0.4.3](https://img.shields.io/badge/Version-0.4.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -161,8 +161,8 @@ key:
 
 chains:
   lav1:
-    existingSecret: "provider-config"
-    existingSecretKey: "config.yml"
+    existingConfigSecret: "provider-config"
+    existingConfigSecretKey: "config.yml"
 ```
 
 ## Installing the Chart
@@ -240,16 +240,18 @@ Kubernetes: `>=1.25.0-0`
 | node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | Lava node to connect to |
 | nodeSelector | object | `{}` | [Node selector] |
 | podAnnotations | object | `{}` | Annotations for the all deployed pods |
+| podManagementPolicy | string | `"Parallel"` | Pod Management Policy for StatefulSets |
 | podSecurityContext | object | `{}` |  |
 | replicaCount | int | `1` | The number of provider pods to run. |
 | resources | object | `{}` | Resource limits and requests for the provider pods |
 | securityContext | object | `{}` |  |
 | service.port | int | `2200` | Provider service port |
 | service.type | string | `"ClusterIP"` | Provider service type |
-| serviceAccount.annotations | object | `{}` | annotations to add to the service account |
-| serviceAccount.create | bool | `true` | specifies whether a service account should be created |
-| serviceAccount.name | string | `""` | the name of the service account to use. If not set and create is true, a name is generated using the fullname template |
+| serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
+| serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
+| serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | tolerations | list | `[]` | [Tolerations] for use with node taints |
+| updateStrategy | string | `"RollingUpdate"` | Update strategy for StatefulSets |
 | wallet | string | `"test"` | Wallet name |
 
 ----------------------------------------------
