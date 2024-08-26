@@ -241,6 +241,37 @@ additionalArgs: []
 
 # @ignored
 chains:
+  - id: lav1
+    name: my-lav1
+    persistence:
+      enabled: true
+      accessModes:
+        - "ReadWriteOnce"
+      size: "100Mi"
+    interfaces:
+      - interface: rest
+        disableTLS: true
+        nodes:
+          - endpoint: rest.example.com
+            type: full
+          - endpoint: rest.archive.example.com
+            type: archive
+            skipVerifications: pruning
+      - interface: tendermintrpc
+        nodes:
+          - endpoint: tendermintrpc.example.com
+            type: full
+          - endpoint: tendermintrpc.archive.example.com
+            type: archive
+            skipVerifications: pruning
+      - interface: grpc
+        nodes:
+          - endpoint: grpc.example.com
+            type: full
+          - endpoint: grpc.archive.example.com
+            type: archive
+            skipVerifications: pruning
+
   # lav1:
   #   # -- Existing configuration secret name
   #   # existingConfigSecret: "provider-config"
