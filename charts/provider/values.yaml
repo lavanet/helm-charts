@@ -117,6 +117,35 @@ certificate:
   # -- Annotations that allow the certificate to be composed from data residing in existing Kubernetes Resources
   secretTemplateAnnotations: {}
 
+## Probes for provider
+readinessProbe:
+  # -- Schema of the [probe], can be HTTP or HTTPS
+  scheme: HTTPS
+  # -- Minimum consecutive failures for the [probe] to be considered failed after having succeeded
+  failureThreshold: 3
+  # -- Number of seconds after the container has started before [probe] is initiated
+  initialDelaySeconds: 10
+  # -- How often (in seconds) to perform the [probe]
+  periodSeconds: 10
+  # -- Minimum consecutive successes for the [probe] to be considered successful after having failed
+  successThreshold: 1
+  # -- Number of seconds after which the [probe] times out
+  timeoutSeconds: 1
+
+livenessProbe:
+  # -- Schema of the [probe], can be HTTP or HTTPS
+  scheme: HTTPS
+  # -- Minimum consecutive failures for the [probe] to be considered failed after having succeeded
+  failureThreshold: 3
+  # -- Number of seconds after the container has started before [probe] is initiated
+  initialDelaySeconds: 10
+  # -- How often (in seconds) to perform the [probe]
+  periodSeconds: 10
+  # -- Minimum consecutive successes for the [probe] to be considered successful after having failed
+  successThreshold: 1
+  # -- Number of seconds after which the [probe] times out
+  timeoutSeconds: 1
+
 # -- Resource limits and requests for the provider pods
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

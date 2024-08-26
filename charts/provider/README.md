@@ -222,6 +222,12 @@ Kubernetes: `>=1.25.0-0`
 | key.secretKey | string | `"key"` | The key in the secret to use |
 | key.secretName | string | `"wallet"` | The secret name containing the private key |
 | keyringBackend | string | `"test"` | Provider keyring backend |
+| livenessProbe.failureThreshold | int | `3` | Minimum consecutive failures for the [probe] to be considered failed after having succeeded |
+| livenessProbe.initialDelaySeconds | int | `10` | Number of seconds after the container has started before [probe] is initiated |
+| livenessProbe.periodSeconds | int | `10` | How often (in seconds) to perform the [probe] |
+| livenessProbe.scheme | string | `"HTTPS"` | Schema of the [probe], can be HTTP or HTTPS |
+| livenessProbe.successThreshold | int | `1` | Minimum consecutive successes for the [probe] to be considered successful after having failed |
+| livenessProbe.timeoutSeconds | int | `1` | Number of seconds after which the [probe] times out |
 | log.format | string | `"json"` | Provider log format, can be json or text |
 | log.level | string | `"info"` | Provider log level |
 | metrics.enabled | bool | `true` | Should enable prometheus metrics |
@@ -242,6 +248,12 @@ Kubernetes: `>=1.25.0-0`
 | podAnnotations | object | `{}` | Annotations for the all deployed pods |
 | podManagementPolicy | string | `"Parallel"` | Pod Management Policy for StatefulSets |
 | podSecurityContext | object | `{}` |  |
+| readinessProbe.failureThreshold | int | `3` | Minimum consecutive failures for the [probe] to be considered failed after having succeeded |
+| readinessProbe.initialDelaySeconds | int | `10` | Number of seconds after the container has started before [probe] is initiated |
+| readinessProbe.periodSeconds | int | `10` | How often (in seconds) to perform the [probe] |
+| readinessProbe.scheme | string | `"HTTPS"` | Schema of the [probe], can be HTTP or HTTPS |
+| readinessProbe.successThreshold | int | `1` | Minimum consecutive successes for the [probe] to be considered successful after having failed |
+| readinessProbe.timeoutSeconds | int | `1` | Number of seconds after which the [probe] times out |
 | replicaCount | int | `1` | The number of provider pods to run. |
 | resources | object | `{}` | Resource limits and requests for the provider pods |
 | securityContext | object | `{}` |  |

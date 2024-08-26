@@ -63,6 +63,11 @@ Kubernetes: `>=1.25.0-0`
 | ingress.path | string | `"/"` | The path to Provider |
 | ingress.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
 | ingress.tls | bool | `true` | Enable TLS configuration for the domain defined at `global.domain` # TLS certificate will be retrieved from a TLS secret with name: `cache-tls` |
+| livenessProbe.failureThreshold | int | `3` | Minimum consecutive failures for the [probe] to be considered failed after having succeeded |
+| livenessProbe.initialDelaySeconds | int | `10` | Number of seconds after the container has started before [probe] is initiated |
+| livenessProbe.periodSeconds | int | `10` | How often (in seconds) to perform the [probe] |
+| livenessProbe.successThreshold | int | `1` | Minimum consecutive successes for the [probe] to be considered successful after having failed |
+| livenessProbe.timeoutSeconds | int | `1` | Number of seconds after which the [probe] times out |
 | log.format | string | `"json"` | Cache log format, can be json or text |
 | log.level | string | `"info"` | Cache log level |
 | max_items | string | `nil` | Max items allowed in the cache |
@@ -82,6 +87,11 @@ Kubernetes: `>=1.25.0-0`
 | nodeSelector | object | `{}` | [Node selector] |
 | podAnnotations | object | `{}` | Annotations for the all deployed pods |
 | podSecurityContext | object | `{}` |  |
+| readinessProbe.failureThreshold | int | `3` | Minimum consecutive failures for the [probe] to be considered failed after having succeeded |
+| readinessProbe.initialDelaySeconds | int | `10` | Number of seconds after the container has started before [probe] is initiated |
+| readinessProbe.periodSeconds | int | `10` | How often (in seconds) to perform the [probe] |
+| readinessProbe.successThreshold | int | `1` | Minimum consecutive successes for the [probe] to be considered successful after having failed |
+| readinessProbe.timeoutSeconds | int | `1` | Number of seconds after which the [probe] times out |
 | replicaCount | int | `1` | The number of cache pods to run. |
 | resources | object | `{}` | Resource limits and requests for the cache pods |
 | securityContext | object | `{}` |  |
