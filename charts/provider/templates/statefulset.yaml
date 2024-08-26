@@ -7,10 +7,6 @@ metadata:
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $chain.name | lower }}
-  annotations:
-    {{- if not $chain.existingConfigSecret }}
-    checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") $ | sha256sum }}
-    {{- end }}
 spec:
   replicas: {{ $.Values.replicaCount }}
   serviceName: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
@@ -23,10 +19,13 @@ spec:
       app.lavanet.io/chain: {{ $chain.id | lower }}
   template:
     metadata:
-      {{- with $.Values.podAnnotations }}
       annotations:
+        {{- with $.Values.podAnnotations }}
         {{- toYaml $ | nindent 8 }}
-      {{- end }}
+        {{- end }}
+        {{- if not $chain.existingConfigSecret }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") $ | sha256sum }}
+        {{- end }}
       labels:
         {{- include "provider.selectorLabels" $ | nindent 8 }}
         app.lavanet.io/chain: {{ $chain.id | lower }}
