@@ -1,14 +1,14 @@
-{{- range $itemKey, $itemValue := $.Values.chains }}
+{{- range $chain := $.Values.chains }}
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name:  {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
+  name:  {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
-    app.lavanet.io/chain: {{ $itemKey | lower }}
+    app.lavanet.io/chain: {{ $chain.name | lower }}
   annotations:
-    {{- if not $itemValue.existingConfigSecret }}
+    {{- if not $chain.existingConfigSecret }}
     checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") $ | sha256sum }}
     {{- end }}
 spec:
@@ -19,7 +19,7 @@ spec:
   selector:
     matchLabels:
       {{- include "provider.selectorLabels" $ | nindent 6 }}
-      app.lavanet.io/chain: {{ $itemKey | lower }}
+      app.lavanet.io/chain: {{ $chain.id | lower }}
   template:
     metadata:
       {{- with $.Values.podAnnotations }}
@@ -28,7 +28,7 @@ spec:
       {{- end }}
       labels:
         {{- include "provider.selectorLabels" $ | nindent 8 }}
-        app.lavanet.io/chain: {{ $itemKey | lower }}
+        app.lavanet.io/chain: {{ $chain.id | lower }}
     spec:
       {{- with $.Values.imagePullSecrets }}
       imagePullSecrets:
@@ -75,8 +75,8 @@ spec:
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           args:
             - "rpcprovider"
-            {{- if $itemValue.existingConfigSecret }}
-            - {{ $itemValue.existingConfigSecretKey }}
+            {{- if $chain.existingConfigSecret }}
+            - {{ $chain.existingConfigSecretKey }}
             {{- else }}
             - config.yml
             {{- end }}
@@ -142,26 +142,26 @@ spec:
               name: data
             - mountPath: "/lava/config/config.yml"
               subPath: config.yml
-              name: {{ $itemKey | lower }}-config
+              name: {{ $chain.name | lower }}-config
               readOnly: true
           resources:
             {{- toYaml $.Values.resources | nindent 12 }}
       volumes:
-        - name: {{ $itemKey | lower }}-config
+        - name: {{ $chain.name | lower }}-config
           secret:
-            {{- if $itemValue.existingConfigSecret }}
-            secretName: {{ $itemValue.existingConfigSecret }}
+            {{- if $chain.existingConfigSecret }}
+            secretName: {{ $chain.existingConfigSecret }}
             {{- else }}
-            secretName: {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
+            secretName: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
             {{- end }}
         - name: "private-key-volume"
           secret:
             secretName: {{ $.Values.key.secretName }}
             optional: false
         - name: data
-          {{- if $itemValue.persistence.enabled }}
+          {{- if $chain.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ $itemKey | lower }}-{{ include "provider.fullname" $ }}
+            claimName: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
           {{- else }}
           emptyDir: {}
           {{- end }}
