@@ -77,7 +77,7 @@ EOF
 kubectl apply -f exported-key.yaml -n my-namespace
 ```
 
-### Create configuration for provider
+### Create secert configuration for provider
 
 Most provider configurations point to secure nodes and should remain encrypted on the cluster.
 For this you'll have to create another secert containing the entire nodes' configuration, for example:
@@ -158,7 +158,8 @@ key:
   passwordSecretKey: "password"
 
 chains:
-  lav1:
+  - name: my-lava-provider
+    id: lav1
     existingConfigSecret: "provider-config"
     existingConfigSecretKey: "config.yml"
 ```
