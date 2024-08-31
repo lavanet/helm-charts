@@ -15,8 +15,8 @@ spec:
   minReplicas: {{ $.Values.autoscaling.minReplicas }}
   maxReplicas: {{ $.Values.autoscaling.maxReplicas }}
   metrics:
-  {{- with .Values.autoscaling.metrics }}
-    {{- toYaml . | nindent 4 }}
+  {{- with $.Values.autoscaling.metrics }}
+    {{- toYaml $ | nindent 4 }}
   {{- else }}
     {{- if $.Values.autoscaling.targetCPUUtilizationPercentage }}
     - type: Resource
@@ -33,9 +33,9 @@ spec:
         averageUtilization: {{ $.Values.autoscaling.targetMemoryUtilizationPercentage }}
     {{- end }}
   {{- end }}
-  {{- with .Values.autoscaling.behavior }}
+  {{- with $.Values.autoscaling.behavior }}
   behavior:
-    {{- toYaml . | nindent 4 }}
+    {{- toYaml $ | nindent 4 }}
   {{- end }}
 {{- end }}
 {{- end }}
