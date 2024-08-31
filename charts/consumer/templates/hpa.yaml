@@ -1,4 +1,4 @@
-{{- if .Values.autoscaling.enabled }}
+{{- if $.Values.autoscaling.enabled }}
 {{- range $itemKey, $itemValue := $.Values.chains }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
