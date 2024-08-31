@@ -2,7 +2,7 @@
 
 Lava helm chart for the consumer service
 
-![Version: 0.5.4](https://img.shields.io/badge/Version-0.5.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 0.5.5](https://img.shields.io/badge/Version-0.5.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Consumer Helm Chart
 
@@ -102,10 +102,12 @@ Kubernetes: `>=1.25.0-0`
 |-----|------|---------|-------------|
 | additionalArgs | list | `[]` | Lavap consumer additional CLI arguments |
 | affinity | object | `{}` | Assign custom [affinity] rules to the deployment |
-| autoscaling.enabled | bool | `false` |  |
-| autoscaling.maxReplicas | int | `100` |  |
-| autoscaling.minReplicas | int | `1` |  |
-| autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| autoscaling.behavior | object | `{}` | Configures the scaling behavior of the target in both Up and Down directions. |
+| autoscaling.enabled | bool | `false` | Enable Horizontal Pod Autoscaler ([HPA]) for the Consumer |
+| autoscaling.maxReplicas | int | `5` | Maximum number of replicas for the Consumer [HPA] |
+| autoscaling.minReplicas | int | `1` | Minimum number of replicas for the Consumer [HPA] |
+| autoscaling.targetCPUUtilizationPercentage | int | `50` | Average CPU utilization percentage for the Consumer [HPA] |
+| autoscaling.targetMemoryUtilizationPercentage | int | `50` | Average memory utilization percentage for the Consumer [HPA] |
 | cache.address | string | `"cache:20100"` | Cache address |
 | cache.enabled | bool | `true` | Should add cache arg |
 | certificate.additionalHosts | list | `[]` | Certificate Subject Alternate Names (SANs) |

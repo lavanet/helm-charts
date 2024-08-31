@@ -166,11 +166,32 @@ resources: {}
   #   memory: 128Mi
 
 autoscaling:
+  # -- Enable Horizontal Pod Autoscaler ([HPA]) for the Consumer
   enabled: false
+  # -- Minimum number of replicas for the Consumer [HPA]
   minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+  # -- Maximum number of replicas for the Consumer [HPA]
+  maxReplicas: 5
+  # -- Average CPU utilization percentage for the Consumer [HPA]
+  targetCPUUtilizationPercentage: 50
+  # -- Average memory utilization percentage for the Consumer [HPA]
+  targetMemoryUtilizationPercentage: 50
+  # -- Configures the scaling behavior of the target in both Up and Down directions.
+  behavior: {}
+    # scaleDown:
+    #  stabilizationWindowSeconds: 300
+    #  policies:
+    #   - type: Pods
+    #     value: 1
+    #     periodSeconds: 180
+    # scaleUp:
+    #   stabilizationWindowSeconds: 300
+    #   policies:
+    #   - type: Pods
+    #     value: 2
+    #     periodSeconds: 60
+  # -- Configures custom HPA metrics for the Consumer
+  # Ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
 
 # -- [Node selector]
 nodeSelector: {}
