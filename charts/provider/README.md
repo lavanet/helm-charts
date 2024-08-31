@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 0.5.2](https://img.shields.io/badge/Version-0.5.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 0.5.3](https://img.shields.io/badge/Version-0.5.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -79,7 +79,7 @@ EOF
 kubectl apply -f exported-key.yaml -n my-namespace
 ```
 
-### Create configuration for provider
+### Create secert configuration for provider
 
 Most provider configurations point to secure nodes and should remain encrypted on the cluster.
 For this you'll have to create another secert containing the entire nodes' configuration, for example:
@@ -160,7 +160,8 @@ key:
   passwordSecretKey: "password"
 
 chains:
-  lav1:
+  - name: my-lava-provider
+    id: lav1
     existingConfigSecret: "provider-config"
     existingConfigSecretKey: "config.yml"
 ```
