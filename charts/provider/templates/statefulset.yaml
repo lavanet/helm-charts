@@ -159,11 +159,13 @@ spec:
             secretName: {{ $.Values.key.secretName }}
             optional: false
         - name: data
+          {{- if $chain.persistence }}
           {{- if $chain.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
           {{- else }}
           emptyDir: {}
+          {{- end }}
           {{- end }}
       {{- with $.Values.nodeSelector }}
       nodeSelector:

@@ -1,4 +1,5 @@
 {{- range $chain := $.Values.chains }}
+{{- if $chain.persistence }}
 {{- if $chain.persistence.enabled }}
 ---
 kind: PersistentVolumeClaim
@@ -18,5 +19,6 @@ spec:
   resources:
     requests:
       storage: {{ $chain.persistence.size | quote }}
+{{- end }}
 {{- end }}
 {{- end }}
