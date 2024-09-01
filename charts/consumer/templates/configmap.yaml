@@ -8,12 +8,18 @@ metadata:
     {{- include "consumer.labels" $ | nindent 4 }}
 data:
   config.yml: |
+    {{- $interfaces := dict }}
+    {{- range .interfaces }}
+    {{- $_ := set $interfaces .interface . }}
+    {{- end }}
+
     endpoints:
-    {{- range $interfaceEntry := $itemValue.interfaces }}
+    {{- range $interfaceEntry := $interfaces }}
       - chain-id: {{ $itemKey | upper }}
         api-interface: {{ $interfaceEntry.interface }}
         network-address: 0.0.0.0:{{ $interfaceEntry.port }}
     {{- end }}
+
     static-providers:
     {{- range $interfaceEntry := $itemValue.interfaces }}
     {{- if $interfaceEntry.staticProviders }}
@@ -25,5 +31,6 @@ data:
         {{- end }}
     {{- end }}
     {{- end }}
+
     metrics-listen-address: "0.0.0.0:{{ $.Values.metrics.port }}"
 {{- end }}

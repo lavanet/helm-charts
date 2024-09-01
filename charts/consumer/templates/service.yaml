@@ -10,7 +10,11 @@ metadata:
 spec:
   type: {{ $.Values.service.type }}
   ports:
-  {{- range $interfaceEntry := $itemValue.interfaces }}
+  {{- $interfaces := dict }}
+  {{- range .interfaces }}
+  {{- $_ := set $interfaces .interface . }}
+  {{- end }}
+  {{- range $interfaceEntry := $interfaces }}
     - port: {{ $interfaceEntry.port }}
       targetPort: {{ $interfaceEntry.interface | lower }}
       protocol: TCP

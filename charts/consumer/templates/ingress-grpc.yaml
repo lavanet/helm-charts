@@ -17,7 +17,11 @@ spec:
   tls:
     - hosts:
       {{- range $itemKey, $itemValue := $.Values.chains }}
-      {{- range $interfaceEntry := $itemValue.interfaces }}
+      {{- $interfaces := dict }}
+      {{- range .interfaces }}
+      {{- $_ := set $interfaces .interface . }}
+      {{- end }}
+      {{- range $interfaceEntry := $interfaces }}
       {{- if (eq ($interfaceEntry.interface | lower) "grpc") }}
         - "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
       {{- end }}
@@ -27,7 +31,11 @@ spec:
   {{- end }}
   rules:
     {{- range $itemKey, $itemValue := $.Values.chains }}
-    {{- range $interfaceEntry := $itemValue.interfaces }}
+    {{- $interfaces := dict }}
+    {{- range .interfaces }}
+    {{- $_ := set $interfaces .interface . }}
+    {{- end }}
+    {{- range $interfaceEntry := $interfaces }}
     {{- if (eq ($interfaceEntry.interface | lower) "grpc") }}
     - host: "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
       http:

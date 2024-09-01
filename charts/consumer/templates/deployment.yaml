@@ -105,7 +105,11 @@ spec:
             - {{ $val | quote }}
             {{- end }}
           ports:
-          {{- range $interfaceEntry := $itemValue.interfaces }}
+          {{- $interfaces := dict }}
+          {{- range .interfaces }}
+          {{- $_ := set $interfaces .interface . }}
+          {{- end }}
+          {{- range $interfaceEntry := $interfaces }}
             - name: {{ $interfaceEntry.interface | lower }}
               containerPort: {{ $interfaceEntry.port }}
               protocol: TCP
