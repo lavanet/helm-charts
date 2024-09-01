@@ -11,8 +11,8 @@ spec:
   type: {{ $.Values.service.type }}
   ports:
   {{- $interfaces := dict }}
-  {{- range .interfaces }}
-  {{- $_ := set $interfaces .interface . }}
+  {{- range $interfaceDetails := $itemValue.interfaces }}
+  {{- $_ := set $interfaces $interfaceDetails.interface . }}
   {{- end }}
   {{- range $interfaceEntry := $interfaces }}
     - port: {{ $interfaceEntry.port }}

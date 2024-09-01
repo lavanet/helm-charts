@@ -18,8 +18,8 @@ spec:
     - hosts:
       {{- range $itemKey, $itemValue := $.Values.chains }}
       {{- $interfaces := dict }}
-      {{- range .interfaces }}
-      {{- $_ := set $interfaces .interface . }}
+      {{- range $interfaceDetails := $itemValue.interfaces }}
+      {{- $_ := set $interfaces $interfaceDetails.interface . }}
       {{- end }}
       {{- range $interfaceEntry := $interfaces }}
       {{- if (eq ($interfaceEntry.interface | lower) "grpc") }}
@@ -32,8 +32,8 @@ spec:
   rules:
     {{- range $itemKey, $itemValue := $.Values.chains }}
     {{- $interfaces := dict }}
-    {{- range .interfaces }}
-    {{- $_ := set $interfaces .interface . }}
+    {{- range $interfaceDetails := $itemValue.interfaces }}
+    {{- $_ := set $interfaces $interfaceDetails.interface . }}
     {{- end }}
     {{- range $interfaceEntry := $interfaces }}
     {{- if (eq ($interfaceEntry.interface | lower) "grpc") }}
