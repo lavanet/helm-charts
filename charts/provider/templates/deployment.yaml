@@ -1,19 +1,22 @@
 {{- range $chain := $.Values.chains }}
-{{- if and $chain.persistence $chain.persistence.enabled }}
+{{- if or (not $chain.persistence) (not $chain.persistence.enabled) }}
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name:  {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $chain.name | lower }}
 spec:
+  strategy:
+    type: {{ $.Values.deploymentUpdate.type }}
+    {{- if eq $.Values.deploymentUpdate.type "RollingUpdate" }}
+    rollingUpdate:
+      maxSurge: {{ $.Values.deploymentUpdate.maxSurge }}
+      maxUnavailable: {{ $.Values.deploymentUpdate.maxUnavailable }}
+    {{- end }}
   replicas: {{ $.Values.replicaCount }}
-  serviceName: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
-  updateStrategy:
-    type: {{ $.Values.statefulSetUpdate.updateStrategy }}
-  podManagementPolicy: "Parallel"
   selector:
     matchLabels:
       {{- include "provider.selectorLabels" $ | nindent 6 }}
@@ -91,8 +94,6 @@ spec:
             - {{ $.Values.chainId }}
             - --geolocation
             - {{ $.Values.geolocation | quote }}
-            - --shard-id
-            - "$(MY_POD_INDEX)"
             {{- if $.Values.cache.enabled }}
             - --cache-be
             - {{ $.Values.cache.address }}
@@ -104,11 +105,6 @@ spec:
             {{- range $i, $val := $.Values.additionalArgs }}
             - {{ $val | quote }}
             {{- end }}
-          env:
-            - name: MY_POD_INDEX
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['apps.kubernetes.io/pod-index']
           ports:
             - name: grpc
               containerPort: {{ $.Values.service.port }}
@@ -160,14 +156,7 @@ spec:
             secretName: {{ $.Values.key.secretName }}
             optional: false
         - name: data
-          {{- if $chain.persistence }}
-          {{- if $chain.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
-          {{- else }}
           emptyDir: {}
-          {{- end }}
-          {{- end }}
       {{- with $.Values.nodeSelector }}
       nodeSelector:
         {{- toYaml $ | nindent 8 }}

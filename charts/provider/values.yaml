@@ -22,10 +22,15 @@ nameOverride: ""
 # -- String to fully override `"provider.fullname"`
 fullnameOverride: ""
 
-# -- Update strategy for StatefulSets
-updateStrategy: "RollingUpdate"
-# -- Pod Management Policy for StatefulSets
-podManagementPolicy: "Parallel"
+## -- Update strategy for StatefulSets
+statefulSetUpdate:
+  updateStrategy: RollingUpdate
+
+## -- Update strategy for Deployments
+deploymentUpdate:
+  type: RollingUpdate
+  maxUnavailable: 0
+  maxSurge: 100%
 
 serviceAccount:
   # -- Specifies whether a service account should be created
@@ -243,22 +248,22 @@ additionalArgs: []
 
 # @ignored
 chains:
-  # - id: lav1
-  #   name: my-lav1
-  #   persistence:
-  #     enabled: true
-  #     accessModes:
-  #       - "ReadWriteOnce"
-  #     size: "100Mi"
-  #   interfaces:
-  #     - interface: rest
-  #       disableTLS: true
-  #       nodes:
-  #         - endpoint: rest.example.com
-  #           type: full
-  #         - endpoint: rest.archive.example.com
-  #           type: archive
-  #           skipVerifications: pruning
+  - id: lav1
+    name: my-lav1
+    persistence:
+      enabled: true
+      accessModes:
+        - "ReadWriteOnce"
+      size: "100Mi"
+    interfaces:
+      - interface: rest
+        disableTLS: true
+        nodes:
+          - endpoint: rest.example.com
+            type: full
+          - endpoint: rest.archive.example.com
+            type: archive
+            skipVerifications: pruning
   #     - interface: tendermintrpc
   #       nodes:
   #         - endpoint: tendermintrpc.example.com

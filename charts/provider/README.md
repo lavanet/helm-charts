@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 0.5.15](https://img.shields.io/badge/Version-0.5.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 0.5.16](https://img.shields.io/badge/Version-0.5.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -204,6 +204,9 @@ Kubernetes: `>=1.25.0-0`
 | certificate.secretTemplateAnnotations | object | `{}` | Annotations that allow the certificate to be composed from data residing in existing Kubernetes Resources |
 | certificate.usages | list | `[]` | Usages for the certificate ## Ref: <https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage> |
 | chainId | string | `"lava-testnet-2"` | Lava chain id |
+| deploymentUpdate.maxSurge | string | `"100%"` |  |
+| deploymentUpdate.maxUnavailable | int | `0` |  |
+| deploymentUpdate.type | string | `"RollingUpdate"` |  |
 | fullnameOverride | string | `""` | String to fully override `"provider.fullname"` |
 | geolocation | string | `"2"` | Provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations) |
 | global.domain | string | `"my-provider.local"` | Default domain used by all components # Used for ingresses, certificates, etc. |
@@ -248,7 +251,6 @@ Kubernetes: `>=1.25.0-0`
 | node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | Lava node to connect to |
 | nodeSelector | object | `{}` | [Node selector] |
 | podAnnotations | object | `{}` | Annotations for the all deployed pods |
-| podManagementPolicy | string | `"Parallel"` | Pod Management Policy for StatefulSets |
 | podSecurityContext | object | `{}` |  |
 | readinessProbe.failureThreshold | int | `3` | Minimum consecutive failures for the [probe] to be considered failed after having succeeded |
 | readinessProbe.initialDelaySeconds | int | `10` | Number of seconds after the container has started before [probe] is initiated |
@@ -264,8 +266,8 @@ Kubernetes: `>=1.25.0-0`
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
+| statefulSetUpdate.updateStrategy | string | `"RollingUpdate"` |  |
 | tolerations | list | `[]` | [Tolerations] for use with node taints |
-| updateStrategy | string | `"RollingUpdate"` | Update strategy for StatefulSets |
 | wallet | string | `"test"` | Wallet name |
 
 ----------------------------------------------
