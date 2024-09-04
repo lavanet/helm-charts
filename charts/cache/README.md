@@ -39,7 +39,7 @@ Kubernetes: `>=1.25.0-0`
 | certificate.annotations | object | `{}` | Annotations to be applied to the Server Certificate |
 | certificate.domain | string | `""` (defaults to global.domain) | Certificate primary domain (commonName) |
 | certificate.duration | string | `""` (defaults to 2160h = 90d if not specified) | The requested 'duration' (i.e. lifetime) of the certificate. # Ref: <https://cert-manager.io/docs/usage/certificate/#renewal> |
-| certificate.enabled | bool | `true` | Deploy a Certificate resource (requires cert-manager) |
+| certificate.enabled | bool | `false` | Deploy a Certificate resource (requires cert-manager) |
 | certificate.issuer.group | string | `""` | Certificate issuer group. Set if using an external issuer. Eg. `cert-manager.io` |
 | certificate.issuer.kind | string | `""` | Certificate issuer kind. Either `Issuer` or `ClusterIssuer` |
 | certificate.issuer.name | string | `""` | Certificate issuer name. Eg. `letsencrypt` |
@@ -60,7 +60,7 @@ Kubernetes: `>=1.25.0-0`
 | imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry |
 | ingress.annotations | object | `{}` | Additional ingress annotations |
 | ingress.className | string | `"nginx"` | Defines which ingress controller will implement the resource |
-| ingress.enabled | bool | `true` | Enable an ingress resource for the provider |
+| ingress.enabled | bool | `false` | Enable an ingress resource for the provider |
 | ingress.hostname | string | `""` (defaults to global.domain) | Cache hostname |
 | ingress.path | string | `"/"` | The path to Provider |
 | ingress.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
