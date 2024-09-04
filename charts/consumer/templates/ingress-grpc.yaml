@@ -27,7 +27,11 @@ spec:
       {{- end }}
       {{- end }}
       {{- end }}
+      {{- with .Values.ingressGrpc.tlsSecretName }}
+      secretName: {{ . }}
+      {{- else }}
       secretName: consumer-grpc-tls
+      {{- else }}
   {{- end }}
   rules:
     {{- range $itemKey, $itemValue := $.Values.chains }}

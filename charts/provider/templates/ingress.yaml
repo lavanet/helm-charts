@@ -19,7 +19,11 @@ spec:
       {{- range $chain := $.Values.chains }}
         - "{{ $chain.id | lower }}.{{ include "provider.domain" $ }}"
       {{- end }}
+      {{- with .Values.ingressGrpc.tlsSecretName }}
+      secretName: {{ . }}
+      {{- else }}
       secretName: provider-grpc-tls
+      {{- end }}
   {{- end }}
   rules:
     {{- range $chain := $.Values.chains }}

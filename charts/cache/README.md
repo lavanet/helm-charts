@@ -2,7 +2,7 @@
 
 Lava helm chart for the cache service
 
-![Version: 0.5.13](https://img.shields.io/badge/Version-0.5.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 0.5.14](https://img.shields.io/badge/Version-0.5.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Cache Helm Chart
 
@@ -39,7 +39,7 @@ Kubernetes: `>=1.25.0-0`
 | certificate.annotations | object | `{}` | Annotations to be applied to the Server Certificate |
 | certificate.domain | string | `""` (defaults to global.domain) | Certificate primary domain (commonName) |
 | certificate.duration | string | `""` (defaults to 2160h = 90d if not specified) | The requested 'duration' (i.e. lifetime) of the certificate. # Ref: <https://cert-manager.io/docs/usage/certificate/#renewal> |
-| certificate.enabled | bool | `false` | Deploy a Certificate resource (requires cert-manager) |
+| certificate.enabled | bool | `true` | Deploy a Certificate resource (requires cert-manager) |
 | certificate.issuer.group | string | `""` | Certificate issuer group. Set if using an external issuer. Eg. `cert-manager.io` |
 | certificate.issuer.kind | string | `""` | Certificate issuer kind. Either `Issuer` or `ClusterIssuer` |
 | certificate.issuer.name | string | `""` | Certificate issuer name. Eg. `letsencrypt` |
@@ -60,11 +60,12 @@ Kubernetes: `>=1.25.0-0`
 | imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry |
 | ingress.annotations | object | `{}` | Additional ingress annotations |
 | ingress.className | string | `"nginx"` | Defines which ingress controller will implement the resource |
-| ingress.enabled | bool | `false` | Enable an ingress resource for the provider |
+| ingress.enabled | bool | `true` | Enable an ingress resource for the provider |
 | ingress.hostname | string | `""` (defaults to global.domain) | Cache hostname |
 | ingress.path | string | `"/"` | The path to Provider |
 | ingress.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
 | ingress.tls | bool | `true` | Enable TLS configuration for the domain defined at `global.domain` # TLS certificate will be retrieved from a TLS secret with name: `cache-tls` |
+| ingress.tlsSecretName | string | `nil` | Custom Ingress TLS secret |
 | livenessProbe.failureThreshold | int | `3` | Minimum consecutive failures for the [probe] to be considered failed after having succeeded |
 | livenessProbe.initialDelaySeconds | int | `10` | Number of seconds after the container has started before [probe] is initiated |
 | livenessProbe.periodSeconds | int | `10` | How often (in seconds) to perform the [probe] |

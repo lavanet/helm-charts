@@ -27,7 +27,11 @@ spec:
       {{- end }}
       {{- end }}
       {{- end }}
+      {{- with .Values.ingress.tlsSecretName }}
+      secretName: {{ . }}
+      {{- else }}
       secretName: consumer-tls
+      {{- end }}
   {{- end }}
   rules:
     {{- range $itemKey, $itemValue := $.Values.chains }}

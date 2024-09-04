@@ -65,6 +65,8 @@ ingress:
   path: /
   # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
   pathType: Prefix
+  # -- Custom Ingress TLS secret
+  tlsSecretName:
 
 ingressGrpc:
   # -- Enable a grpc ingress resource for the consumers
@@ -82,6 +84,8 @@ ingressGrpc:
   path: /
   # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
   pathType: Prefix
+  # -- Custom GRPC Ingress TLS secret
+  tlsSecretName:
 
 # TLS certificate configuration via cert-manager
 certificate:

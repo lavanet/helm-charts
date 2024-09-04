@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 0.5.13](https://img.shields.io/badge/Version-0.5.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 0.5.14](https://img.shields.io/badge/Version-0.5.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -217,6 +217,7 @@ Kubernetes: `>=1.25.0-0`
 | ingressGrpc.path | string | `"/"` | The path to Provider |
 | ingressGrpc.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
 | ingressGrpc.tls | bool | `true` | Enable TLS configuration for the domain defined at `global.domain` # TLS certificate will be retrieved from a TLS secret with name: `provider-grpc-tls` |
+| ingressGrpc.tlsSecretName | string | `nil` | Custom Ingress TLS secret |
 | key | object | `{"passwordSecretKey":"password","passwordSecretName":"wallet","secretKey":"key","secretName":"wallet"}` | Information about the private key to use for the node |
 | key.passwordSecretKey | string | `"password"` | The key in the secret that contains the password for the private key |
 | key.passwordSecretName | string | `"wallet"` | The secret that contains the password for the private key |

@@ -1,4 +1,5 @@
 {{- if .Values.certificate.enabled -}}
+{{- if not .Values.ingress.tlsSecretName }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -47,4 +48,5 @@ spec:
   usages:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+{{- end }}
 {{- end }}

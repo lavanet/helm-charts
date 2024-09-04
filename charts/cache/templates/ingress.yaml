@@ -17,17 +17,21 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.hostname | default (include "cache.domain" .) | quote }}
+      {{- with .Values.ingress.tlsSecretName }}
+      secretName: {{ . }}
+      {{- else }}
       secretName: cache-tls
+      {{- end }}
   {{- end }}
   rules:
     - host: {{ .Values.ingress.hostname | default (include "cache.domain" .) | quote }}
       http:
         paths:
-          - path: {{ $.Values.ingress.path }}
-            pathType: {{ $.Values.ingress.pathType }}
+          - path: {{ .Values.ingress.path }}
+            pathType: {{ .Values.ingress.pathType }}
             backend:
               service:
-                name: {{ include "cache.fullname" $ }}
+                name: {{ include "cache.fullname" . }}
                 port:
                   name: http
 {{- end }}
