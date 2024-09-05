@@ -27,14 +27,14 @@ spec:
   {{- end }}
   rules:
     {{- range $chain := $.Values.chains }}
-    - host: "{{ $chain.id | lower }}.{{ include "provider.domain" $ }}"
+    - host: "{{ $chain.name | lower }}.{{ include "provider.domain" $ }}"
       http:
         paths:
           - path: {{ $.Values.ingressGrpc.path }}
             pathType: {{ $.Values.ingressGrpc.pathType }}
             backend:
               service:
-                name: {{ $chain.id | lower }}-{{ include "provider.fullname" $ }}
+                name: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
                 port:
                   name: grpc
     {{- end }}
