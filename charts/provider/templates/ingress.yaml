@@ -17,7 +17,7 @@ spec:
   tls:
     - hosts:
       {{- range $chain := $.Values.chains }}
-        - "{{ $chain.id | lower }}.{{ include "provider.domain" $ }}"
+        - "{{ $chain.name | lower }}.{{ include "provider.domain" $ }}"
       {{- end }}
       {{- with .Values.ingressGrpc.tlsSecretName }}
       secretName: {{ . }}
