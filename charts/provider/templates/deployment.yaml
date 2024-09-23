@@ -20,7 +20,7 @@ spec:
   selector:
     matchLabels:
       {{- include "provider.selectorLabels" $ | nindent 6 }}
-      app.lavanet.io/chain: {{ $chain.id | lower }}
+      app.lavanet.io/chain: {{ $chain.name | lower }}
   template:
     metadata:
       annotations:
@@ -32,7 +32,7 @@ spec:
         {{- end }}
       labels:
         {{- include "provider.selectorLabels" $ | nindent 8 }}
-        app.lavanet.io/chain: {{ $chain.id | lower }}
+        app.lavanet.io/chain: {{ $chain.name | lower }}
     spec:
       {{- with $.Values.imagePullSecrets }}
       imagePullSecrets:
