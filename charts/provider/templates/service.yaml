@@ -6,7 +6,7 @@ metadata:
   name: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
-    app.lavanet.io/chain: {{ $chain.id | lower }}
+    app.lavanet.io/chain: {{ $chain.name | lower }}
 spec:
   type: {{ $.Values.service.type }}
   ports:
@@ -22,5 +22,5 @@ spec:
   {{- end }}
   selector:
     {{- include "provider.selectorLabels" $ | nindent 4 }}
-    app.lavanet.io/chain: {{ $chain.id | lower }}
+    app.lavanet.io/chain: {{ $chain.name | lower }}
 {{- end }}
