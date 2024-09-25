@@ -306,3 +306,7 @@ chains:
   #       port: 2021
   #     - interface: grpc
   #       port: 2022
+  #       staticProviders:
+  #         - url: eth-provider.lava-system.svc.cluster.local:2200
+  #           addons:
+  #             - debug

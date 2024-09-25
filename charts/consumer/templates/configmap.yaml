@@ -28,6 +28,12 @@ data:
         node-urls:
         {{- range $staticProvider := $interfaceEntry.staticProviders }}
           - url: {{ $staticProvider.url }}
+            {{- if $staticProvider.addons }}
+            addons:
+              {{- range $addon := $staticProvider.addons }}
+              - {{ $addon | lower }}
+              {{- end }}
+            {{- end }}
         {{- end }}
     {{- end }}
     {{- end }}
