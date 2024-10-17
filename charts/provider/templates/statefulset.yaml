@@ -4,7 +4,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name:  {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
+  name:  {{ include "provider.fullname" $ }}-{{ $chain.name | lower }}
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $chain.name | lower }}
@@ -153,7 +153,7 @@ spec:
             {{- if $chain.existingConfigSecret }}
             secretName: {{ $chain.existingConfigSecret }}
             {{- else }}
-            secretName: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
+            secretName: {{ include "provider.fullname" $ }}-{{ $chain.name | lower }}
             {{- end }}
         - name: "private-key-volume"
           secret:
@@ -163,7 +163,7 @@ spec:
           {{- if $chain.persistence }}
           {{- if $chain.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
+            claimName: {{ include "provider.fullname" $ }}-{{ $chain.name | lower }}
           {{- else }}
           emptyDir: {}
           {{- end }}
