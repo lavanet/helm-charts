@@ -34,7 +34,7 @@ spec:
             pathType: {{ $.Values.ingressGrpc.pathType }}
             backend:
               service:
-                name: {{ $chain.name | lower }}-{{ include "provider.fullname" $ }}
+                name: {{ include "provider.fullname" $ }}-{{ $chain.name | lower }}
                 port:
                   name: grpc
     {{- end }}
