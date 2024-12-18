@@ -6,7 +6,7 @@ icon: https://github.com/lavanet/helm-charts/blob/main/docs/logo/logo.png?raw=tr
 sources:
   - https://github.com/lavanet/helm-charts
 type: application
-version: 1.1.0
+version: 1.1.1
 appVersion: "v2.5.0"
 kubeVersion: ">=1.25.0-0"
 home: https://lavanet.xyz

@@ -142,7 +142,11 @@ spec:
               name: {{ $chain.name | lower }}-config
               readOnly: true
           resources:
+          {{- if $chain.resources }}
+            {{- toYaml $chain.resources | nindent 12 }}
+          {{- else }}
             {{- toYaml $.Values.resources | nindent 12 }}
+          {{- end }}
       volumes:
         - name: {{ $chain.name | lower }}-config
           secret:
