@@ -22,7 +22,7 @@ spec:
     metadata:
       annotations:
         {{- with $.Values.podAnnotations }}
-        {{- toYaml $ | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
         {{- end }}
         {{- if not $chain.existingConfigSecret }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") $ | sha256sum }}
@@ -33,7 +33,7 @@ spec:
     spec:
       {{- with $.Values.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml $ | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "provider.serviceAccountName" $ }}
       securityContext:
@@ -170,15 +170,15 @@ spec:
           {{- end }}
       {{- with $.Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml $ | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with $.Values.affinity }}
       affinity:
-        {{- toYaml $ | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with $.Values.tolerations }}
       tolerations:
-        {{- toYaml $ | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
 {{- end }}
 {{- end }}
