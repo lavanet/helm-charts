@@ -261,20 +261,64 @@ chains:
         nodes:
           - endpoint: rest.example.com
             type: full
+            authConfig:
+              enabled: true
+              authHeaders:
+                enabled: true
+                headers:
+                  AUTH-X-HEADER: "xyz"
+                  # ANY-OTHER-HEADER: "abc"
           - endpoint: rest.archive.example.com
             type: archive
             skipVerifications: pruning
+            authConfig:
+              enabled: true
+              authHeaders:
+                enabled: true
+                headers:
+                  AUTH-X-HEADER: "xyz"
+                  # ANY-OTHER-HEADER: "abc"
   #     - interface: tendermintrpc
   #       nodes:
   #         - endpoint: tendermintrpc.example.com
   #           type: full
+  #           authConfig:
+  #             enabled: true
+  #             authHeaders:
+  #               enabled: true
+  #               headers:
+  #                 AUTH-X-HEADER: "xyz"
+  #                 ANY-OTHER-HEADER: "abc"
   #         - endpoint: tendermintrpc.archive.example.com
   #           type: archive
   #           skipVerifications: pruning
+  #           authConfig:
+  #             enabled: true
+  #             authHeaders:
+  #               enabled: true
+  #               headers:
+  #                 AUTH-X-HEADER: "xyz"
+  #                 ANY-OTHER-HEADER: "abc"
   #     - interface: grpc
   #       nodes:
   #         - endpoint: grpc.example.com
   #           type: full
+  #           authConfig:
+  #             enabled: true
+  #             authHeaders:
+  #               enabled: true
+  #               headers:
+  #                 AUTH-X-HEADER: "xyz"
+  #                 ANY-OTHER-HEADER: "abc"
   #         - endpoint: grpc.archive.example.com
   #           type: archive
   #           skipVerifications: pruning
+  #           authConfig:
+  #             enabled: true
+  #             authHeaders:
+  #               enabled: true
+  #               headers:
+  #                 AUTH-X-HEADER: "xyz"
+  #                 ANY-OTHER-HEADER: "abc"
+
+# auth-config configuration block
