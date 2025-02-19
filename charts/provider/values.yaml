@@ -250,6 +250,13 @@ additionalArgs: []
 chains:
   # - id: lav1
   #   name: my-lav1
+  #   resources:
+  #     requests:
+  #       cpu: 100m
+  #       memory: 128Mi
+  #     limits:
+  #       cpu: 100m
+  #       memory: 128Mi
   #   persistence:
   #     enabled: true
   #     accessModes:
