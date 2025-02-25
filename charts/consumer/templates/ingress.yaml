@@ -41,10 +41,20 @@ spec:
     {{- end }}
     {{- range $interfaceEntry := $interfaces }}
     {{- if (ne ($interfaceEntry.interface | lower) "grpc") }}
-    - host: "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
+    - host:
+        {{- if $.Values.global.usePathBasedRouting | default false }}
+        {{ include "consumer.domain" $ }}
+        {{- else }}
+        {{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}
+        {{- end }}
       http:
         paths:
-          - path: {{ $.Values.ingress.path }}
+          - path:
+              {{- if $.Values.global.usePathBasedRouting | default false }}
+              /{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}
+              {{- else }}
+              {{ $.Values.ingress.path }}
+              {{- end }}
             pathType: {{ $.Values.ingress.pathType }}
             backend:
               service:
