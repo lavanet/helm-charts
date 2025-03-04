@@ -51,7 +51,7 @@ spec:
         paths:
           - path:
               {{- if $.Values.global.usePathBasedRouting | default false }}
-              /{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}
+              "/{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}(/|$)(.*)"
               {{- else }}
               {{ $.Values.ingress.path }}
               {{- end }}
