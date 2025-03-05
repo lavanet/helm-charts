@@ -4,7 +4,7 @@ This repository contains Helm charts for deploying components to Kubernetes clus
 
 ## Managed
 
-Create an account and deploy your consumer/provider with a few clicks in [managed.lavanet.xyz](https://managed.lavanet.xyz)
+Create an account and quickly deploy your consumer/provider in [managed.lavanet.xyz](https://managed.lavanet.xyz)
 
 ## Self-hosted
 
