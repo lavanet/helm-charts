@@ -1,0 +1,94 @@
+provider:
+    fullnameOverride: provider
+
+    service:
+        port: 2200
+
+    metrics:
+        enabled: true
+        serviceMonitor:
+            enabled: false
+        port: 7780
+
+    log:
+        level: warn
+
+
+    resources:
+        requests:
+            cpu: 250m
+            memory: 1Gi
+
+    wallet: fireblocks
+
+    additionalArgs:
+        - --static-providers
+        - --skip-websocket-verification=true
+        - --metrics-listen-address=:7780
+        - --relays-health-interval=5s
+        - --show-provider-address-in-metrics=true
+
+    chains:
+        - name: eth-quicknode
+          id: eth1
+          interfaces:
+              - interface: jsonrpc
+                nodes:
+                    - endpoint: https://yay.someting
+                      type: debug
+        - name: polygon-quicknode
+          id: polygon
+          interfaces:
+              - interface: jsonrpc
+                nodes:
+                    - endpoint: https://yay.someting
+                      type: debug
+        - name: polygon-ankr
+          id: polygon
+          interfaces:
+              - interface: jsonrpc
+                nodes:
+                    - endpoint: https://yay.someting
+                      type: debug
+        - name: polygon-getblock
+          id: polygon
+          interfaces:
+              - interface: jsonrpc
+                nodes:
+                    - endpoint: https://yay.someting
+                      type: debug
+        - name: polygona-quicknode
+          id: polygona
+          interfaces:
+              - interface: jsonrpc
+                nodes:
+                    - endpoint: https://yay.someting
+                      type: debug
+        - name: near-quicknode
+          id: near
+          interfaces:
+              - interface: jsonrpc
+                nodes:
+                    - endpoint: https://yay.someting
+                      type: full
+        - name: near-lava
+          id: near
+          interfaces:
+              - interface: jsonrpc
+                nodes:
+                    - endpoint: https://yay.someting
+                      type: full
+        - name: base-quicknode
+          id: base
+          interfaces:
+              - interface: jsonrpc
+                nodes:
+                    - endpoint: https://yay.someting
+                      type: debug
+        - name: base-ankr
+          id: base
+          interfaces:
+              - interface: jsonrpc
+                nodes:
+                    - endpoint: https://yay.someting
+                      type: debug

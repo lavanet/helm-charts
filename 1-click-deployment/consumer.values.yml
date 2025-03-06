@@ -1,0 +1,87 @@
+consumer:
+    global:
+        domain: lava.local
+
+    fullnameOverride: consumer
+
+    persistence:
+        enabled: false
+
+    image:
+        tag: "pr-1977"
+
+    metrics:
+        enabled: true
+        serviceMonitor:
+            enabled: false
+        port: 7779
+
+    log:
+        level: warn
+
+    wallet: fireblocks
+
+    # cache:
+    #     address: consumer-cache.lava-service.svc.cluster.local:20100
+
+    additionalArgs:
+        - --allow-insecure-provider-dialing
+        - --disable-conflict-transactions
+        - --skip-policy-verification
+        - --metrics-listen-address=:7779
+        - --optimizer-qos-listen
+        - --use-lava-over-lava-backup=false
+        - --relays-health-interval=5s
+        - --enable-provider-optimizer-auto-adjustment-of-tiers=true
+        - --show-provider-address-in-metrics=true
+        - --enable-periodic-probe-providers=true
+        - --periodic-probe-providers-interval=5s
+
+    chains:
+        eth1:
+            interfaces:
+                - interface: jsonrpc
+                  port: 2021
+                  staticProviders:
+                      - url: eth-quicknode-provider.lava-service.svc.cluster.local:2200
+                        addons: ["debug"]
+        polygon:
+            interfaces:
+                - interface: jsonrpc
+                  port: 2031
+                  staticProviders:
+                      - url: polygon-getblock-provider.lava-service.svc.cluster.local:2200
+                        addons: ["debug"]
+                - interface: jsonrpc
+                  port: 2031
+                  staticProviders:
+                      - url: polygon-quicknode-provider.lava-service.svc.cluster.local:2200
+                        addons: ["debug"]
+                - interface: jsonrpc
+                  port: 2031
+                  staticProviders:
+                      - url: polygon-ankr-provider.lava-service.svc.cluster.local:2200
+                        addons: ["debug"]
+
+        near:
+            interfaces:
+                - interface: jsonrpc
+                  port: 2032
+                  staticProviders:
+                      - url: near-lava-provider.lava-service.svc.cluster.local:2200
+                - interface: jsonrpc
+                  port: 2032
+                  staticProviders:
+                      - url: near-quicknode-provider.lava-service.svc.cluster.local:2200
+        base:
+            interfaces:
+                - interface: jsonrpc
+                  port: 2033
+                  staticProviders:
+                      - url: base-quicknode-provider.lava-service.svc.cluster.local:2200
+                        addons: ["debug"]
+                - interface: jsonrpc
+                  port: 2033
+                  staticProviders:
+                      - url: base-ankr-provider.lava-service.svc.cluster.local:2200
+                        addons: ["debug"]
