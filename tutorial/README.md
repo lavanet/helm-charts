@@ -102,7 +102,9 @@ Need to remove a deployment? Simply run:
 
 ```bash
 helm uninstall lava-consumer --namespace lava
+helm uninstall lava-consumer-cache --namespace lava
 helm uninstall lava-provider --namespace lava
+helm uninstall lava-provider-cache --namespace lava
 ```
 
 ---

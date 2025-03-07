@@ -38,7 +38,7 @@ consumer:
         eth1:
             interfaces:
                 - interface: jsonrpc
-                  port: 2021
+                  port: 2031
                   staticProviders:
                       - url: eth-lava-provider.lava-service.svc.cluster.local:2200
                         addons: ["debug"]
