@@ -30,20 +30,57 @@ Prefer managing your own infrastructure? No problem! Follow these simple steps t
 
 Ensure you have the following installed:
 
-- **Kubernetes:** v1.32 or later
-- **Helm:** v3.17 or later
+- A running **Kubernetes** cluster
 
-### 📦 Quick Installation
+### 📦 Quick Deployment
 
-Add the Lava Network Helm repository and deploy your first component in just a few commands:
+Test that your Kubernetes cluster is ready with the following command:
+
+```bash
+kubectl get nodes
+```
+
+You should get an output like this:
+
+```bash
+NAME                    STATUS   ROLES    AGE     VERSION
+mynode1-1c1487a1-bfgp   Ready    <none>   3h42m   v1.30.8.1051000
+mynode2-4c2eea16-4wtj   Ready    <none>   11h     v1.30.8.1051000
+```
+
+This means that you have connectivity to your Kubernetes cluster through kubectl.
+
+If you are on MacOS, you can install Helm (which will install and deploy the Lava code) with this command:
+
+```bash
+brew install helm
+```
+
+If you are not in MacOS, check the Helm docs to install: https://helm.sh/docs/intro/install/#through-package-managers
+
+Add the Lava Network Helm repository and deploy your first component in just a few commands (to deploy a provider, make sure to modify the )):
 
 ```bash
 helm repo add lavanet https://lavanet.github.io/helm-charts
 helm repo update
-helm install lava-consumer lavanet/lavanet-consumer --values example.values.yaml
+helm install lava-consumer lavanet/consumer --values consumer.values.yaml
+helm install lava-consumer-cache lavanet/cache --values consumer-cache.values.yaml
+helm install lava-provider lavanet/provider --values provider.values.yaml
+helm install lava-provider-cache lavanet/cache --values provider-cache.values.yaml
 ```
 
 That's it! Your Lava Network consumer is now up and running. 🎉
+
+### Test
+
+To test your fully deployed infrastructure, simply forward the service to your computer through the Kubernetes internal networking:
+
+```bash
+kubectl port-forward service/near-lava-consumer 2032:27017
+curl -k -X POST -d  '{"jsonrpc":"2.0","method":"block","params":{"finality":"final"},"id":1}' http://localhost:27017
+```
+
+Optionally, you can expose your consumer with an Ingress or a Gateway like NGINX or Envoy.
 
 ---
 

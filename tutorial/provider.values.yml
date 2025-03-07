@@ -19,7 +19,10 @@ provider:
             cpu: 250m
             memory: 1Gi
 
-    wallet: fireblocks
+    wallet: tutorial-lava-wallet
+
+    cache:
+        address: provider-cache.lava-service.svc.cluster.local:20100
 
     additionalArgs:
         - --static-providers
@@ -29,66 +32,24 @@ provider:
         - --show-provider-address-in-metrics=true
 
     chains:
-        - name: eth-quicknode
+        - name: eth-lava
           id: eth1
           interfaces:
               - interface: jsonrpc
                 nodes:
-                    - endpoint: https://yay.someting
+                    - endpoint: https://eth1.tendermintrpc.lava.build:443/
                       type: debug
-        - name: polygon-quicknode
-          id: polygon
-          interfaces:
-              - interface: jsonrpc
-                nodes:
-                    - endpoint: https://yay.someting
-                      type: debug
-        - name: polygon-ankr
-          id: polygon
-          interfaces:
-              - interface: jsonrpc
-                nodes:
-                    - endpoint: https://yay.someting
-                      type: debug
-        - name: polygon-getblock
-          id: polygon
-          interfaces:
-              - interface: jsonrpc
-                nodes:
-                    - endpoint: https://yay.someting
-                      type: debug
-        - name: polygona-quicknode
-          id: polygona
-          interfaces:
-              - interface: jsonrpc
-                nodes:
-                    - endpoint: https://yay.someting
-                      type: debug
-        - name: near-quicknode
-          id: near
-          interfaces:
-              - interface: jsonrpc
-                nodes:
-                    - endpoint: https://yay.someting
-                      type: full
         - name: near-lava
           id: near
           interfaces:
               - interface: jsonrpc
                 nodes:
-                    - endpoint: https://yay.someting
+                    - endpoint: https://near.tendermintrpc.lava.build:443/
                       type: full
-        - name: base-quicknode
+        - name: base-lava
           id: base
           interfaces:
               - interface: jsonrpc
                 nodes:
-                    - endpoint: https://yay.someting
-                      type: debug
-        - name: base-ankr
-          id: base
-          interfaces:
-              - interface: jsonrpc
-                nodes:
-                    - endpoint: https://yay.someting
+                    - endpoint: https://base.tendermintrpc.lava.build:443/
                       type: debug
