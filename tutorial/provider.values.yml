@@ -1,55 +1,64 @@
-provider:
-    fullnameOverride: provider
+fullnameOverride: provider
 
-    service:
-        port: 2200
+service:
+    port: 2200
 
-    metrics:
-        enabled: true
-        serviceMonitor:
-            enabled: false
-        port: 7780
+metrics:
+    enabled: true
+    serviceMonitor:
+        enabled: false
+    port: 7780
 
-    log:
-        level: warn
+log:
+    level: warn
 
 
-    resources:
-        requests:
-            cpu: 250m
-            memory: 1Gi
+resources:
+    requests:
+        cpu: 250m
+        memory: 1Gi
 
-    wallet: tutorial-lava-wallet
+wallet: tutorial-lava-wallet
 
-    cache:
-        address: provider-cache.lava-service.svc.cluster.local:20100
+key:
+  # -- The kubernetes secret name containing the private key
+  secretName: "tutorial-lava-wallet"
+  # -- The key in the kubernetes secret to use
+  secretKey: "key"
+  # -- The kubernetes secret that contains the password for the private key
+  passwordSecretName: "tutorial-lava-wallet"
+  # -- The key in the kubernetes secret that contains the password for the private key
+  passwordSecretKey: "password"
 
-    additionalArgs:
-        - --static-providers
-        - --skip-websocket-verification=true
-        - --metrics-listen-address=:7780
-        - --relays-health-interval=5s
-        - --show-provider-address-in-metrics=true
+cache:
+    address: provider-cache.lava-service.svc.cluster.local:20100
 
-    chains:
-        - name: eth-lava
-          id: eth1
-          interfaces:
-              - interface: jsonrpc
-                nodes:
-                    - endpoint: https://eth1.tendermintrpc.lava.build:443/
-                      type: debug
-        - name: near-lava
-          id: near
-          interfaces:
-              - interface: jsonrpc
-                nodes:
-                    - endpoint: https://near.tendermintrpc.lava.build:443/
-                      type: full
-        - name: base-lava
-          id: base
-          interfaces:
-              - interface: jsonrpc
-                nodes:
-                    - endpoint: https://base.tendermintrpc.lava.build:443/
-                      type: debug
+additionalArgs:
+    - --static-providers
+    - --skip-websocket-verification=true
+    - --metrics-listen-address=:7780
+    - --relays-health-interval=5s
+    - --show-provider-address-in-metrics=true
+
+chains:
+    - name: eth-lava
+      id: eth1
+      interfaces:
+        - interface: jsonrpc
+          nodes:
+            - endpoint: https://eth1.tendermintrpc.lava.build:443/
+              type: debug
+    - name: near-lava
+      id: near
+      interfaces:
+        - interface: jsonrpc
+          nodes:
+            - endpoint: https://near.tendermintrpc.lava.build:443/
+              type: full
+    - name: base-lava
+      id: base
+      interfaces:
+        - interface: jsonrpc
+          nodes:
+            - endpoint: https://base.tendermintrpc.lava.build:443/
+              type: debug

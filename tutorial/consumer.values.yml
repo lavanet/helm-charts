@@ -1,58 +1,67 @@
-consumer:
-    global:
-        domain: lava.local
+global:
+    domain: lava.local
 
-    fullnameOverride: consumer
+fullnameOverride: consumer
 
-    persistence:
+persistence:
+    enabled: false
+
+metrics:
+    enabled: true
+    serviceMonitor:
         enabled: false
+    port: 7779
 
-    metrics:
-        enabled: true
-        serviceMonitor:
-            enabled: false
-        port: 7779
+log:
+    level: warn
 
-    log:
-        level: warn
+wallet: tutorial-lava-wallet
 
-    wallet: tutorial-lava-wallet
+key:
+  # -- The kubernetes secret name containing the private key
+  secretName: "tutorial-lava-wallet"
+  # -- The key in the kubernetes secret to use
+  secretKey: "key"
+  # -- The kubernetes secret that contains the password for the private key
+  passwordSecretName: "wallet"
+  # -- The key in the kubernetes secret that contains the password for the private key
+  passwordSecretKey: "password"
 
-    cache:
-        address: consumer-cache.lava-service.svc.cluster.local:20100
+cache:
+    address: consumer-cache.lava-service.svc.cluster.local:20100
 
-    additionalArgs:
-        - --allow-insecure-provider-dialing
-        - --disable-conflict-transactions
-        - --skip-policy-verification
-        - --metrics-listen-address=:7779
-        - --optimizer-qos-listen
-        - --use-lava-over-lava-backup=false
-        - --relays-health-interval=5s
-        - --enable-provider-optimizer-auto-adjustment-of-tiers=true
-        - --show-provider-address-in-metrics=true
-        - --enable-periodic-probe-providers=true
-        - --periodic-probe-providers-interval=5s
+additionalArgs:
+    - --allow-insecure-provider-dialing
+    - --disable-conflict-transactions
+    - --skip-policy-verification
+    - --metrics-listen-address=:7779
+    - --optimizer-qos-listen
+    - --use-lava-over-lava-backup=false
+    - --relays-health-interval=5s
+    - --enable-provider-optimizer-auto-adjustment-of-tiers=true
+    - --show-provider-address-in-metrics=true
+    - --enable-periodic-probe-providers=true
+    - --periodic-probe-providers-interval=5s
 
-    chains:
-        eth1:
-            interfaces:
-                - interface: jsonrpc
-                  port: 2031
-                  staticProviders:
-                      - url: eth-lava-provider.lava-service.svc.cluster.local:2200
-                        addons: ["debug"]
+chains:
+    eth1:
+        interfaces:
+            - interface: jsonrpc
+              port: 2031
+              staticProviders:
+                - url: eth-lava-provider.lava-service.svc.cluster.local:2200
+                  addons: ["debug"]
 
-        near:
-            interfaces:
-                - interface: jsonrpc
-                  port: 2032
-                  staticProviders:
-                      - url: near-lava-provider.lava-service.svc.cluster.local:2200
-        base:
-            interfaces:
-                - interface: jsonrpc
-                  port: 2033
-                  staticProviders:
-                      - url: base-lava-provider.lava-service.svc.cluster.local:2200
-                        addons: ["debug"]
+    near:
+        interfaces:
+            - interface: jsonrpc
+              port: 2032
+              staticProviders:
+                - url: near-lava-provider.lava-service.svc.cluster.local:2200
+    base:
+        interfaces:
+            - interface: jsonrpc
+              port: 2033
+              staticProviders:
+                - url: base-lava-provider.lava-service.svc.cluster.local:2200
+                  addons: ["debug"]

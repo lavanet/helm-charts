@@ -31,6 +31,7 @@ Prefer managing your own infrastructure? No problem! Follow these simple steps t
 Ensure you have the following installed:
 
 - A running **Kubernetes** cluster
+- Lava wallet (Refer to [this](https://docs.lavanet.xyz/wallet/#cli) steps)
 
 ### 📦 Quick Deployment
 
@@ -58,15 +59,25 @@ brew install helm
 
 If you are not in MacOS, check the Helm docs to install: https://helm.sh/docs/intro/install/#through-package-managers
 
-Add the Lava Network Helm repository and deploy your first component in just a few commands (to deploy a provider, make sure to modify the )):
+First, you'll need to create a [Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/) with the folloring parameters:
+- secretKey: Wallet private key
+- passwordSecretKey: Password for the private key
+
+You can create the secret with the following command:
+
+```bash
+kubectl create secret generic tutorial-lava-wallet --from-file=secretKey=/home/user/my-private-key.pem --from-literal=passwordSecretKey="superstrongpassword"
+```
+
+Add the Lava Network Helm repository and deploy your first component in just a few commands:
 
 ```bash
 helm repo add lavanet https://lavanet.github.io/helm-charts
 helm repo update
-helm install lava-consumer lavanet/consumer --values consumer.values.yaml
-helm install lava-consumer-cache lavanet/cache --values consumer-cache.values.yaml
-helm install lava-provider lavanet/provider --values provider.values.yaml
-helm install lava-provider-cache lavanet/cache --values provider-cache.values.yaml
+helm install lava-consumer lavanet/consumer --values consumer.values.yml
+helm install lava-consumer-cache lavanet/cache --values consumer-cache.values.yml
+helm install lava-provider lavanet/provider --values provider.values.yml
+helm install lava-provider-cache lavanet/cache --values provider-cache.values.yml
 ```
 
 That's it! Your Lava Network consumer is now up and running. 🎉
@@ -101,10 +112,10 @@ Explore our available charts to enhance your Lava Network deployment:
 Need to remove a deployment? Simply run:
 
 ```bash
-helm uninstall lava-consumer --namespace lava
-helm uninstall lava-consumer-cache --namespace lava
-helm uninstall lava-provider --namespace lava
-helm uninstall lava-provider-cache --namespace lava
+helm uninstall lava-consumer
+helm uninstall lava-consumer-cache
+helm uninstall lava-provider
+helm uninstall lava-provider-cache
 ```
 
 ---
