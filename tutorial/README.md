@@ -80,6 +80,11 @@ helm install lava-provider lavanet/provider --values provider.values.yml
 helm install lava-provider-cache lavanet/cache --values provider-cache.values.yml
 ```
 
+When the chart has been successfully installed, you'll get a message like this:
+
+<img width="1240" alt="Installed Helm Chart" src="https://github.com/user-attachments/assets/d2d5b441-1dcd-4066-84fe-b451d096ab30" />
+
+
 That's it! Your Lava Network consumer is now up and running. 🎉
 
 ### Test
