@@ -12,6 +12,8 @@ metrics:
 log:
     level: warn
 
+image:
+    tag: "v5.2.0"
 
 resources:
     requests:
@@ -31,7 +33,7 @@ key:
   passwordSecretKey: "password"
 
 cache:
-    address: provider-cache.lava-service.svc.cluster.local:20100
+    address: lava-provider-cache.default.svc.cluster.local:20100
 
 additionalArgs:
     - --static-providers

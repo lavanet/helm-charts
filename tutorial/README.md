@@ -63,10 +63,17 @@ First, you'll need to create a [Kubernetes secret](https://kubernetes.io/docs/co
 - secretKey: Wallet private key
 - passwordSecretKey: Password for the private key
 
+You can export the private key from your wallet with this command:
+```bash
+lavap keys export tutorial-lava-wallet
+```
+
+It will ask you to create a password for the key that will be exported, save the password, you'll use it in the upcoming command.
+
 You can create the secret with the following command:
 
 ```bash
-kubectl create secret generic tutorial-lava-wallet --from-file=secretKey=/home/user/my-private-key.pem --from-literal=passwordSecretKey="superstrongpassword"
+kubectl create secret generic tutorial-lava-wallet --from-file=secretKey=/home/user/private.key --from-literal=passwordSecretKey="superstrong"
 ```
 
 Add the Lava Network Helm repository and deploy your first component in just a few commands:
@@ -74,10 +81,10 @@ Add the Lava Network Helm repository and deploy your first component in just a f
 ```bash
 helm repo add lavanet https://lavanet.github.io/helm-charts
 helm repo update
-helm install lava-consumer lavanet/consumer --values consumer.values.yml
 helm install lava-consumer-cache lavanet/cache --values consumer-cache.values.yml
-helm install lava-provider lavanet/provider --values provider.values.yml
+helm install lava-consumer lavanet/consumer --values consumer.values.yml
 helm install lava-provider-cache lavanet/cache --values provider-cache.values.yml
+helm install lava-provider lavanet/provider --values provider.values.yml
 ```
 
 When the chart has been successfully installed, you'll get a message like this:

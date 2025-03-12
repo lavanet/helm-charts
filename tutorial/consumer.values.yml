@@ -12,6 +12,9 @@ metrics:
         enabled: false
     port: 7779
 
+image:
+    tag: "v5.2.0"
+
 log:
     level: warn
 
@@ -21,27 +24,20 @@ key:
   # -- The kubernetes secret name containing the private key
   secretName: "tutorial-lava-wallet"
   # -- The key in the kubernetes secret to use
-  secretKey: "key"
+  secretKey: "secretKey"
   # -- The kubernetes secret that contains the password for the private key
-  passwordSecretName: "wallet"
+  passwordSecretName: "tutorial-lava-wallet"
   # -- The key in the kubernetes secret that contains the password for the private key
-  passwordSecretKey: "password"
+  passwordSecretKey: "passwordSecretKey"
 
 cache:
-    address: consumer-cache.lava-service.svc.cluster.local:20100
+    address: lava-consumer-cache.default.svc.cluster.local:20100
 
 additionalArgs:
     - --allow-insecure-provider-dialing
     - --disable-conflict-transactions
-    - --skip-policy-verification
     - --metrics-listen-address=:7779
-    - --optimizer-qos-listen
-    - --use-lava-over-lava-backup=false
     - --relays-health-interval=5s
-    - --enable-provider-optimizer-auto-adjustment-of-tiers=true
-    - --show-provider-address-in-metrics=true
-    - --enable-periodic-probe-providers=true
-    - --periodic-probe-providers-interval=5s
 
 chains:
     eth1:
