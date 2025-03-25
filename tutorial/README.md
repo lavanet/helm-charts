@@ -30,7 +30,7 @@ Prefer managing your own infrastructure? No problem! Follow these simple steps t
 
 Ensure you have the following installed:
 
-- A running **Kubernetes** cluster
+- A running **Kubernetes** cluster. Check steps [here](https://github.com/lavanet/helm-charts/blob/main/tutorial/How-to-run-Kubernetes.md)
 - Lava wallet (Refer to [this](https://docs.lavanet.xyz/wallet/#cli) steps)
 
 ### 📦 Quick Deployment
