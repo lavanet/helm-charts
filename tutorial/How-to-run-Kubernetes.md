@@ -137,5 +137,3 @@ gcloud container clusters get-credentials my-cluster --zone us-central1-a
 
 - 📖 [Kubernetes Official Docs](https://kubernetes.io/docs/home/)
 - 📖 [Minikube Docs](https://minikube.sigs.k8s.io/docs/)
-
-Happy Kubernetes-ing! 🎉🐙
