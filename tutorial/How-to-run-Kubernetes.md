@@ -12,24 +12,44 @@ Minikube sets up a single-node Kubernetes cluster on your local machine.
 
 **Prerequisites:**
 
-- Docker installed or virtualization tool (KVM, VirtualBox, Hyper-V)
+- Docker installed
 
 **Installation:**
+
+MacOS:
+```bash
+brew install minikube
+```
+
+Linux:
 
 ```bash
 # Download Minikube binary
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
+```
 
-# Start Minikube
+
+**Start Minikube**
+```bash
 minikube start
 ```
+
+Check installation steps for other architectures: https://minikube.sigs.k8s.io/docs/start
 
 ### Kubernetes CLI (kubectl)
 
 `kubectl` is the command-line tool for Kubernetes clusters.
 
 **Installation:**
+
+MacOS:
+
+```bash
+brew install kubectl
+```
+
+Linux:
 
 ```bash
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -41,6 +61,8 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 ```bash
 kubectl get nodes
 ```
+
+Check installation steps for other architectures: https://kubernetes.io/docs/tasks/tools/
 
 ### Configure Access to Kubernetes (kubeconfig)
 
