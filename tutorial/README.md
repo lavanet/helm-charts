@@ -34,7 +34,7 @@ Ensure you have the following installed:
 
 ### 📦 Automated Deployment
 
-Install and configure all the services automatically. Check the chains to run in the values folder and simply add or remove chains in the `chains` block.
+Install and configure all the services automatically. Check the chains to run in the [values](https://github.com/lavanet/helm-charts/tree/main/tutorial/values) folder and simply add or remove chains in the `chains` block.
 
 MacOS:
 
