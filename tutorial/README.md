@@ -96,14 +96,14 @@ helm install lava-provider-cache lavanet/cache --values values/provider-cache.va
 helm install lava-provider lavanet/provider --values values/provider.values.yml
 ```
 
+### ⚙️ Test
+
 When the chart has been successfully installed, you'll get a message like this:
 
 <img width="1240" alt="Installed Helm Chart" src="https://github.com/user-attachments/assets/d2d5b441-1dcd-4066-84fe-b451d096ab30" />
 
 
 That's it! Your Lava Network consumer is now up and running. 🎉
-
-### Test
 
 To test your fully deployed infrastructure, simply forward the service to your computer through the Kubernetes internal networking:
 
