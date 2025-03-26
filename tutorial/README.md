@@ -31,9 +31,24 @@ Prefer managing your own infrastructure? No problem! Follow these simple steps t
 Ensure you have the following installed:
 
 - A running **Kubernetes** cluster. Check steps [here](https://github.com/lavanet/helm-charts/blob/main/tutorial/How-to-run-Kubernetes.md)
-- Lava wallet (Refer to [this](https://docs.lavanet.xyz/wallet/#cli) steps)
 
-### 📦 Quick Deployment
+### 📦 Automated Deployment
+
+Install and configure all the services automatically. Check the chains to run in the values folder and simply add or remove chains in the `chains` block.
+
+MacOS:
+
+```bash
+bash run-mac.sh
+```
+
+Linux (Ubuntu):
+
+```bash
+bash run-linux.sh
+```
+
+### 📦 Manual Deployment
 
 Test that your Kubernetes cluster is ready with the following command:
 
@@ -59,32 +74,36 @@ brew install helm
 
 If you are not in MacOS, check the Helm docs to install: https://helm.sh/docs/intro/install/#through-package-managers
 
-First, you'll need to create a [Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/) with the folloring parameters:
-- secretKey: Wallet private key
-- passwordSecretKey: Password for the private key
+Create a Lava wallet (Refer to [this](https://docs.lavanet.xyz/wallet/#cli) for more information):
+
+```bash
+lavap keys add tutorial-lava-wallet --keyring-backend test
+```
 
 You can export the private key from your wallet with this command:
 ```bash
 lavap keys export tutorial-lava-wallet
 ```
 
-It will ask you to create a password for the key that will be exported, save the password, you'll use it in the upcoming command.
+It will ask you to create a password for the key that will be exported, save the password and the key, you'll use it in the upcoming command.
 
-You can create the secret with the following command:
+You can create the [Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/) with the following command:
 
 ```bash
 kubectl create secret generic tutorial-lava-wallet --from-file=secretKey=/home/user/private.key --from-literal=passwordSecretKey="superstrong"
 ```
+- secretKey: Wallet private key
+- passwordSecretKey: Password for the private key
 
 Add the Lava Network Helm repository and deploy your first component in just a few commands:
 
 ```bash
 helm repo add lavanet https://lavanet.github.io/helm-charts
 helm repo update
-helm install lava-consumer-cache lavanet/cache --values consumer-cache.values.yml
-helm install lava-consumer lavanet/consumer --values consumer.values.yml
-helm install lava-provider-cache lavanet/cache --values provider-cache.values.yml
-helm install lava-provider lavanet/provider --values provider.values.yml
+helm install lava-consumer-cache lavanet/cache --values values/consumer-cache.values.yml
+helm install lava-consumer lavanet/consumer --values values/consumer.values.yml
+helm install lava-provider-cache lavanet/cache --values values/provider-cache.values.yml
+helm install lava-provider lavanet/provider --values values/provider.values.yml
 ```
 
 When the chart has been successfully installed, you'll get a message like this:
