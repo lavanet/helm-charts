@@ -12,19 +12,9 @@ Welcome to the **Lava Network helm chart Deployment** repository! Effortlessly d
 
 ---
 
-## 🌐 Managed Deployment (Coming Soon!)
-
-Want a hassle-free experience? Soon you'll be able to deploy your Lava Network consumer/provider directly through our managed platform:
-
-👉 [managed.lavanet.xyz](https://managed.lavanet.xyz)
-
-Stay tuned for updates!
-
----
-
 ## 🛠️ Self-Hosted Deployment
 
-Prefer managing your own infrastructure? No problem! Follow these simple steps to deploy Lava Network components on your Kubernetes cluster.
+Follow these simple steps to deploy Lava Network components on your Kubernetes cluster.
 
 ### ✅ Prerequisites
 
@@ -32,7 +22,7 @@ Ensure you have the following installed:
 
 - A running **Kubernetes** cluster. Check steps [here](https://github.com/lavanet/helm-charts/blob/main/tutorial/How-to-run-Kubernetes.md)
 
-### 📦 Automated Deployment
+### ⚡️ Automated Deployment
 
 Install and configure all the services automatically. Check the chains to run in the [values](https://github.com/lavanet/helm-charts/tree/main/tutorial/values) folder and simply add or remove chains in the `chains` block.
 
