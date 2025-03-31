@@ -107,7 +107,7 @@ helm install lava-provider lavanet/provider --values values/provider.values.yml
 When the chart has been successfully installed, you'll get a message like this:
 
 ```bash
-Consumers are already running, use URLs:
+Consumers are now running, use URLs:
 http://base-jsonrpc.lava.internal
 http://eth1-jsonrpc.lava.internal
 http://lav1-rest.lava.internal

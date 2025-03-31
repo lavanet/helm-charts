@@ -58,7 +58,7 @@ echo "$hosts" | while read host; do
 done | sudo tee -a /etc/hosts
 
 echo "----------------------------------------"
-echo "Consumers are already running, use URLs:"
+echo "Consumers are now running, use URLs:"
 echo "$hosts" | while read host; do
     echo "http://$host"
 done
