@@ -24,6 +24,9 @@ else
     echo "Kubernetes cluster is running and connected"
 fi
 
+# Enable minikube ingress
+minikube addons enable ingress
+
 # Install Helm
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
 sudo apt-get install apt-transport-https --yes
@@ -49,5 +52,18 @@ helm repo add lavanet https://lavanet.github.io/helm-charts
 helm repo update
 helm install lava-consumer-cache lavanet/cache --values values/consumer-cache.values.yml
 helm install lava-consumer lavanet/consumer --values values/consumer.values.yml
-helm install lava-provider-cache lavanet/cache --values values/provider-cache.values.yml
-helm install lava-provider lavanet/provider --values values/provider.values.yml
+
+# Get the ingress IP
+ingress_ip=$(minikube ip)
+
+## Add to /etc/hosts
+hosts=$(kubectl get ingress consumer -o jsonpath='{.spec.rules[*].host}' | tr ' ' '\n')
+echo "$hosts" | while read host; do
+    echo "$ingress_ip $host"
+done | sudo tee -a /etc/hosts
+
+echo "----------------------------------------"
+echo "Consumers are already running, use URLs:"
+echo "$hosts" | while read host; do
+    echo "http://$host"
+done

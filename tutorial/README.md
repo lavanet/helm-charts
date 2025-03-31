@@ -29,13 +29,19 @@ Install and configure all the services automatically. Check the chains to run in
 MacOS:
 
 ```bash
-bash run-mac.sh
+# consumer
+bash run-consumer-mac.sh
+# provider
+bash run-provider-mac.sh
 ```
 
 Linux (Ubuntu):
 
 ```bash
-bash run-linux.sh
+# consumer
+bash run-consumer-linux.sh
+# provider
+bash run-provider-linux.sh
 ```
 
 ### 📦 Manual Deployment
@@ -100,19 +106,22 @@ helm install lava-provider lavanet/provider --values values/provider.values.yml
 
 When the chart has been successfully installed, you'll get a message like this:
 
-<img width="1240" alt="Installed Helm Chart" src="https://github.com/user-attachments/assets/d2d5b441-1dcd-4066-84fe-b451d096ab30" />
+```bash
+Consumers are already running, use URLs:
+http://base-jsonrpc.lava.internal
+http://eth1-jsonrpc.lava.internal
+http://lav1-rest.lava.internal
+http://near-jsonrpc.lava.internal
+```
 
 
 That's it! Your Lava Network consumer is now up and running. 🎉
 
-To test your fully deployed infrastructure, simply forward the service to your computer through the Kubernetes internal networking:
+To test your fully deployed infrastructure, simply send a request to the created URLs, for example:
 
 ```bash
-kubectl port-forward service/near-lava-consumer 2032:27017
-curl -k -X POST -d  '{"jsonrpc":"2.0","method":"block","params":{"finality":"final"},"id":1}' http://localhost:27017
+curl -k -X POST -d  '{"jsonrpc":"2.0","method":"block","params":{"finality":"final"},"id":1}' https://near-jsonrpc.lava.internal
 ```
-
-Optionally, you can expose your consumer with an Ingress or a Gateway like NGINX or Envoy.
 
 ---
 

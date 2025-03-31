@@ -1,5 +1,5 @@
 global:
-    domain: lava.local
+    domain: lava.internal
 
 fullnameOverride: consumer
 
@@ -11,6 +11,10 @@ metrics:
     serviceMonitor:
         enabled: false
     port: 7779
+
+ingress:
+    enabled: true
+    className: "nginx"
 
 image:
     tag: "v5.2.0"
@@ -47,7 +51,6 @@ chains:
               staticProviders:
                 - url: eth-lava-provider.lava-service.svc.cluster.local:2200
                   addons: ["debug"]
-
     near:
         interfaces:
             - interface: jsonrpc
@@ -61,3 +64,9 @@ chains:
               staticProviders:
                 - url: base-lava-provider.lava-service.svc.cluster.local:2200
                   addons: ["debug"]
+    lav1:
+        interfaces:
+            - interface: rest
+              port: 2034
+              staticProviders:
+                - url: lava-provider.lava-service.svc.cluster.local:2200
