@@ -31,6 +31,8 @@ MacOS:
 ```bash
 # consumer
 bash run-consumer-mac.sh
+```
+```bash
 # provider
 bash run-provider-mac.sh
 ```
@@ -40,6 +42,8 @@ Linux (Ubuntu):
 ```bash
 # consumer
 bash run-consumer-linux.sh
+```
+```bash
 # provider
 bash run-provider-linux.sh
 ```
