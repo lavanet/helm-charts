@@ -25,6 +25,9 @@ data:
     {{- if $interfaceEntry.staticProviders }}
       - chain-id: {{ $itemKey | upper }}
         api-interface: {{ $interfaceEntry.interface }}
+        {{- if $interfaceEntry.name }}
+        provider-name: {{ $interfaceEntry.name }}
+        {{- end }}
         node-urls:
         {{- range $staticProvider := $interfaceEntry.staticProviders }}
           - url: {{ $staticProvider.url }}
