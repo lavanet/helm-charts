@@ -36,7 +36,7 @@ spec:
     spec:
       {{- with $.Values.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml $ | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "provider.serviceAccountName" $ }}
       securityContext:
@@ -142,7 +142,11 @@ spec:
               name: {{ $chain.name | lower }}-config
               readOnly: true
           resources:
+          {{- if $chain.resources }}
+            {{- toYaml $chain.resources | nindent 12 }}
+          {{- else }}
             {{- toYaml $.Values.resources | nindent 12 }}
+          {{- end }}
       volumes:
         - name: {{ $chain.name | lower }}-config
           secret:
@@ -159,11 +163,11 @@ spec:
           emptyDir: {}
       {{- with $.Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml $ | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with $.Values.affinity }}
       affinity:
-        {{- toYaml $ | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with $.Values.tolerations }}
       tolerations:
