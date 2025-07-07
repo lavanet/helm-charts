@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -217,6 +217,7 @@ Kubernetes: `>=1.25.0-0`
 | ingressGrpc.annotations | object | `{}` | Additional ingress annotations |
 | ingressGrpc.className | string | `"nginx"` | Defines which ingress controller will implement the resource |
 | ingressGrpc.enabled | bool | `false` | Enable an ingress resource for the provider |
+| ingressGrpc.labels | object | `{}` | Additional ingress labels |
 | ingressGrpc.path | string | `"/"` | The path to Provider |
 | ingressGrpc.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
 | ingressGrpc.tls | bool | `true` | Enable TLS configuration for the domain defined at `global.domain` # TLS certificate will be retrieved from a TLS secret with name: `provider-grpc-tls` |
