@@ -2,7 +2,7 @@
 
 Lava helm chart for the consumer service
 
-![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Consumer Helm Chart
 
@@ -137,6 +137,7 @@ Kubernetes: `>=1.25.0-0`
 | ingress.annotations | object | `{}` | Additional ingress annotations |
 | ingress.className | string | `"nginx"` | Defines which ingress controller will implement the resource |
 | ingress.enabled | bool | `false` | Enable an ingress resource for the consumers |
+| ingress.labels | object | `{}` | Additional ingress labels |
 | ingress.path | string | `"/"` | The path to Consumer |
 | ingress.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
 | ingress.tls | bool | `true` | Enable TLS configuration for the domain defined at `global.domain` # TLS certificate will be retrieved from a TLS secret with name: `consumer-tls` |
