@@ -6,6 +6,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name:  {{ include "provider.fullname" $ }}-{{ $chain.name | lower }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $chain.id | lower }}

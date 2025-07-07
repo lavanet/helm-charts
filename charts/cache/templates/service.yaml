@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "cache.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "cache.labels" . | nindent 4 }}
 spec:
