@@ -10,7 +10,7 @@ metadata:
     {{- end }}
   {{- end }}
   name: {{ include "provider.fullname" . }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ include  "provider.namespace" . }}
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
 spec:

@@ -5,7 +5,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name:  {{ include "provider.fullname" $ }}-{{ $chain.name | lower }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "provider.labels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $chain.name | lower }}

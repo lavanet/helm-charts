@@ -4,7 +4,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ $itemKey | lower }}-{{ include "consumer.fullname" $ }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "consumer.labels" $ | nindent 4 }}
     app.lavanet.io/chain: {{ $itemKey | lower }}
