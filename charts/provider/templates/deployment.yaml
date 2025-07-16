@@ -70,8 +70,6 @@ spec:
               mountPath: /tmp/keyfile/{{ $.Values.key.secretKey }}
               subPath: {{ $.Values.key.secretKey }}
               readOnly: true
-            - mountPath: "/lava"
-              name: data
       containers:
         - name: {{ $.Chart.Name }}
           securityContext:
@@ -136,8 +134,6 @@ spec:
             successThreshold: {{ $.Values.readinessProbe.successThreshold }}
             failureThreshold: {{ $.Values.readinessProbe.failureThreshold }}
           volumeMounts:
-            - mountPath: "/lava"
-              name: data
             - mountPath: "/lava/config/config.yml"
               subPath: config.yml
               name: {{ $chain.name | lower }}-config
@@ -160,8 +156,6 @@ spec:
           secret:
             secretName: {{ $.Values.key.secretName }}
             optional: false
-        - name: data
-          emptyDir: {}
       {{- with $.Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
