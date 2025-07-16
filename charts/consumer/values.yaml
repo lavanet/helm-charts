@@ -292,13 +292,6 @@ metrics:
     # -- Prometheus ServiceMonitor annotations
     annotations: {}
 
-persistence:
-  # -- Should create pvc for the consumer data
-  enabled: true
-  accessModes:
-    - "ReadWriteOnce"
-  size: "100Mi"
-
 # @ignored
 chains:
   # lav1:

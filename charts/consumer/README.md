@@ -2,7 +2,7 @@
 
 Lava helm chart for the consumer service
 
-![Version: 1.1.7](https://img.shields.io/badge/Version-1.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Consumer Helm Chart
 
@@ -177,9 +177,6 @@ Kubernetes: `>=1.25.0-0`
 | nameOverride | string | `""` | Consumer a name in place of release name |
 | node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | Lava node to connect to |
 | nodeSelector | object | `{}` | [Node selector] |
-| persistence.accessModes[0] | string | `"ReadWriteOnce"` |  |
-| persistence.enabled | bool | `true` | Should create pvc for the consumer data |
-| persistence.size | string | `"100Mi"` |  |
 | podAnnotations | object | `{}` | Annotations for the all deployed pods |
 | podSecurityContext | object | `{}` |  |
 | readinessProbe.failureThreshold | int | `3` | Minimum consecutive failures for the [probe] to be considered failed after having succeeded |
