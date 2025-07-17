@@ -49,16 +49,17 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              if [ -f /lava/.key-{{ $.Values.wallet }}.imported ]; then
+              if [ -f /lava/keyring/.key-{{ $.Values.wallet }}.imported ]; then
                 echo "Key {{ $.Values.wallet }} has already been exported, exiting..."
                 exit 0
               fi
 
               echo $KEY_PASSWORD | lavap keys \
               import {{ $.Values.wallet }} /tmp/keyfile/{{ $.Values.key.secretKey }} \
-              --keyring-backend {{ $.Values.keyringBackend }}
+              --keyring-backend {{ $.Values.keyringBackend }} \
+              --keyring-dir /lava/keyring
 
-              touch /lava/.key-{{ $.Values.wallet }}.imported
+              touch /lava/keyring/.key-{{ $.Values.wallet }}.imported
           env:
             - name: KEY_PASSWORD
               valueFrom:
@@ -70,6 +71,8 @@ spec:
               mountPath: /tmp/keyfile/{{ $.Values.key.secretKey }}
               subPath: {{ $.Values.key.secretKey }}
               readOnly: true
+            - name: "shared-keyring"
+              mountPath: /lava/keyring
       containers:
         - name: {{ $.Chart.Name }}
           securityContext:
@@ -89,6 +92,8 @@ spec:
             - {{ $.Values.wallet }}
             - --keyring-backend
             - {{ $.Values.keyringBackend }}
+            - --keyring-dir
+            - /lava/keyring
             - --chain-id
             - {{ $.Values.chainId }}
             - --geolocation
@@ -138,6 +143,8 @@ spec:
               subPath: config.yml
               name: {{ $chain.name | lower }}-config
               readOnly: true
+            - name: "shared-keyring"
+              mountPath: /lava/keyring
           resources:
           {{- if $chain.resources }}
             {{- toYaml $chain.resources | nindent 12 }}
@@ -156,6 +163,8 @@ spec:
           secret:
             secretName: {{ $.Values.key.secretName }}
             optional: false
+        - name: "shared-keyring"
+          emptyDir: {}
       {{- with $.Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
