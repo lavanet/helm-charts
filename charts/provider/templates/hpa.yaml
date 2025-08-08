@@ -1,0 +1,46 @@
+{{- if $.Values.autoscaling.enabled }}
+{{- range $chain := $.Values.chains }}
+{{- $isStateful := and $chain.persistence $chain.persistence.enabled }}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "provider.fullname" $ }}-{{ $chain.name | lower }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "provider.labels" $ | nindent 4 }}
+    app.lavanet.io/chain: {{ $chain.name | lower }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: {{ ternary "StatefulSet" "Deployment" $isStateful }}
+    name: {{ include "provider.fullname" $ }}-{{ $chain.name | lower }}
+  minReplicas: {{ $.Values.autoscaling.minReplicas }}
+  maxReplicas: {{ $.Values.autoscaling.maxReplicas }}
+  metrics:
+  {{- with $.Values.autoscaling.metrics }}
+    {{- toYaml . | nindent 4 }}
+  {{- else }}
+    {{- if $.Values.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ $.Values.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if $.Values.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ $.Values.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+  {{- end }}
+  {{- with $.Values.autoscaling.behavior }}
+  behavior:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}

@@ -2,7 +2,7 @@
 
 Lava helm chart for the provider service
 
-![Version: 1.2.2](https://img.shields.io/badge/Version-1.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 1.3.0](https://img.shields.io/badge/Version-1.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Provider Helm Chart
 
@@ -186,6 +186,12 @@ Kubernetes: `>=1.25.0-0`
 |-----|------|---------|-------------|
 | additionalArgs | list | `[]` | Lavap provider additional CLI arguments |
 | affinity | object | `{}` | Assign custom [affinity] rules to the deployment |
+| autoscaling.behavior | object | `{}` | Configures the scaling behavior of the target in both Up and Down directions. |
+| autoscaling.enabled | bool | `false` | Enable Horizontal Pod Autoscaler ([HPA]) for the Provider |
+| autoscaling.maxReplicas | int | `5` | Maximum number of replicas for the Provider [HPA] |
+| autoscaling.minReplicas | int | `1` | Minimum number of replicas for the Provider [HPA] |
+| autoscaling.targetCPUUtilizationPercentage | int | `50` | Average CPU utilization percentage for the Provider [HPA] |
+| autoscaling.targetMemoryUtilizationPercentage | int | `50` | Average memory utilization percentage for the Provider [HPA] |
 | cache.address | string | `"provider-cache:20100"` | Provider cache address |
 | cache.enabled | bool | `true` | Enable provider cache supports |
 | certificate.additionalHosts | list | `[]` | Certificate Subject Alternate Names (SANs) |

@@ -168,6 +168,22 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+autoscaling:
+  # -- Enable Horizontal Pod Autoscaler ([HPA]) for the Provider
+  enabled: false
+  # -- Minimum number of replicas for the Provider [HPA]
+  minReplicas: 1
+  # -- Maximum number of replicas for the Provider [HPA]
+  maxReplicas: 5
+  # -- Average CPU utilization percentage for the Provider [HPA]
+  targetCPUUtilizationPercentage: 50
+  # -- Average memory utilization percentage for the Provider [HPA]
+  targetMemoryUtilizationPercentage: 50
+  # -- Configures the scaling behavior of the target in both Up and Down directions.
+  behavior: {}
+  # -- Configures custom HPA metrics for the Provider
+  # Ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+
 # -- [Node selector]
 nodeSelector: {}
 
@@ -275,6 +291,21 @@ chains:
   #           addons:
   #             - archive
   #           skipVerifications: pruning
+  #         # Example with authentication headers
+  #         - endpoint: https://authenticated-api.example.com/rpc
+  #           authConfig:
+  #             authHeaders:
+  #               Authorization: "Bearer your-token-here"
+  #               X-API-Key: "your-api-key"
+  #               User-Agent: "Lava-Provider/1.0"
+  #           addons:
+  #             - archive
+  #         # Example with query parameter authentication
+  #         - endpoint: https://api-with-query-auth.example.com
+  #           authConfig:
+  #             authQuery: "apikey=secret&format=json"
+  #           addons:
+  #             - full
   #     - interface: tendermintrpc
   #       nodes:
   #         - endpoint: tendermintrpc.example.com
@@ -289,7 +320,36 @@ chains:
   #         - endpoint: grpc.example.com
   #           addons:
   #             - full
+  #         # Example with TLS configuration
+  #         - endpoint: secure-grpc.example.com:443
+  #           authConfig:
+  #             useTLS: true
+  #             keyPem: "/path/to/client.key"
+  #             certPem: "/path/to/client.crt"
+  #             caCert: "/path/to/ca.crt"
+  #           addons:
+  #             - full
   #         - endpoint: grpc.archive.example.com
   #           addons:
   #             - archive
   #           skipVerifications: pruning
+  #     - interface: jsonrpc
+  #       nodes:
+  #         - endpoint: https://eth-mainnet.example.com
+  #           addons:
+  #             - full
+  #         # Example with multiple authentication methods combined
+  #         - endpoint: wss://premium-eth-node.example.com/ws
+  #           authConfig:
+  #             authHeaders:
+  #               Authorization: "Bearer 0f8d432c-18c2-47c0-9beb-823fcde2d405"
+  #               X-API-Key: "premium-api-key"
+  #               Accept: "application/json"
+  #             authQuery: "auth=premium&tier=enterprise"
+  #             useTLS: true
+  #           addons:
+  #             - archive
+  #             - debug
+  #             - trace
+  #           timeout: 30s
+  #           ipForwarding: true

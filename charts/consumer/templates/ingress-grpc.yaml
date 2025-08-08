@@ -27,7 +27,11 @@ spec:
       {{- end }}
       {{- range $interfaceEntry := $interfaces }}
       {{- if (eq ($interfaceEntry.interface | lower) "grpc") }}
+        {{- if eq $.Values.ingressGrpc.hostStructure "chain-interface" }}
         - "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
+        {{- else }}
+        - "{{ $itemKey | lower }}.{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
+        {{- end }}
       {{- end }}
       {{- end }}
       {{- end }}
@@ -45,7 +49,11 @@ spec:
     {{- end }}
     {{- range $interfaceEntry := $interfaces }}
     {{- if (eq ($interfaceEntry.interface | lower) "grpc") }}
+      {{- if eq $.Values.ingressGrpc.hostStructure "chain-interface" }}
     - host: "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
+      {{- else }}
+    - host: "{{ $itemKey | lower }}.{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
+      {{- end }}
       http:
         paths:
           - path: {{ $.Values.ingressGrpc.path }}
