@@ -58,10 +58,6 @@ spec:
       {{- else }}
     - host: "{{ $itemKey | lower }}.{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
       {{- end }}
-      ## If the interface is the default interface don't add the interface name
-      {{- if (eq $interfaceEntry.default true) }}
-    - host: "{{ $itemKey | lower }}.{{ include "consumer.domain" $ }}"
-      {{- end }}
       http:
         paths:
           - path: {{ $.Values.ingress.path }}
@@ -71,6 +67,19 @@ spec:
                 name: {{ $itemKey | lower }}-{{ include "consumer.fullname" $ }}
                 port:
                   name: {{ $interfaceEntry.interface | lower }}
+      ## If the interface is the default interface don't add the interface name
+      {{- if (eq $interfaceEntry.default true) }}
+    - host: "{{ $itemKey | lower }}.{{ include "consumer.domain" $ }}"
+      http:
+        paths:
+          - path: {{ $.Values.ingress.path }}
+            pathType: {{ $.Values.ingress.pathType }}
+            backend:
+              service:
+                name: {{ $itemKey | lower }}-{{ include "consumer.fullname" $ }}
+                port:
+                  name: {{ $interfaceEntry.interface | lower }}
+      {{- end }}
     {{- end }}
     {{- end }}
     {{- end }}
