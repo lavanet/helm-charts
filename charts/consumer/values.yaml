@@ -301,6 +301,7 @@ chains:
   #   interfaces:
   #     - interface: rest
   #       port: 2020
+  #       default: true
   #     - interface: tendermintrpc
   #       port: 2021
   #     - interface: grpc

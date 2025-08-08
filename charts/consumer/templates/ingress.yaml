@@ -32,6 +32,10 @@ spec:
         {{- else }}
         - "{{ $itemKey | lower }}.{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
         {{- end }}
+        ## If the interface is the default interface don't add the interface name
+        {{- if (eq $interfaceEntry.default true) }}
+        - "{{ $itemKey | lower }}.{{ include "consumer.domain" $ }}"
+        {{- end }}
       {{- end }}
       {{- end }}
       {{- end }}
@@ -53,6 +57,10 @@ spec:
     - host: "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
       {{- else }}
     - host: "{{ $itemKey | lower }}.{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
+      {{- end }}
+      ## If the interface is the default interface don't add the interface name
+      {{- if (eq $interfaceEntry.default true) }}
+    - host: "{{ $itemKey | lower }}.{{ include "consumer.domain" $ }}"
       {{- end }}
       http:
         paths:
