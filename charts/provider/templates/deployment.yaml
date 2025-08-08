@@ -17,7 +17,9 @@ spec:
       maxSurge: {{ $.Values.deploymentUpdate.maxSurge }}
       maxUnavailable: {{ $.Values.deploymentUpdate.maxUnavailable }}
     {{- end }}
+  {{- if not $.Values.autoscaling.enabled }}
   replicas: {{ $.Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "provider.selectorLabels" $ | nindent 6 }}

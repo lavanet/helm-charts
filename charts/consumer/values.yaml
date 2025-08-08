@@ -69,6 +69,8 @@ ingress:
   pathType: Prefix
   # -- Custom Ingress TLS secret
   tlsSecretName:
+  # -- The structure of the host name. One of `chain-interface` or `chain.interface`
+  hostStructure: "chain-interface"
 
 ingressGrpc:
   # -- Enable a grpc ingress resource for the consumers
