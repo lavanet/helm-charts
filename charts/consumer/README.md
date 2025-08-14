@@ -2,7 +2,7 @@
 
 Lava helm chart for the consumer service
 
-![Version: 1.3.1](https://img.shields.io/badge/Version-1.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 1.3.2](https://img.shields.io/badge/Version-1.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 
 ## Lavanet Consumer Helm Chart
 
@@ -146,6 +146,7 @@ Kubernetes: `>=1.25.0-0`
 | ingressGrpc.annotations | object | `{}` | Additional ingress annotations |
 | ingressGrpc.className | string | `"nginx"` | Defines which ingress controller will implement the resource |
 | ingressGrpc.enabled | bool | `false` | Enable a grpc ingress resource for the consumers |
+| ingressGrpc.hostStructure | string | `"chain-interface"` | The structure of the host name. One of `chain-interface` or `chain.interface` |
 | ingressGrpc.labels | object | `{}` | Additional ingress labels |
 | ingressGrpc.path | string | `"/"` | The path to Consumer |
 | ingressGrpc.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |

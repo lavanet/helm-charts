@@ -92,6 +92,8 @@ ingressGrpc:
   pathType: Prefix
   # -- Custom GRPC Ingress TLS secret
   tlsSecretName:
+  # -- The structure of the host name. One of `chain-interface` or `chain.interface`
+  hostStructure: "chain-interface"
 
 # TLS certificate configuration via cert-manager
 certificate:
