@@ -260,7 +260,6 @@ chains:
         disableTLS: true
         nodes:
           - endpoint: rest.example.com
-            type: full
             authConfig:
               enabled: true
               authHeaders:
@@ -269,7 +268,8 @@ chains:
                   AUTH-X-HEADER: "xyz"
                   # ANY-OTHER-HEADER: "abc"
           - endpoint: rest.archive.example.com
-            type: archive
+            addons:
+              - archive
             skipVerifications: pruning
             authConfig:
               enabled: true
@@ -281,7 +281,6 @@ chains:
   #     - interface: tendermintrpc
   #       nodes:
   #         - endpoint: tendermintrpc.example.com
-  #           type: full
   #           authConfig:
   #             enabled: true
   #             authHeaders:
@@ -291,6 +290,8 @@ chains:
   #                 ANY-OTHER-HEADER: "abc"
   #         - endpoint: tendermintrpc.archive.example.com
   #           type: archive
+  #           addons:
+  #             - archive
   #           skipVerifications: pruning
   #           authConfig:
   #             enabled: true
@@ -302,7 +303,6 @@ chains:
   #     - interface: grpc
   #       nodes:
   #         - endpoint: grpc.example.com
-  #           type: full
   #           authConfig:
   #             enabled: true
   #             authHeaders:
@@ -311,7 +311,8 @@ chains:
   #                 AUTH-X-HEADER: "xyz"
   #                 ANY-OTHER-HEADER: "abc"
   #         - endpoint: grpc.archive.example.com
-  #           type: archive
+  #           addons:
+  #             - archive
   #           skipVerifications: pruning
   #           authConfig:
   #             enabled: true
