@@ -23,7 +23,7 @@ spec:
       {{- end }}
       {{- range $interfaceEntry := $interfaces }}
       {{- if (eq ($interfaceEntry.interface | lower) "grpc") }}
-        - "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
+        - "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}{{ if include "consumer.subdomain" $ }}-{{ include "consumer.subdomain" $ }}{{ end }}.{{ include "consumer.domain" $ }}"
       {{- end }}
       {{- end }}
       {{- end }}
@@ -41,7 +41,7 @@ spec:
     {{- end }}
     {{- range $interfaceEntry := $interfaces }}
     {{- if (eq ($interfaceEntry.interface | lower) "grpc") }}
-    - host: "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
+    - host: "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}{{ if include "consumer.subdomain" $ }}-{{ include "consumer.subdomain" $ }}{{ end }}.{{ include "consumer.domain" $ }}"
       http:
         paths:
           - path: {{ $.Values.ingressGrpc.path }}

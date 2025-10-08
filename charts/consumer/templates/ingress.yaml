@@ -23,7 +23,7 @@ spec:
       {{- end }}
       {{- range $interfaceEntry := $interfaces }}
       {{- if (ne ($interfaceEntry.interface | lower) "grpc") }}
-        - "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}"
+        - "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}{{ if include "consumer.subdomain" $ }}-{{ include "consumer.subdomain" $ }}{{ end }}.{{ include "consumer.domain" $ }}"
       {{- end }}
       {{- end }}
       {{- end }}
@@ -45,7 +45,7 @@ spec:
         {{- if $.Values.global.usePathBasedRouting | default false }}
         {{ include "consumer.domain" $ }}
         {{- else }}
-        {{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}.{{ include "consumer.domain" $ }}
+        "{{ $itemKey | lower }}-{{ $interfaceEntry.interface | lower }}{{ if include "consumer.subdomain" $ }}-{{ include "consumer.subdomain" $ }}{{ end }}.{{ include "consumer.domain" $ }}"
         {{- end }}
       http:
         paths:

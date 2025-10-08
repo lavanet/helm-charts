@@ -70,8 +70,28 @@ Allows overriding it for multi-namespace deployments in combined charts.
 {{- end }}
 
 {{/*
-Expand the host of the release.
+Expand the domain of the release (without subdomain).
 */}}
 {{- define "consumer.domain" -}}
-{{- default (include "consumer.fullname" .) .Values.global.domain | trunc 63 | trimSuffix "-" -}}
+{{- $fullDomain := default (include "consumer.fullname" .) .Values.global.domain | trunc 63 | trimSuffix "-" -}}
+{{- $parts := splitList "." $fullDomain -}}
+{{- if gt (len $parts) 2 -}}
+  {{- $domainParts := slice $parts 1 -}}
+  {{- join "." $domainParts -}}
+{{- else -}}
+  {{- $fullDomain -}}
+{{- end -}}
+{{- end }}
+
+{{/*
+Expand the subdomain of the release (subdomain part).
+*/}}
+{{- define "consumer.subdomain" -}}
+{{- $fullDomain := default (include "consumer.fullname" .) .Values.global.domain | trunc 63 | trimSuffix "-" -}}
+{{- $parts := splitList "." $fullDomain -}}
+{{- if gt (len $parts) 2 -}}
+  {{- (index $parts 0) -}}
+{{- else -}}
+  {{- "" -}}
+{{- end -}}
 {{- end }}
