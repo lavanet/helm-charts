@@ -26,6 +26,7 @@ spec:
       app.lavanet.io/chain: {{ $chain.name | lower }}
   template:
     metadata:
+      {{- if $.Values.podAnnotations}}
       annotations:
         {{- with $.Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -33,6 +34,7 @@ spec:
         {{- if not $chain.existingConfigSecret }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") $ | sha256sum }}
         {{- end }}
+      {{- end }}
       labels:
         {{- include "provider.selectorLabels" $ | nindent 8 }}
         app.lavanet.io/chain: {{ $chain.name | lower }}
