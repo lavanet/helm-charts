@@ -89,7 +89,7 @@ base64 -w 0 <<EOF
 metrics-listen-address: ":3200"
 endpoints:
   - api-interface: rest
-    chain-id: LAV1
+    chain-id: LAVA
     network-address:
       address: "0.0.0.0:2200"
       disable-tls: true
@@ -101,7 +101,7 @@ endpoints:
         addons:
           - archive
   - api-interface: tendermintrpc
-    chain-id: LAV1
+    chain-id: LAVA
     network-address:
       address: "0.0.0.0:2200"
       disable-tls: true
@@ -113,7 +113,7 @@ endpoints:
         addons:
           - archive
   - api-interface: grpc
-    chain-id: LAV1
+    chain-id: LAVA
     network-address:
       address: "0.0.0.0:2200"
       disable-tls: true
@@ -161,7 +161,7 @@ key:
 
 chains:
   - name: my-lava-provider
-    id: lav1
+    id: lava
     existingConfigSecret: "provider-config"
     existingConfigSecretKey: "config.yml"
 ```
@@ -209,7 +209,7 @@ Kubernetes: `>=1.25.0-0`
 | certificate.renewBefore | string | `""` (defaults to 360h = 15d if not specified) | How long before the expiry a certificate should be renewed. # Ref: <https://cert-manager.io/docs/usage/certificate/#renewal> |
 | certificate.secretTemplateAnnotations | object | `{}` | Annotations that allow the certificate to be composed from data residing in existing Kubernetes Resources |
 | certificate.usages | list | `[]` | Usages for the certificate ## Ref: <https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage> |
-| chainId | string | `"lava-testnet-2"` | Lava chain id |
+| chainId | string | `"lava-mainnet-1"` | Lava chain id |
 | deploymentUpdate.maxSurge | string | `"100%"` |  |
 | deploymentUpdate.maxUnavailable | int | `0` |  |
 | deploymentUpdate.type | string | `"RollingUpdate"` |  |
@@ -255,7 +255,7 @@ Kubernetes: `>=1.25.0-0`
 | metrics.serviceMonitor.selector | object | `{}` | Prometheus ServiceMonitor selector |
 | metrics.serviceMonitor.tlsConfig | object | `{}` | Prometheus ServiceMonitor tlsConfig |
 | nameOverride | string | `""` | Provide a name in place of release name |
-| node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | Lava node to connect to |
+| node | string | `"https://lava.tendermintrpc.lava.build:443"` | Lava node to connect to |
 | nodeSelector | object | `{}` | [Node selector] |
 | podAnnotations | object | `{}` | Annotations for the all deployed pods |
 | podSecurityContext | object | `{}` |  |

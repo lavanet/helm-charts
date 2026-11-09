@@ -125,7 +125,7 @@ Kubernetes: `>=1.25.0-0`
 | certificate.renewBefore | string | `""` (defaults to 360h = 15d if not specified) | How long before the expiry a certificate should be renewed. # Ref: <https://cert-manager.io/docs/usage/certificate/#renewal> |
 | certificate.secretTemplateAnnotations | object | `{}` | Annotations that allow the certificate to be composed from data residing in existing Kubernetes Resources |
 | certificate.usages | list | `[]` | Usages for the certificate ## Ref: <https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage> |
-| chainId | string | `"lava-testnet-2"` | Lava chain id |
+| chainId | string | `"lava-mainnet-1"` | Lava chain id |
 | disableConflictTransactions | bool | `true` | Should disable conflict transactions |
 | fullnameOverride | string | `""` | String to fully override `"consumer.fullname"` |
 | geolocation | int | `2` | Provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations) |
@@ -177,7 +177,7 @@ Kubernetes: `>=1.25.0-0`
 | metrics.serviceMonitor.selector | object | `{}` | Prometheus ServiceMonitor selector |
 | metrics.serviceMonitor.tlsConfig | object | `{}` | Prometheus ServiceMonitor tlsConfig |
 | nameOverride | string | `""` | Consumer a name in place of release name |
-| node | string | `"https://testnet2-rpc.lavapro.xyz:443"` | Lava node to connect to |
+| node | string | `"https://lava.tendermintrpc.lava.build:443"` | Lava node to connect to |
 | nodeSelector | object | `{}` | [Node selector] |
 | podAnnotations | object | `{}` | Annotations for the all deployed pods |
 | podSecurityContext | object | `{}` |  |
