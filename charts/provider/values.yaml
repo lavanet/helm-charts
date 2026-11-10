@@ -251,9 +251,9 @@ key:
 # -- Provider keyring backend
 keyringBackend: "test"
 # -- Lava node to connect to
-node: https://testnet2-rpc.lavapro.xyz:443
+node: https://lava.tendermintrpc.lava.build:443
 # -- Lava chain id
-chainId: "lava-testnet-2"
+chainId: "lava-mainnet-1"
 # -- Provider geo-location can be one of the [geolocations](https://docs.lavanet.xyz/provider-setup#geolocations)
 geolocation: "2"
 
@@ -266,8 +266,8 @@ additionalArgs: []
 
 # @ignored
 chains:
-  # - id: lav1
-  #   name: my-lav1
+  # - id: lava
+  #   name: my-lava
   #   resources:
   #     requests:
   #       cpu: 100m
