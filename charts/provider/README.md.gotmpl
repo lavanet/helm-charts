@@ -87,7 +87,7 @@ base64 -w 0 <<EOF
 metrics-listen-address: ":3200"
 endpoints:
   - api-interface: rest
-    chain-id: LAV1
+    chain-id: LAVA
     network-address:
       address: "0.0.0.0:2200"
       disable-tls: true
@@ -99,7 +99,7 @@ endpoints:
         addons:
           - archive
   - api-interface: tendermintrpc
-    chain-id: LAV1
+    chain-id: LAVA
     network-address:
       address: "0.0.0.0:2200"
       disable-tls: true
@@ -111,7 +111,7 @@ endpoints:
         addons:
           - archive
   - api-interface: grpc
-    chain-id: LAV1
+    chain-id: LAVA
     network-address:
       address: "0.0.0.0:2200"
       disable-tls: true
@@ -159,7 +159,7 @@ key:
 
 chains:
   - name: my-lava-provider
-    id: lav1
+    id: lava
     existingConfigSecret: "provider-config"
     existingConfigSecretKey: "config.yml"
 ```
